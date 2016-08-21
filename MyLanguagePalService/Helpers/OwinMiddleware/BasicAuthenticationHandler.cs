@@ -7,12 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Infrastructure;
+using NLog;
 
 namespace MyLanguagePalService.Helpers.OwinMiddleware
 {
     public class BasicAuthenticationHandler : AuthenticationHandler<BasicAuthenticationOptions>
     {
-        //private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private readonly Encoding _encoding;
 
@@ -67,10 +68,10 @@ namespace MyLanguagePalService.Helpers.OwinMiddleware
                 user.Login = cred[0];
                 user.Password = cred[1];
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 // Wrong format
-                //logger.Warn(e, "Recieved basic authorization in wrong format");
+                Logger.Warn(e, "Recieved basic authorization in wrong format");
                 return unauthorizedTicket();
             }
 
