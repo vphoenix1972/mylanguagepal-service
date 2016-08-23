@@ -9,7 +9,7 @@ namespace MyLanguagePalService
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         protected void Application_Start()
         {
@@ -32,7 +32,7 @@ namespace MyLanguagePalService
             if (httpException != null && httpException.GetHttpCode() < 500)
                 return; // Ignore all non-server errors
 
-            Logger.Fatal(exception, "Internal server error.");
+            logger.Fatal(exception, "Internal server error.");
         }
     }
 }
