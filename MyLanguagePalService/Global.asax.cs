@@ -7,7 +7,7 @@ using NLog;
 
 namespace MyLanguagePalService
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
