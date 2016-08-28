@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MyLanguagePalService.DAL
+namespace MyLanguagePalService.DAL.Models
 {
-    public class Language
+    [Table("Languages")]
+    public class LanguageDal
     {
         [Key]
         public int Id { get; set; }

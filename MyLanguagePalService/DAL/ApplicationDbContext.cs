@@ -1,9 +1,10 @@
 ﻿using System.Data.Entity;
+using MyLanguagePalService.DAL.Models;
 
 namespace MyLanguagePalService.DAL
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<Language> Languages { get; set; }
+        public DbSet<LanguageDal> Languages { get; set; }
     }
 }

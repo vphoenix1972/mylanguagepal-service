@@ -3,6 +3,8 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using MyLanguagePalService.DAL;
+using MyLanguagePalService.DAL.Models;
+using MyLanguagePalService.ViewModels.Languages;
 
 namespace MyLanguagePalService.Controllers
 {
@@ -13,7 +15,7 @@ namespace MyLanguagePalService.Controllers
         // GET: Languages
         public ActionResult Index()
         {
-            return View(_db.Languages.ToList());
+            return View(_db.Languages.Select(ToVm).ToList());
         }
 
         // GET: Languages/Details/5
@@ -23,12 +25,12 @@ namespace MyLanguagePalService.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Language language = _db.Languages.Find(id);
-            if (language == null)
+            var languageDal = _db.Languages.Find(id);
+            if (languageDal == null)
             {
                 return HttpNotFound();
             }
-            return View(language);
+            return View(ToVm(languageDal));
         }
 
         // GET: Languages/Create
@@ -42,16 +44,16 @@ namespace MyLanguagePalService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] Language language)
+        public ActionResult Create([Bind(Include = "Id,Name")] LanguageVm languageVm)
         {
             if (ModelState.IsValid)
             {
-                _db.Languages.Add(language);
+                _db.Languages.Add(ToDal(languageVm));
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(language);
+            return View(languageVm);
         }
 
         // GET: Languages/Edit/5
@@ -61,12 +63,12 @@ namespace MyLanguagePalService.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Language language = _db.Languages.Find(id);
-            if (language == null)
+            var languageDal = _db.Languages.Find(id);
+            if (languageDal == null)
             {
                 return HttpNotFound();
             }
-            return View(language);
+            return View(ToVm(languageDal));
         }
 
         // POST: Languages/Edit/5
@@ -74,15 +76,15 @@ namespace MyLanguagePalService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Language language)
+        public ActionResult Edit([Bind(Include = "Id,Name")] LanguageVm languageVm)
         {
             if (ModelState.IsValid)
             {
-                _db.Entry(language).State = EntityState.Modified;
+                _db.Entry(ToDal(languageVm)).State = EntityState.Modified;
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(language);
+            return View(languageVm);
         }
 
         // GET: Languages/Delete/5
@@ -92,12 +94,12 @@ namespace MyLanguagePalService.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Language language = _db.Languages.Find(id);
-            if (language == null)
+            var languageDal = _db.Languages.Find(id);
+            if (languageDal == null)
             {
                 return HttpNotFound();
             }
-            return View(language);
+            return View(ToVm(languageDal));
         }
 
         // POST: Languages/Delete/5
@@ -105,8 +107,8 @@ namespace MyLanguagePalService.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Language language = _db.Languages.Find(id);
-            _db.Languages.Remove(language);
+            var languageDal = _db.Languages.Find(id);
+            _db.Languages.Remove(languageDal);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -118,6 +120,24 @@ namespace MyLanguagePalService.Controllers
                 _db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private LanguageVm ToVm(LanguageDal languageDal)
+        {
+            return new LanguageVm()
+            {
+                Id = languageDal.Id,
+                Name = languageDal.Name
+            };
+        }
+
+        private LanguageDal ToDal(LanguageVm languageVm)
+        {
+            return new LanguageDal()
+            {
+                Id = languageVm.Id,
+                Name = languageVm.Name
+            };
         }
     }
 }

@@ -1,3 +1,9 @@
+// DropCreateDatabaseIfModelChanges doesn't work if a migration exists
+// So enable migrations compilation only in release mode
+// See http://stackoverflow.com/questions/19430502/dropcreatedatabaseifmodelchanges-ef6-results-in-system-invalidoperationexception
+
+
+#if !DEBUG
 namespace MyLanguagePalService.Migrations
 {
     using System.Data.Entity.Migrations;
@@ -27,3 +33,4 @@ namespace MyLanguagePalService.Migrations
         }
     }
 }
+#endif
