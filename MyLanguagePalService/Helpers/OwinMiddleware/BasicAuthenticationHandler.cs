@@ -13,7 +13,7 @@ namespace MyLanguagePalService.Helpers.OwinMiddleware
 {
     public class BasicAuthenticationHandler : AuthenticationHandler<BasicAuthenticationOptions>
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private readonly Encoding _encoding;
 
@@ -35,6 +35,12 @@ namespace MyLanguagePalService.Helpers.OwinMiddleware
             {
                 var claims = new List<Claim>();
                 claims.Add(new Claim(ClaimTypes.Name, credential.Login));
+
+                // Anti forgery token claims
+                claims.Add(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", credential.Login));
+                claims.Add(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", credential.Login));
+
+                // Add roles
                 if (credential.Roles != null)
                     claims.AddRange(credential.Roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
@@ -71,7 +77,7 @@ namespace MyLanguagePalService.Helpers.OwinMiddleware
             catch (Exception e)
             {
                 // Wrong format
-                Logger.Warn(e, "Recieved basic authorization in wrong format");
+                logger.Warn(e, "Recieved basic authorization in wrong format");
                 return unauthorizedTicket();
             }
 
