@@ -3,7 +3,7 @@
 namespace MyLanguagePalService.Controllers
 {
     [Authorize]
-    public abstract class SiteControllerBase : Controller
+    public abstract class SecuredSiteControllerBase : Controller
     {
          
     }

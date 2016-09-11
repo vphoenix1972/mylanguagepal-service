@@ -8,7 +8,7 @@ using MyLanguagePalService.ViewModels.Languages;
 
 namespace MyLanguagePalService.Controllers
 {
-    public class LanguagesController : SiteControllerBase
+    public class LanguagesController : SecuredSiteControllerBase
     {
         private readonly ApplicationDbContext _db = new ApplicationDbContext();
 

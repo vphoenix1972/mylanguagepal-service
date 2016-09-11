@@ -2,7 +2,7 @@
 
 namespace MyLanguagePalService.Controllers
 {
-    public class ErrorController : SiteControllerBase
+    public class ErrorController : Controller
     {
         // Default
         public ActionResult Index()

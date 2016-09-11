@@ -198,7 +198,8 @@
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\LanguagesController.cs" />
-    <Compile Include="Controllers\SiteControllerBase.cs" />
+    <Compile Include="Controllers\SecuredSiteControllerBase.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="DAL\ApplicationDbContext.cs" />
     <Compile Include="DAL\DebugInitializer.cs" />
     <Compile Include="DAL\Models\LanguageDal.cs" />
@@ -206,6 +207,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Annotations.cs" />
+    <Compile Include="Core\Modules\CustomErrorPagesModule.cs" />
     <Compile Include="Helpers\OwinMiddleware\BasicAuthenticationExtensions.cs" />
     <Compile Include="Helpers\OwinMiddleware\BasicAuthenticationHandler.cs" />
     <Compile Include="Helpers\OwinMiddleware\BasicAuthenticationMiddleware.cs" />
@@ -298,7 +300,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Core\" />
+    <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
