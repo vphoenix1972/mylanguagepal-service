@@ -7,7 +7,7 @@ namespace MyLanguagePalService.DAL
 {
     public interface IApplicationDbContext : IDisposable
     {
-        DbSet<LanguageDal> Languages { get; set; }
+        IDbSet<LanguageDal> Languages { get; set; }
 
         DbEntityEntry Entry(object entity);
 

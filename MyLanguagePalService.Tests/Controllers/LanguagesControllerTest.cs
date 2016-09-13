@@ -33,11 +33,7 @@ namespace MyLanguagePalService.Tests.Controllers
                 }
             }.AsQueryable();
 
-            var mockSet = new Mock<DbSet<LanguageDal>>();
-            mockSet.As<IQueryable<LanguageDal>>().Setup(m => m.Provider).Returns(languages.Provider);
-            mockSet.As<IQueryable<LanguageDal>>().Setup(m => m.Expression).Returns(languages.Expression);
-            mockSet.As<IQueryable<LanguageDal>>().Setup(m => m.ElementType).Returns(languages.ElementType);
-            mockSet.As<IQueryable<LanguageDal>>().Setup(m => m.GetEnumerator()).Returns(languages.GetEnumerator());
+            var mockSet = TestUtils.CreateMockDbSet(languages);
 
             mockContext.Setup(x => x.Languages)
                 .Returns(mockSet.Object);

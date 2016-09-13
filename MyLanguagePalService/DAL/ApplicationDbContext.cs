@@ -5,6 +5,6 @@ namespace MyLanguagePalService.DAL
 {
     public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
-        public DbSet<LanguageDal> Languages { get; set; }
+        public IDbSet<LanguageDal> Languages { get; set; }
     }
 }
