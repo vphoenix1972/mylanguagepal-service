@@ -10,7 +10,17 @@ namespace MyLanguagePalService.Controllers
 {
     public class LanguagesController : SecuredSiteControllerBase
     {
-        private readonly ApplicationDbContext _db = new ApplicationDbContext();
+        private readonly IApplicationDbContext _db;
+
+        public LanguagesController()
+        {
+            _db = new ApplicationDbContext();
+        }
+
+        public LanguagesController(IApplicationDbContext db)
+        {
+            _db = db;
+        }
 
         // GET: Languages
         public ActionResult Index()

@@ -203,6 +203,7 @@
     <Compile Include="Core\Modules\LoggingModule.cs" />
     <Compile Include="DAL\ApplicationDbContext.cs" />
     <Compile Include="DAL\DebugInitializer.cs" />
+    <Compile Include="DAL\IApplicationDbContext.cs" />
     <Compile Include="DAL\Models\LanguageDal.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
