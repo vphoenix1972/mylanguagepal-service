@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Net;
 using System.Web;
-using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Routing;
 using MyLanguagePalService.Controllers;
-using NLog;
-using WebGrease.Activities;
 
 namespace MyLanguagePalService.Core.Modules
 {
@@ -15,13 +11,16 @@ namespace MyLanguagePalService.Core.Modules
     /// </summary>
     public class CustomErrorPagesModule : IHttpModule
     {
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
         private HttpContext HttpContext => HttpContext.Current;
 
         public void Init(HttpApplication application)
         {
             application.EndRequest += Application_EndRequest;
+        }
+
+        public void Dispose()
+        {
+
         }
 
         protected void Application_EndRequest(object sender, EventArgs e)
@@ -53,7 +52,6 @@ namespace MyLanguagePalService.Core.Modules
                     break;
                 default:
                     var exception = GetServerError();
-                    LogServerError(exception);
                     ShowErrorPage("Http500", response, exception);
                     break;
             }
@@ -75,10 +73,12 @@ namespace MyLanguagePalService.Core.Modules
 
             // Pass exception details to the target error View.
             if (exception != null)
+            {
                 routeData.Values.Add("error", exception);
 
-            // Clear the error on server.
-            HttpContext.Server.ClearError();
+                // Clear the error on server.
+                HttpContext.Server.ClearError();
+            }
 
             // Avoid IIS7 getting in the middle
             HttpContext.Response.TrySkipIisCustomErrors = true;
@@ -88,17 +88,6 @@ namespace MyLanguagePalService.Core.Modules
             IController errorController = new ErrorController();
             errorController.Execute(new RequestContext(
                  new HttpContextWrapper(HttpContext), routeData));
-        }
-
-        private void LogServerError(Exception exception)
-        {
-            if (exception != null)
-                logger.Fatal(exception, "Internal server error");
-        }
-
-        public void Dispose()
-        {
-
         }
     }
 }
