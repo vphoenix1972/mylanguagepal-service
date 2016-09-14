@@ -2,12 +2,7 @@
 
 namespace MyLanguagePalService.Controllers
 {
-    public class AngularController : SecuredSiteControllerBase
+    public class AngularController : Controller
     {
-        // GET: Angular
-        public ActionResult Index()
-        {
-            return View();
-        }
     }
 }

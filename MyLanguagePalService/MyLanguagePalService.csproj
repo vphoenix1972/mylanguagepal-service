@@ -226,6 +226,8 @@
     <Compile Include="ViewModels\Languages\LanguageVm.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\angular\app\index.html" />
+    <Content Include="Content\angular\asserts\js\angular.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -234,9 +236,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
-    <Content Include="Scripts\angular-mocks.js" />
-    <Content Include="Scripts\angular.js" />
-    <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -258,8 +257,6 @@
     <Content Include="Views\Error\_Layout.cshtml" />
     <Content Include="Views\Error\_ViewStart.cshtml" />
     <Content Include="Views\Error\Http401.cshtml" />
-    <Content Include="Views\Angular\Index.cshtml" />
-    <Content Include="Scripts\angular.min.js.map" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -310,6 +307,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\angular\asserts\css\" />
+    <Folder Include="Content\angular\asserts\img\" />
+    <Folder Include="Views\Angular\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
