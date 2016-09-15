@@ -6,25 +6,25 @@ app.config(function ($routeProvider) {
 
         // GET /
         .when("/", {
-            templateUrl: "app/components/home/home.html",
+            templateUrl: "app/home/home.html",
             controller: "mainController"
         })
 
         // GET /phrases
         .when("/phrases", {
-            templateUrl: "app/components/phrases/phrases.html",
+            templateUrl: "app/phrases/phrases.html",
             controller: "phrasesController"
         })
 
         // GET /languages
         .when("/languages", {
-            templateUrl: "app/components/languages/languages.html",
+            templateUrl: "app/languages/languages.html",
             controller: "languagesController"
         })
 
         // GET /about
         .when("/about", {
-            templateUrl: "app/components/about/about.html",
+            templateUrl: "app/about/about.html",
             controller: "aboutController"
         });
 });

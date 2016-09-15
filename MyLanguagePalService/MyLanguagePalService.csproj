@@ -227,10 +227,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\angular\app\app.js" />
-    <Content Include="Content\angular\app\components\about\about.html" />
-    <Content Include="Content\angular\app\components\home\home.html" />
-    <Content Include="Content\angular\app\components\languages\languages.html" />
-    <Content Include="Content\angular\app\components\phrases\phrases.html" />
+    <Content Include="Content\angular\app\about\about.html" />
+    <Content Include="Content\angular\app\home\home.html" />
+    <Content Include="Content\angular\app\languages\languages.html" />
+    <Content Include="Content\angular\app\phrases\phrases.html" />
     <Content Include="Content\angular\asserts\css\bootstrap.min.css" />
     <Content Include="Content\angular\asserts\css\styles.css" />
     <Content Include="Content\angular\asserts\js\angular-route.min.js" />
