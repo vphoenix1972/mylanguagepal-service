@@ -226,7 +226,17 @@
     <Compile Include="ViewModels\Languages\LanguageVm.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\angular\app\index.html" />
+    <Content Include="Content\angular\app\app.js" />
+    <Content Include="Content\angular\app\components\about\about.html" />
+    <Content Include="Content\angular\app\components\home\home.html" />
+    <Content Include="Content\angular\app\components\languages\languages.html" />
+    <Content Include="Content\angular\app\components\phrases\phrases.html" />
+    <Content Include="Content\angular\asserts\css\bootstrap.min.css" />
+    <Content Include="Content\angular\asserts\css\styles.css" />
+    <Content Include="Content\angular\asserts\js\angular-route.min.js" />
+    <Content Include="Content\angular\asserts\js\bootstrap.min.js" />
+    <Content Include="Content\angular\asserts\js\jquery-3.1.0.min.js" />
+    <Content Include="Content\angular\index.html" />
     <Content Include="Content\angular\asserts\js\angular.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -307,7 +317,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\angular\asserts\css\" />
+    <Folder Include="Content\angular\app\shared\" />
     <Folder Include="Content\angular\asserts\img\" />
     <Folder Include="Views\Angular\" />
     <Folder Include="Views\Test\" />
