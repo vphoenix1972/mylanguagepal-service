@@ -7,41 +7,24 @@ app.config(function ($routeProvider) {
         // GET /
         .when("/", {
             templateUrl: "app/home/home.html",
-            controller: "mainController"
+            controller: "HomeController"
         })
 
         // GET /phrases
         .when("/phrases", {
             templateUrl: "app/phrases/phrases.html",
-            controller: "phrasesController"
+            controller: "PhrasesController"
         })
 
         // GET /languages
         .when("/languages", {
             templateUrl: "app/languages/languages.html",
-            controller: "languagesController"
+            controller: "LanguagesController"
         })
 
         // GET /about
         .when("/about", {
             templateUrl: "app/about/about.html",
-            controller: "aboutController"
+            controller: "AboutController"
         });
-});
-
-// Create the controller and inject Angular's $scope
-app.controller("mainController", function ($scope) {
-    
-});
-
-app.controller("phrasesController", function ($scope) {
-
-});
-
-app.controller("languagesController", function ($scope) {
-
-});
-
-app.controller("aboutController", function ($scope) {
-    
 });
