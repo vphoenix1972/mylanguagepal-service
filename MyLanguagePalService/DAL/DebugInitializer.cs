@@ -9,7 +9,7 @@ using MyLanguagePalService.DAL.Models;
 
 namespace MyLanguagePalService.DAL
 {
-    public class DebugInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+    public class DebugInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {

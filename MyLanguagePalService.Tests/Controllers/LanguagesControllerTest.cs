@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -41,7 +40,7 @@ namespace MyLanguagePalService.Tests.Controllers
             var db = mockContext.Object;
 
             // Act
-            var controller = new LanguagesController(db);
+            var controller = new LanguagesOldController(db);
             var result = controller.Index() as ViewResult;
 
             // Assert

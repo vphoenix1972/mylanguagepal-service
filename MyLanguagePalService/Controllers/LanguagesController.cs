@@ -1,126 +1,101 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Web.Mvc;
+using System.Web.Http;
+using System.Web.Http.Description;
 using MyLanguagePalService.DAL;
 using MyLanguagePalService.DAL.Models;
-using MyLanguagePalService.ViewModels.Languages;
 
 namespace MyLanguagePalService.Controllers
 {
-    public class LanguagesController : SecuredSiteControllerBase
+    public class LanguagesController : ApiController
     {
-        private readonly IApplicationDbContext _db;
+        private readonly ApplicationDbContext _db = new ApplicationDbContext();
 
-        public LanguagesController()
+        // GET: api/LanguageApi
+        public IQueryable<LanguageDal> GetLanguageDals()
         {
-            _db = new ApplicationDbContext();
+            return _db.Languages;
         }
 
-        public LanguagesController(IApplicationDbContext db)
+        // GET: api/LanguageApi/5
+        [ResponseType(typeof(LanguageDal))]
+        public IHttpActionResult GetLanguageDal(int id)
         {
-            _db = db;
-        }
-
-        // GET: Languages
-        public ActionResult Index()
-        {
-            return View(_db.Languages.Select(ToVm).ToList());
-        }
-
-        // GET: Languages/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             var languageDal = _db.Languages.Find(id);
             if (languageDal == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            return View(ToVm(languageDal));
+
+            return Ok(languageDal);
         }
 
-        // GET: Languages/Create
-        public ActionResult Create()
+        // PUT: api/LanguageApi/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutLanguageDal(int id, LanguageDal languageDal)
         {
-            return View();
-        }
-
-        // POST: Languages/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] LanguageVm languageVm)
-        {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _db.Languages.Add(ToDal(languageVm));
+                return BadRequest(ModelState);
+            }
+
+            if (id != languageDal.Id)
+            {
+                return BadRequest();
+            }
+
+            _db.Entry(languageDal).State = EntityState.Modified;
+
+            try
+            {
                 _db.SaveChanges();
-                return RedirectToAction("Index");
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!LanguageDalExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
 
-            return View(languageVm);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: Languages/Edit/5
-        public ActionResult Edit(int? id)
+        // POST: api/LanguageApi
+        [ResponseType(typeof(LanguageDal))]
+        public IHttpActionResult PostLanguageDal(LanguageDal languageDal)
         {
-            if (id == null)
+            if (!ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return BadRequest(ModelState);
             }
+
+            _db.Languages.Add(languageDal);
+            _db.SaveChanges();
+
+            return CreatedAtRoute("DefaultApi", new { id = languageDal.Id }, languageDal);
+        }
+
+        // DELETE: api/LanguageApi/5
+        [ResponseType(typeof(LanguageDal))]
+        public IHttpActionResult DeleteLanguageDal(int id)
+        {
             var languageDal = _db.Languages.Find(id);
             if (languageDal == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            return View(ToVm(languageDal));
-        }
 
-        // POST: Languages/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] LanguageVm languageVm)
-        {
-            if (ModelState.IsValid)
-            {
-                _db.Entry(ToDal(languageVm)).State = EntityState.Modified;
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(languageVm);
-        }
-
-        // GET: Languages/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var languageDal = _db.Languages.Find(id);
-            if (languageDal == null)
-            {
-                return HttpNotFound();
-            }
-            return View(ToVm(languageDal));
-        }
-
-        // POST: Languages/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            var languageDal = _db.Languages.Find(id);
             _db.Languages.Remove(languageDal);
             _db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return Ok(languageDal);
         }
 
         protected override void Dispose(bool disposing)
@@ -132,22 +107,9 @@ namespace MyLanguagePalService.Controllers
             base.Dispose(disposing);
         }
 
-        private LanguageVm ToVm(LanguageDal languageDal)
+        private bool LanguageDalExists(int id)
         {
-            return new LanguageVm()
-            {
-                Id = languageDal.Id,
-                Name = languageDal.Name
-            };
-        }
-
-        private LanguageDal ToDal(LanguageVm languageVm)
-        {
-            return new LanguageDal()
-            {
-                Id = languageVm.Id,
-                Name = languageVm.Name
-            };
+            return _db.Languages.Count(e => e.Id == id) > 0;
         }
     }
 }

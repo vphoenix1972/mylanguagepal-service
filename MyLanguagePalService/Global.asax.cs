@@ -1,11 +1,10 @@
-﻿using System;
-using System.Web;
+﻿using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
-using MyLanguagePalService.Controllers;
 using NLog;
 
 namespace MyLanguagePalService
@@ -28,6 +27,7 @@ namespace MyLanguagePalService
 
 
             // *** Configure MVC ***
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
