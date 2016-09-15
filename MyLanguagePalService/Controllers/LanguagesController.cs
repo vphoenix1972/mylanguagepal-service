@@ -13,15 +13,15 @@ namespace MyLanguagePalService.Controllers
     {
         private readonly ApplicationDbContext _db = new ApplicationDbContext();
 
-        // GET: api/LanguageApi
-        public IQueryable<LanguageDal> GetLanguageDals()
+        // GET: api/Language
+        public IQueryable<LanguageDal> GetLanguages()
         {
             return _db.Languages;
         }
 
-        // GET: api/LanguageApi/5
+        // GET: api/Language/5
         [ResponseType(typeof(LanguageDal))]
-        public IHttpActionResult GetLanguageDal(int id)
+        public IHttpActionResult GetLanguage(int id)
         {
             var languageDal = _db.Languages.Find(id);
             if (languageDal == null)
@@ -32,9 +32,9 @@ namespace MyLanguagePalService.Controllers
             return Ok(languageDal);
         }
 
-        // PUT: api/LanguageApi/5
+        // PUT: api/Language/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutLanguageDal(int id, LanguageDal languageDal)
+        public IHttpActionResult PutLanguage(int id, LanguageDal languageDal)
         {
             if (!ModelState.IsValid)
             {
@@ -54,7 +54,7 @@ namespace MyLanguagePalService.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LanguageDalExists(id))
+                if (!LanguageExists(id))
                 {
                     return NotFound();
                 }
@@ -67,9 +67,9 @@ namespace MyLanguagePalService.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/LanguageApi
+        // POST: api/Language
         [ResponseType(typeof(LanguageDal))]
-        public IHttpActionResult PostLanguageDal(LanguageDal languageDal)
+        public IHttpActionResult PostLanguage(LanguageDal languageDal)
         {
             if (!ModelState.IsValid)
             {
@@ -82,9 +82,9 @@ namespace MyLanguagePalService.Controllers
             return CreatedAtRoute("DefaultApi", new { id = languageDal.Id }, languageDal);
         }
 
-        // DELETE: api/LanguageApi/5
+        // DELETE: api/Language/5
         [ResponseType(typeof(LanguageDal))]
-        public IHttpActionResult DeleteLanguageDal(int id)
+        public IHttpActionResult DeleteLanguage(int id)
         {
             var languageDal = _db.Languages.Find(id);
             if (languageDal == null)
@@ -107,7 +107,7 @@ namespace MyLanguagePalService.Controllers
             base.Dispose(disposing);
         }
 
-        private bool LanguageDalExists(int id)
+        private bool LanguageExists(int id)
         {
             return _db.Languages.Count(e => e.Id == id) > 0;
         }
