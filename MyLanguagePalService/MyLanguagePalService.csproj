@@ -198,6 +198,7 @@
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\LanguagesController.cs" />
+    <Compile Include="Controllers\PhrasesController.cs" />
     <Compile Include="Controllers\SecuredSiteControllerBase.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Core\Modules\LoggingModule.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="DAL\DebugInitializer.cs" />
     <Compile Include="DAL\IApplicationDbContext.cs" />
     <Compile Include="DAL\Models\LanguageDal.cs" />
+    <Compile Include="DAL\Models\PhraseDal.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -223,6 +225,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Languages\LanguageVm.cs" />
+    <Compile Include="ViewModels\Phrases\PhraseVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -254,6 +257,11 @@
     <Content Include="Views\Error\_Layout.cshtml" />
     <Content Include="Views\Error\_ViewStart.cshtml" />
     <Content Include="Views\Error\Http401.cshtml" />
+    <Content Include="Views\Phrases\Create.cshtml" />
+    <Content Include="Views\Phrases\Delete.cshtml" />
+    <Content Include="Views\Phrases\Details.cshtml" />
+    <Content Include="Views\Phrases\Edit.cshtml" />
+    <Content Include="Views\Phrases\Index.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

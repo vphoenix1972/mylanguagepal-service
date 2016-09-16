@@ -19,6 +19,14 @@ namespace MyLanguagePalService.DAL
                 new LanguageDal() { Name = "Русский" }
             };
             languages.ForEach(language => context.Languages.Add(language));
+
+            var phrases = new List<PhraseDal>
+            {
+                new PhraseDal() { Text = "to think" },
+                new PhraseDal() { Text = "to say" },
+            };
+            phrases.ForEach(phrase => context.Phrases.Add(phrase));
+
             context.SaveChanges();
         }
     }
