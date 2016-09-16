@@ -1,4 +1,4 @@
-﻿namespace MyLanguagePalService.ViewModels.Languages
+﻿namespace MyLanguagePalService.Models.Controllers.Language
 {
     public class LanguageVm
     {

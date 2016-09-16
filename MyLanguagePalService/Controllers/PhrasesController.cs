@@ -4,7 +4,7 @@ using System.Net;
 using System.Web.Mvc;
 using MyLanguagePalService.DAL;
 using MyLanguagePalService.DAL.Models;
-using MyLanguagePalService.ViewModels.Phrases;
+using MyLanguagePalService.Models.Controllers.Phrase;
 
 namespace MyLanguagePalService.Controllers
 {

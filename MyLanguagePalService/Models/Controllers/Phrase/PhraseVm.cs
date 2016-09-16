@@ -1,4 +1,4 @@
-﻿namespace MyLanguagePalService.ViewModels.Phrases
+﻿namespace MyLanguagePalService.Models.Controllers.Phrase
 {
     public class PhraseVm
     {
