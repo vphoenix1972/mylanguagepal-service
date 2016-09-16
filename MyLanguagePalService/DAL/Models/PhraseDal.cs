@@ -12,5 +12,7 @@ namespace MyLanguagePalService.DAL.Models
         [Column(TypeName = "ntext")]
         [MaxLength]
         public string Text { get; set; }
+
+        public virtual LanguageDal Language { get; set; }
     }
 }

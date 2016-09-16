@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyLanguagePalService.DAL.Models
@@ -12,5 +13,7 @@ namespace MyLanguagePalService.DAL.Models
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
+
+        public virtual ICollection<PhraseDal> Phrases { get; set; }
     }
 }
