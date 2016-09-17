@@ -63,16 +63,35 @@ namespace MyLanguagePalService.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(PhraseVm phraseVm)
         {
-            if (ModelState.IsValid)
+            // Validate model
+            if (!ModelState.IsValid)
             {
-                _db.Phrases.Add(ToDal(phraseVm));
-                _db.SaveChanges();
-                return RedirectToAction("Index");
+                ViewBag.LanguagesOptions = GetLanguagesOptions();
+                return View(phraseVm);
             }
 
-            ViewBag.LanguagesOptions = GetLanguagesOptions();
+            // Custom validation
+            if (phraseVm.LanguageId == null)
+            {
+                // User cannot send request without language id using UI
+                // Unsupported request
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
-            return View(phraseVm);
+            var languageId = phraseVm.LanguageId.Value;
+            var isLanguageExists = _db.Languages.Any(dal => dal.Id == languageId);
+            if (!isLanguageExists)
+            {
+                // User cannot select non-existing request id in UI
+                // Unsupported request
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            // Create new phrase in the database
+            _db.Phrases.Add(ToDal(phraseVm));
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+
         }
 
         // GET: Phrases/Edit/5

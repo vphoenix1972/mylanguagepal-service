@@ -9,8 +9,7 @@ namespace MyLanguagePalService.Models.Controllers.Phrase
     {
         public int Id { get; set; }
 
-        [Display(Name = "Language")]
-        [Required]
+        // Use custom validation
         public int? LanguageId { get; set; }
 
         [Display(Name = "Phrase")]

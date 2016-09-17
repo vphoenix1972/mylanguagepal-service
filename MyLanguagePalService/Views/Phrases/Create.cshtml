@@ -2,15 +2,10 @@
 @model PhraseVm
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create a phrase";
 }
 
-@section head {
-    <style type="text/css">
-    </style>
-}
-
-<h2>Create</h2>
+<h3>Create a phrase</h3>
 
 @*@using (Html.BeginForm())
     {
@@ -41,7 +36,6 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Phrase</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -52,7 +46,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="btn-group" data-toggle="buttons">
-                    @foreach (var languageOption in (IEnumerable<LanguageOptionVm>) ViewBag.LanguagesOptions)
+                    @foreach (var languageOption in (IEnumerable<LanguageOptionVm>)ViewBag.LanguagesOptions)
                     {
                         var isSelected = languageOption.Id == Model.LanguageId;
 
