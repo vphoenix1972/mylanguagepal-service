@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Web.Mvc;
 
 namespace MyLanguagePalService.Controllers
 {
-    public class TestController : SecuredSiteControllerBase
+    public class TestController : Controller
     {
         // GET: Crash
         public string Crash()

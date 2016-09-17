@@ -2,7 +2,7 @@
 
 namespace MyLanguagePalService.Controllers
 {
-    public class AboutController : SecuredSiteControllerBase
+    public class AboutController : Controller
     {
         // GET: About
         public ActionResult Index()
