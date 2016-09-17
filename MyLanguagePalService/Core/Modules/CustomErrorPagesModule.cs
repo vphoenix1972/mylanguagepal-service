@@ -38,6 +38,10 @@ namespace MyLanguagePalService.Core.Modules
             // Show custom error
             switch (statusCode)
             {
+                // 400
+                case 400:
+                    ShowErrorPage("Http400", response);
+                    break;
                 // 401
                 case 401:
                     ShowErrorPage("Http401", response);

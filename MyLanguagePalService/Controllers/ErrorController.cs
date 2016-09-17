@@ -10,6 +10,15 @@ namespace MyLanguagePalService.Controllers
             return Http500();
         }
 
+        // 400 - Bad request
+        public ActionResult Http400()
+        {
+            if (Response.StatusCode == 200)
+                Response.StatusCode = 400;
+
+            return View();
+        }
+
         // 401 - Unauthorized
         public ActionResult Http401()
         {
