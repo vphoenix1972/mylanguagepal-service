@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -46,15 +47,21 @@ namespace MyLanguagePalService.Controllers
         // GET: Phrases/Create
         public ActionResult Create()
         {
-            return View();
+            var languagesOptions = GetLanguagesOptions();
+
+            var defaultVm = new PhraseVm()
+            {
+                LanguageId = languagesOptions.First().Id
+            };
+            ViewBag.LanguagesOptions = languagesOptions;
+
+            return View(defaultVm);
         }
 
         // POST: Phrases/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Text")] PhraseVm phraseVm)
+        public ActionResult Create(PhraseVm phraseVm)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +69,8 @@ namespace MyLanguagePalService.Controllers
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.LanguagesOptions = GetLanguagesOptions();
 
             return View(phraseVm);
         }
@@ -82,11 +91,9 @@ namespace MyLanguagePalService.Controllers
         }
 
         // POST: Phrases/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Text")] PhraseVm phraseVm)
+        public ActionResult Edit(PhraseVm phraseVm)
         {
             if (ModelState.IsValid)
             {
@@ -132,6 +139,11 @@ namespace MyLanguagePalService.Controllers
             base.Dispose(disposing);
         }
 
+        private IEnumerable<LanguageOptionVm> GetLanguagesOptions()
+        {
+            return _db.Languages.Select(ToLanguageOption);
+        }
+
         private PhraseVm ToVm(PhraseDal dal)
         {
             return new PhraseVm()
@@ -147,6 +159,15 @@ namespace MyLanguagePalService.Controllers
             {
                 Id = vm.Id,
                 Text = vm.Text
+            };
+        }
+
+        private LanguageOptionVm ToLanguageOption(LanguageDal dal)
+        {
+            return new LanguageOptionVm()
+            {
+                Id = dal.Id,
+                Name = dal.Name
             };
         }
     }
