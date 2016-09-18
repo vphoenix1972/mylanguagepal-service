@@ -88,10 +88,15 @@ namespace MyLanguagePalService.Controllers
             }
 
             // Create new phrase in the database
-            _db.Phrases.Add(ToDal(phraseVm));
+            _db.Phrases.Add(new PhraseDal()
+            {
+                Id = phraseVm.Id,
+                Text = phraseVm.Text,
+                LanguageId = phraseVm.LanguageId.Value
+            });
             _db.SaveChanges();
-            return RedirectToAction("Index");
 
+            return RedirectToAction("Index");
         }
 
         // GET: Phrases/Edit/5

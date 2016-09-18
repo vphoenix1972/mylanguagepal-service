@@ -13,6 +13,9 @@ namespace MyLanguagePalService.DAL.Models
         [MaxLength]
         public string Text { get; set; }
 
+        public int LanguageId { get; set; }
+
+        [ForeignKey("LanguageId")]
         public virtual LanguageDal Language { get; set; }
     }
 }
