@@ -23,7 +23,9 @@ namespace MyLanguagePalService.DAL
             var phrases = new List<PhraseDal>
             {
                 new PhraseDal() { Text = "to think", Language = languages[0] },
-                new PhraseDal() { Text = "to say", Language = languages[1] },
+                new PhraseDal() { Text = "to say", Language = languages[0] },
+                new PhraseDal() { Text = "думать", Language = languages[1] },
+                new PhraseDal() { Text = "сказать", Language = languages[1] }
             };
             phrases.ForEach(phrase => context.Phrases.Add(phrase));
 

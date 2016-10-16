@@ -1,4 +1,6 @@
-﻿namespace MyLanguagePalService.DAL.Models
+﻿using System.Collections.Generic;
+
+namespace MyLanguagePalService.DAL.Models
 {
     public class PhraseDal
     {
@@ -9,5 +11,7 @@
         public int LanguageId { get; set; }
 
         public virtual LanguageDal Language { get; set; }
+
+        public virtual ICollection<PhraseDal> Translations { get; set; }
     }
 }

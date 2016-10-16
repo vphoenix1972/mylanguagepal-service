@@ -14,11 +14,11 @@ namespace MyLanguagePalService.DAL
         {
             base.OnModelCreating(modelBuilder);
 
-            // Remove cascade delete conventions
+            // *** Remove cascade delete conventions ***
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
-            // Configure tables
+            // *** Configure tables ***
             modelBuilder.Entity<LanguageDal>().ToTable("Languages");
             modelBuilder.Entity<LanguageDal>().HasKey(e => e.Id);
             modelBuilder.Entity<LanguageDal>().Property(e => e.Name).IsRequired().HasMaxLength(100);
@@ -30,11 +30,24 @@ namespace MyLanguagePalService.DAL
                 .IsMaxLength()
                 .HasColumnType("ntext");
 
-            // Configure relationships
+            // *** Configure relationships ***
+
+            // Pharses <-> Languages
             modelBuilder.Entity<LanguageDal>()
                 .HasMany(l => l.Phrases)
                 .WithRequired(p => p.Language)
                 .HasForeignKey(p => p.LanguageId);
+
+            // Pharses <-> Phrases (Translations)
+            modelBuilder.Entity<PhraseDal>()
+                .HasMany(p => p.Translations)
+                .WithMany()
+                .Map(m =>
+                {
+                    m.MapLeftKey("PhraseId");
+                    m.MapRightKey("TranslationId");
+                    m.ToTable("Translations");
+                });
         }
     }
 }

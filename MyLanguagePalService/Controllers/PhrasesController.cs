@@ -63,7 +63,7 @@ namespace MyLanguagePalService.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(PhraseVm phraseVm)
         {
-            // Request validation
+            // *** Request validation ***
             if (phraseVm.LanguageId == null)
             {
                 // User cannot send request without language id using UI
@@ -86,6 +86,9 @@ namespace MyLanguagePalService.Controllers
                 ViewBag.LanguagesOptions = GetLanguagesOptions();
                 return View(phraseVm);
             }
+
+            // *** Phrase creation ***
+            //var translations = _db.Phrases.Where(p => p.Text == phraseVm.Translations).ToList();
 
             // Create new phrase in the database
             _db.Phrases.Add(new PhraseDal()
