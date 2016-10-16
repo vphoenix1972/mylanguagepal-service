@@ -6,6 +6,7 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using MyLanguagePalService.Controllers;
+using MyLanguagePalService.DAL;
 using NLog;
 
 namespace MyLanguagePalService
@@ -16,6 +17,11 @@ namespace MyLanguagePalService
 
         protected void Application_Start()
         {
+            using (var db = new ApplicationDbContext())
+            {
+                db.Database.Initialize(true);
+            }
+
             // *** Configure Autofac ***
             var builder = new ContainerBuilder();
 
