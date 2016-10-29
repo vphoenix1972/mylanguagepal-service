@@ -7,11 +7,6 @@ namespace MyLanguagePalService.DAL
     [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
-        public ApplicationDbContext() : base()
-        {
-            Database.SetInitializer(new DebugInitializer());
-        }
-
         public IDbSet<LanguageDal> Languages { get; set; }
 
         public IDbSet<PhraseDal> Phrases { get; set; }

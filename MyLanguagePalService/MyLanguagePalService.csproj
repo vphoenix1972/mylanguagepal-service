@@ -201,7 +201,6 @@
     <Compile Include="Controllers\PhrasesController.cs" />
     <Compile Include="Controllers\SecuredSiteControllerBase.cs" />
     <Compile Include="Controllers\TestController.cs" />
-    <Compile Include="Core\Modules\LoggingModule.cs" />
     <Compile Include="DAL\ApplicationDbContext.cs" />
     <Compile Include="DAL\DebugInitializer.cs" />
     <Compile Include="DAL\IApplicationDbContext.cs" />
@@ -211,7 +210,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Annotations.cs" />
-    <Compile Include="Core\Modules\CustomErrorPagesModule.cs" />
     <Compile Include="Helpers\OwinMiddleware\BasicAuthenticationExtensions.cs" />
     <Compile Include="Helpers\OwinMiddleware\BasicAuthenticationHandler.cs" />
     <Compile Include="Helpers\OwinMiddleware\BasicAuthenticationMiddleware.cs" />
@@ -311,9 +309,11 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.0.min.map" />
+    <Content Include="Views\Error\Http503.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Core\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>

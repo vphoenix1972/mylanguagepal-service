@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 namespace MyLanguagePalService.Controllers
 {
@@ -51,6 +52,15 @@ namespace MyLanguagePalService.Controllers
         {
             if (Response.StatusCode == 200)
                 Response.StatusCode = 500;
+
+            return View();
+        }
+
+        // 503 - Service unavailable
+        public ActionResult Http503()
+        {
+            if (Response.StatusCode == 200)
+                Response.StatusCode = 503;
 
             return View();
         }
