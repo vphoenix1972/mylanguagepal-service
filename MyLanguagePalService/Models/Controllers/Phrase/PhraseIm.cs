@@ -5,7 +5,7 @@ namespace MyLanguagePalService.Models.Controllers.Phrase
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 
-    public class PhraseVm
+    public class PhraseIm
     {
         public int Id { get; set; }
 
@@ -14,7 +14,7 @@ namespace MyLanguagePalService.Models.Controllers.Phrase
 
         [Display(Name = "Phrase")]
         [Required]
-        [StringLength(100, ErrorMessage = "Phrase is too long")]
+        // Use custom length validation
         public string Text { get; set; }
 
         [Display(Name = "Translations")]

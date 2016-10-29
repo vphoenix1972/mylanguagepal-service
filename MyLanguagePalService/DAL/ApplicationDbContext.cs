@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using MyLanguagePalService.DAL.Models;
 
@@ -28,8 +30,11 @@ namespace MyLanguagePalService.DAL
             modelBuilder.Entity<PhraseDal>().HasKey(e => e.Id);
             modelBuilder.Entity<PhraseDal>()
                 .Property(e => e.Text)
-                .IsMaxLength()
-                .HasColumnType("text");
+                .HasMaxLength(255)
+                .HasColumnAnnotation(
+                    "Index",
+                    new IndexAnnotation(new IndexAttribute("UX_Text") { IsUnique = true })
+                );
 
             // *** Configure relationships ***
 
