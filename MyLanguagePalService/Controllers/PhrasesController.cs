@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using MyLanguagePalService.DAL;
 using MyLanguagePalService.DAL.Models;
 using MyLanguagePalService.Models.Controllers.Phrase;
+using WebGrease.Css.Extensions;
 
 namespace MyLanguagePalService.Controllers
 {
@@ -99,14 +100,20 @@ namespace MyLanguagePalService.Controllers
             // Prepare language options for view
             ViewBag.LanguagesOptions = GetLanguagesOptions();
 
-            // Trim phrase text
-            phraseIm.Text = phraseIm.Text.Trim();
-
             // User input validation
             if (!ModelState.IsValid)
             {
                 return View(phraseIm);
             }
+
+            // Phrase text validation
+            if (string.IsNullOrWhiteSpace(phraseIm.Text))
+            {
+                ModelState.AddModelError(nameof(PhraseIm.Text), "Phrase cannot be empty");
+                return View(phraseIm);
+            }
+
+            phraseIm.Text = phraseIm.Text.Trim();
 
             var maxPhraseLength = 100;
             if (phraseIm.Text.Length > maxPhraseLength)
@@ -116,11 +123,15 @@ namespace MyLanguagePalService.Controllers
             }
 
             // Validate translations
-            var translationsInputs = ParseTranslations(phraseIm.Translations);
-            if (translationsInputs.Any(ts => ts.Length > maxPhraseLength))
+            IList<string> translationsInputs = null;
+            if (phraseIm.Translations != null)
             {
-                ModelState.AddModelError(nameof(PhraseIm.Translations), "One of translations is too long");
-                return View(phraseIm);
+                translationsInputs = ParseTranslations(phraseIm.Translations);
+                if (translationsInputs.Any(ts => ts.Length > maxPhraseLength))
+                {
+                    ModelState.AddModelError(nameof(PhraseIm.Translations), "One of translations is too long");
+                    return View(phraseIm);
+                }
             }
 
             // Check that the phrase does not exist
@@ -139,34 +150,38 @@ namespace MyLanguagePalService.Controllers
             };
 
             // Add & find translations
-            var translationsDals = new List<PhraseDal>();
-            foreach (var translationInput in translationsInputs)
+            if (translationsInputs != null && translationsInputs.Any())
             {
-                var existingTranslationDal = _db.Phrases.FirstOrDefault(dal => dal.Text == translationInput);
-                if (existingTranslationDal != null)
+                var translationsDals = new List<PhraseDal>();
+                foreach (var translationInput in translationsInputs)
                 {
-                    // Use existing translation
-                    translationsDals.Add(existingTranslationDal);
-
-                    // Also add new phrase as translation for existing phrase
-                    existingTranslationDal.Translations.Add(newPhraseDal);
-                }
-                else
-                {
-                    // Create new translation
-                    var newTranslationDal = new PhraseDal()
+                    var existingTranslationDal = _db.Phrases.FirstOrDefault(dal => dal.Text == translationInput);
+                    if (existingTranslationDal != null)
                     {
-                        Text = translationInput,
-                        // ToDo: Since now only two languages, determine translation language this way
-                        LanguageId = _db.Languages.Single(languageDal => languageDal.Id != phraseIm.LanguageId.Value).Id,
-                        Translations = new List<PhraseDal>() { newPhraseDal } // Use the new phrase as a translation
-                    };
+                        // Use existing translation
+                        translationsDals.Add(existingTranslationDal);
 
-                    _db.Phrases.Add(newTranslationDal);
-                    translationsDals.Add(newTranslationDal);
+                        // Also add new phrase as translation for existing phrase
+                        existingTranslationDal.Translations.Add(newPhraseDal);
+                    }
+                    else
+                    {
+                        // Create new translation
+                        var newTranslationDal = new PhraseDal()
+                        {
+                            Text = translationInput,
+                            // ToDo: Since now only two languages, determine translation language this way
+                            LanguageId =
+                                _db.Languages.Single(languageDal => languageDal.Id != phraseIm.LanguageId.Value).Id,
+                            Translations = new List<PhraseDal>() { newPhraseDal } // Use the new phrase as a translation
+                        };
+
+                        _db.Phrases.Add(newTranslationDal);
+                        translationsDals.Add(newTranslationDal);
+                    }
                 }
+                newPhraseDal.Translations = translationsDals;
             }
-            newPhraseDal.Translations = translationsDals;
 
             // Create new phrase in the database
             _db.Phrases.Add(newPhraseDal);
@@ -226,8 +241,19 @@ namespace MyLanguagePalService.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             var phraseDal = _db.Phrases.Find(id);
+            if (phraseDal == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Remove this phrase from phrases for which it is the translation
+            phraseDal.Translations.ForEach(ts => ts.Translations.Remove(phraseDal));
+
+            // Remove the phrase
             _db.Phrases.Remove(phraseDal);
+
             _db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
@@ -249,6 +275,7 @@ namespace MyLanguagePalService.Controllers
         {
             return input.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                         .Select(s => s.Trim())
+                        .Where(s => !string.IsNullOrWhiteSpace(s))
                         .ToList();
         }
 

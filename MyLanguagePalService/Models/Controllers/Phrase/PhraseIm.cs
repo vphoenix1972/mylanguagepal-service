@@ -13,12 +13,10 @@ namespace MyLanguagePalService.Models.Controllers.Phrase
         public int? LanguageId { get; set; }
 
         [Display(Name = "Phrase")]
-        [Required]
-        // Use custom length validation
+        // Use custom validation
         public string Text { get; set; }
 
         [Display(Name = "Translations")]
-        [Required]
         [StringLength(1000, ErrorMessage = "Translations is too long")]
         public string Translations { get; set; }
 
