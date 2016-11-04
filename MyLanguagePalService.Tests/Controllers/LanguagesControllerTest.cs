@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using MyLanguagePalService.Controllers;
+using MyLanguagePalService.Areas.Site.Controllers;
 using MyLanguagePalService.DAL;
 using MyLanguagePalService.DAL.Models;
 

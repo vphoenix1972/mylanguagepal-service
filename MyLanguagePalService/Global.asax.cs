@@ -5,7 +5,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
-using MyLanguagePalService.Controllers;
+using MyLanguagePalService.Areas.Other.Controllers;
 using NLog;
 
 namespace MyLanguagePalService
@@ -145,6 +145,7 @@ namespace MyLanguagePalService
 
             // Create route to error controller
             var routeData = new RouteData();
+            routeData.DataTokens["area"] = "Other";
             routeData.Values.Add("controller", "Error");
             routeData.Values.Add("action", action);
 

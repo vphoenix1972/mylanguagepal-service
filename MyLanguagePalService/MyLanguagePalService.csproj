@@ -195,12 +195,16 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AboutController.cs" />
-    <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="Controllers\LanguagesController.cs" />
-    <Compile Include="Controllers\PhrasesController.cs" />
-    <Compile Include="Controllers\SecuredSiteControllerBase.cs" />
-    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Areas\App\AppAreaRegistration.cs" />
+    <Compile Include="Areas\App\Controllers\MainController.cs" />
+    <Compile Include="Areas\Other\OtherAreaRegistration.cs" />
+    <Compile Include="Areas\Site\SiteAreaRegistration.cs" />
+    <Compile Include="Areas\Site\Controllers\AboutController.cs" />
+    <Compile Include="Areas\Other\Controllers\ErrorController.cs" />
+    <Compile Include="Areas\Site\Controllers\LanguagesController.cs" />
+    <Compile Include="Areas\Site\Controllers\PhrasesController.cs" />
+    <Compile Include="Areas\Site\Controllers\SecuredSiteControllerBase.cs" />
+    <Compile Include="Areas\Other\Controllers\TestController.cs" />
     <Compile Include="DAL\ApplicationDbContext.cs" />
     <Compile Include="DAL\DebugInitializer.cs" />
     <Compile Include="DAL\IApplicationDbContext.cs" />
@@ -220,27 +224,29 @@
       <DependentUpon>201608230615401_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Controllers\Phrase\CreateIm.cs" />
-    <Compile Include="Models\Controllers\Phrase\CreateVm.cs" />
-    <Compile Include="Models\Controllers\Phrase\DetailsVm.cs" />
-    <Compile Include="Models\Controllers\Phrase\EditIm.cs" />
-    <Compile Include="Models\Controllers\Phrase\EditVm.cs" />
-    <Compile Include="Models\Controllers\Phrase\IndexPhraseVm.cs" />
-    <Compile Include="Models\Controllers\Phrase\LanguageOptionVm.cs" />
+    <Compile Include="Areas\Site\Models\Controllers\Phrase\CreateIm.cs" />
+    <Compile Include="Areas\Site\Models\Controllers\Phrase\CreateVm.cs" />
+    <Compile Include="Areas\Site\Models\Controllers\Phrase\DetailsVm.cs" />
+    <Compile Include="Areas\Site\Models\Controllers\Phrase\EditIm.cs" />
+    <Compile Include="Areas\Site\Models\Controllers\Phrase\EditVm.cs" />
+    <Compile Include="Areas\Site\Models\Controllers\Phrase\IndexPhraseVm.cs" />
+    <Compile Include="Areas\Site\Models\Controllers\Phrase\LanguageOptionVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Models\Controllers\Language\LanguageVm.cs" />
-    <Compile Include="Models\Controllers\Phrase\DeleteVm.cs" />
+    <Compile Include="Areas\Site\Models\Controllers\Language\LanguageVm.cs" />
+    <Compile Include="Areas\Site\Models\Controllers\Phrase\DeleteVm.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\app\app.js" />
+    <Content Include="Content\app\shared\app.css" />
+    <Content Include="Content\deps\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Content\deps\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\other\other.css" />
+    <Content Include="Content\shared\shared.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\deps\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\site\site.css" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -248,57 +254,50 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="packages.config" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\deps\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\deps\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\deps\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\deps\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Areas\Site\Views\web.config" />
+    <Content Include="Areas\App\Views\web.config" />
+    <Content Include="Areas\App\Views\Main\Index.cshtml" />
+    <Content Include="Areas\Other\Views\web.config" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\PublishProfiles\localhost.pubxml" />
-    <None Include="Scripts\jquery-3.1.0.intellisense.js" />
-    <Content Include="Scripts\ai.0.15.0-build58334.js" />
-    <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-3.1.0.js" />
-    <Content Include="Scripts\jquery-3.1.0.min.js" />
-    <Content Include="Scripts\jquery-3.1.0.slim.js" />
-    <Content Include="Scripts\jquery-3.1.0.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.matchmedia.addListener.js" />
-    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
-    <Content Include="Scripts\respond.min.js" />
-    <Content Include="Views\About\Index.cshtml" />
-    <Content Include="Views\Languages\Create.cshtml" />
-    <Content Include="Views\Languages\Delete.cshtml" />
-    <Content Include="Views\Languages\Details.cshtml" />
-    <Content Include="Views\Languages\Edit.cshtml" />
-    <Content Include="Views\Languages\Index.cshtml" />
-    <Content Include="Views\Error\Http500.cshtml" />
-    <Content Include="Views\Error\Http404.cshtml" />
-    <Content Include="Views\Error\Http403.cshtml" />
-    <Content Include="Views\Error\_Layout.cshtml" />
-    <Content Include="Views\Error\_ViewStart.cshtml" />
-    <Content Include="Views\Error\Http401.cshtml" />
-    <Content Include="Views\Phrases\Create.cshtml" />
-    <Content Include="Views\Phrases\Delete.cshtml" />
-    <Content Include="Views\Phrases\Details.cshtml" />
-    <Content Include="Views\Phrases\Edit.cshtml" />
-    <Content Include="Views\Phrases\Index.cshtml" />
-    <Content Include="Views\Error\Http400.cshtml" />
+    <None Include="Content\deps\jquery\jquery-3.1.0.intellisense.js" />
+    <Content Include="Content\deps\ai.0.15.0-build58334.js" />
+    <Content Include="Content\deps\ai.0.15.0-build58334.min.js" />
+    <Content Include="Content\deps\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\deps\jquery\jquery-3.1.0.js" />
+    <Content Include="Content\deps\jquery\jquery-3.1.0.slim.js" />
+    <None Include="Content\deps\jquery\jquery.validate-vsdoc.js" />
+    <Content Include="Content\deps\jquery\jquery.validate.js" />
+    <Content Include="Content\deps\jquery\jquery.validate.unobtrusive.js" />
+    <Content Include="Content\deps\modernizr-2.8.3.js" />
+    <Content Include="Content\deps\respond.js" />
+    <Content Include="Content\deps\respond.matchmedia.addListener.js" />
+    <Content Include="Content\deps\respond.matchmedia.addListener.min.js" />
+    <Content Include="Areas\Site\Views\About\Index.cshtml" />
+    <Content Include="Areas\Site\Views\Languages\Create.cshtml" />
+    <Content Include="Areas\Site\Views\Languages\Delete.cshtml" />
+    <Content Include="Areas\Site\Views\Languages\Details.cshtml" />
+    <Content Include="Areas\Site\Views\Languages\Edit.cshtml" />
+    <Content Include="Areas\Site\Views\Languages\Index.cshtml" />
+    <Content Include="Areas\Other\Views\Error\Http500.cshtml" />
+    <Content Include="Areas\Other\Views\Error\Http404.cshtml" />
+    <Content Include="Areas\Other\Views\Error\Http403.cshtml" />
+    <Content Include="Areas\Other\Views\Error\_Layout.cshtml" />
+    <Content Include="Areas\Other\Views\Error\_ViewStart.cshtml" />
+    <Content Include="Areas\Other\Views\Error\Http401.cshtml" />
+    <Content Include="Areas\Site\Views\Phrases\Create.cshtml" />
+    <Content Include="Areas\Site\Views\Phrases\Delete.cshtml" />
+    <Content Include="Areas\Site\Views\Phrases\Details.cshtml" />
+    <Content Include="Areas\Site\Views\Phrases\Edit.cshtml" />
+    <Content Include="Areas\Site\Views\Phrases\Index.cshtml" />
+    <Content Include="Areas\Other\Views\Error\Http400.cshtml" />
     <None Include="Properties\PublishProfiles\AzureVM.pubxml" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -309,18 +308,17 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
-    <Content Include="Scripts\jquery-3.1.0.min.map" />
-    <Content Include="Views\Error\Http503.cshtml" />
+    <Content Include="Areas\Site\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Site\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Other\Views\Error\Http503.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\App\Models\" />
+    <Folder Include="Areas\App\Views\Shared\" />
+    <Folder Include="Areas\Other\Models\" />
+    <Folder Include="Areas\Other\Views\Shared\" />
     <Folder Include="Core\" />
-    <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />

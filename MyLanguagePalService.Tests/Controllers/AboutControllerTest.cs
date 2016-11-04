@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MyLanguagePalService.Controllers;
+using MyLanguagePalService.Areas.Site.Controllers;
 
 namespace MyLanguagePalService.Tests.Controllers
 {
