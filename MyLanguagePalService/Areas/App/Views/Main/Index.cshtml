@@ -1,11 +1,47 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="app">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App</title>
+    <title>My Language Pal Application</title>
+    @Styles.Render("~/app/app-css")
 </head>
 <body>
-    <h1>App</h1>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#about" class="navbar-brand">My Language Pal</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Dictionary <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#phrases">Phrases</a></li>
+                            <li><a href="#languages">Languages</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <div class="b-view" ng-view>
+        </div>
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My Language Pal Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/app/app-js")
 </body>
 </html>

@@ -4,8 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/deps/bootstrap-css")
-    @Styles.Render("~/shared/shared-css")
     @Styles.Render("~/site/site-css")
     @Scripts.Render("~/deps/modernizr-js")
     @RenderSection("head", required: false)
@@ -45,8 +43,7 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/deps/jquery-js")
-    @Scripts.Render("~/deps/bootstrap-js")
+    @Scripts.Render("~/site/site-js")
     @RenderSection("scripts", required: false)
 </body>
 </html>
