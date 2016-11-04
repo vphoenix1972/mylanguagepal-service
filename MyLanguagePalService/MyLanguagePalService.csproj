@@ -220,13 +220,17 @@
       <DependentUpon>201608230615401_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Controllers\Phrase\CreateIm.cs" />
+    <Compile Include="Models\Controllers\Phrase\CreateVm.cs" />
     <Compile Include="Models\Controllers\Phrase\DetailsVm.cs" />
-    <Compile Include="Models\Controllers\Phrase\LanguageOptionVm.cs" />
+    <Compile Include="Models\Controllers\Phrase\EditIm.cs" />
+    <Compile Include="Models\Controllers\Phrase\EditVm.cs" />
     <Compile Include="Models\Controllers\Phrase\IndexPhraseVm.cs" />
+    <Compile Include="Models\Controllers\Phrase\LanguageOptionVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Models\Controllers\Language\LanguageVm.cs" />
-    <Compile Include="Models\Controllers\Phrase\PhraseIm.cs" />
+    <Compile Include="Models\Controllers\Phrase\DeleteVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

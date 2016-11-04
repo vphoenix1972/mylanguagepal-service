@@ -13,6 +13,8 @@ namespace MyLanguagePalService.Controllers
 {
     public class PhrasesController : Controller
     {
+        private const int MaxPhraseLength = 100;
+
         private readonly IApplicationDbContext _db;
 
         public PhrasesController()
@@ -28,13 +30,11 @@ namespace MyLanguagePalService.Controllers
         // GET: Phrases
         public ActionResult Index()
         {
-            return View(_db.Phrases.Select(
-                dal => new IndexPhraseVm()
-                {
-                    Id = dal.Id,
-                    Text = dal.Text
-                }
-                ).ToList());
+            return View(_db.Phrases.Select(dal => new IndexPhraseVm()
+            {
+                Id = dal.Id,
+                Text = dal.Text
+            }));
         }
 
         // GET: Phrases/Details/5
@@ -51,14 +51,12 @@ namespace MyLanguagePalService.Controllers
                 return HttpNotFound();
             }
 
-            var vm = new DetailsVm()
+            return View(new DetailsVm()
             {
                 Id = phraseDal.Id,
                 Text = phraseDal.Text,
-                Translations = phraseDal.Translations.Select(ts => ts.Text)
-            };
-
-            return View(vm);
+                Translations = phraseDal.Translations.Select(dal => dal.Text).ToList()
+            });
         }
 
         // GET: Phrases/Create
@@ -66,11 +64,11 @@ namespace MyLanguagePalService.Controllers
         {
             var languagesOptions = GetLanguagesOptions();
 
-            var defaultVm = new PhraseIm()
+            var defaultVm = new CreateVm()
             {
-                LanguageId = languagesOptions.First().Id
+                LanguageId = languagesOptions.First().Id,
+                LanguageOptions = languagesOptions
             };
-            ViewBag.LanguagesOptions = languagesOptions;
 
             return View(defaultVm);
         }
@@ -78,17 +76,17 @@ namespace MyLanguagePalService.Controllers
         // POST: Phrases/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(PhraseIm phraseIm)
+        public ActionResult Create(CreateIm inputModel)
         {
             // *** Request validation ***
-            if (phraseIm.LanguageId == null)
+            if (inputModel.LanguageId == null)
             {
                 // User cannot send request without language id using UI
                 // Unsupported request
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var languageId = phraseIm.LanguageId.Value;
+            var languageId = inputModel.LanguageId.Value;
             var isLanguageExists = _db.Languages.Any(dal => dal.Id == languageId);
             if (!isLanguageExists)
             {
@@ -97,56 +95,45 @@ namespace MyLanguagePalService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            // Prepare language options for view
-            ViewBag.LanguagesOptions = GetLanguagesOptions();
-
-            // User input validation
-            if (!ModelState.IsValid)
-            {
-                return View(phraseIm);
-            }
-
             // Phrase text validation
-            if (string.IsNullOrWhiteSpace(phraseIm.Text))
+            if (string.IsNullOrWhiteSpace(inputModel.Text))
             {
-                ModelState.AddModelError(nameof(PhraseIm.Text), "Phrase cannot be empty");
-                return View(phraseIm);
+                ModelState.AddModelError(nameof(CreateVm.Text), "Phrase cannot be empty");
+                return View(ToCreateVm(inputModel));
             }
 
-            phraseIm.Text = phraseIm.Text.Trim();
+            inputModel.Text = inputModel.Text.Trim();
 
-            var maxPhraseLength = 100;
-            if (phraseIm.Text.Length > maxPhraseLength)
+            if (inputModel.Text.Length > MaxPhraseLength)
             {
-                ModelState.AddModelError(nameof(PhraseIm.Text), "Phrase is too long");
-                return View(phraseIm);
+                ModelState.AddModelError(nameof(CreateVm.Text), "Phrase is too long");
+                return View(ToCreateVm(inputModel));
             }
 
             // Validate translations
             IList<string> translationsInputs = null;
-            if (phraseIm.Translations != null)
+            if (inputModel.Translations != null)
             {
-                translationsInputs = ParseTranslations(phraseIm.Translations);
-                if (translationsInputs.Any(ts => ts.Length > maxPhraseLength))
+                translationsInputs = ParseTranslations(inputModel.Translations);
+                if (translationsInputs.Any(ts => ts.Length > MaxPhraseLength))
                 {
-                    ModelState.AddModelError(nameof(PhraseIm.Translations), "One of translations is too long");
-                    return View(phraseIm);
+                    ModelState.AddModelError(nameof(CreateVm.Translations), "One of translations is too long");
+                    return View(ToCreateVm(inputModel));
                 }
             }
 
             // Check that the phrase does not exist
-            if (_db.Phrases.Any(dal => dal.Text == phraseIm.Text))
+            if (_db.Phrases.Any(dal => dal.Text == inputModel.Text))
             {
-                ModelState.AddModelError(nameof(PhraseIm.Text), "The phrase already exists");
-                return View(phraseIm);
+                ModelState.AddModelError(nameof(CreateVm.Text), "The phrase already exists");
+                return View(ToCreateVm(inputModel));
             }
-
 
             // *** Phrase creation ***
             var newPhraseDal = new PhraseDal()
             {
-                Text = phraseIm.Text,
-                LanguageId = phraseIm.LanguageId.Value
+                Text = inputModel.Text,
+                LanguageId = inputModel.LanguageId.Value
             };
 
             // Add & find translations
@@ -172,7 +159,7 @@ namespace MyLanguagePalService.Controllers
                             Text = translationInput,
                             // ToDo: Since now only two languages, determine translation language this way
                             LanguageId =
-                                _db.Languages.Single(languageDal => languageDal.Id != phraseIm.LanguageId.Value).Id,
+                                _db.Languages.Single(languageDal => languageDal.Id != inputModel.LanguageId.Value).Id,
                             Translations = new List<PhraseDal>() { newPhraseDal } // Use the new phrase as a translation
                         };
 
@@ -198,26 +185,153 @@ namespace MyLanguagePalService.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             var phraseDal = _db.Phrases.Find(id);
             if (phraseDal == null)
             {
                 return HttpNotFound();
             }
-            return View(ToIm(phraseDal));
+
+            return View(ToEditVm(phraseDal));
         }
 
         // POST: Phrases/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(PhraseIm phraseIm)
+        public ActionResult Edit(EditIm inputModel)
         {
-            if (ModelState.IsValid)
+            // *** Request validation ***
+            if (inputModel.Id == null)
             {
-                _db.Entry(ToDal(phraseIm)).State = EntityState.Modified;
-                _db.SaveChanges();
-                return RedirectToAction("Index");
+                // Id was not specified or was incorrect
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View(phraseIm);
+
+            // Find phrase in database
+            var phraseDal = _db.Phrases.Find(inputModel.Id);
+            if (phraseDal == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Phrase text validation
+            if (string.IsNullOrWhiteSpace(inputModel.Text))
+            {
+                ModelState.AddModelError(nameof(EditVm.Text), "Phrase cannot be empty");
+                return View(ToEditVm(inputModel));
+            }
+
+            inputModel.Text = inputModel.Text.Trim();
+
+            if (inputModel.Text.Length > MaxPhraseLength)
+            {
+                ModelState.AddModelError(nameof(EditVm.Text), "Phrase is too long");
+                return View(ToEditVm(inputModel));
+            }
+
+            // Validate translations
+            IList<string> translationsInputs = null;
+            if (inputModel.Translations != null)
+            {
+                translationsInputs = ParseTranslations(inputModel.Translations);
+                if (translationsInputs.Any(ts => ts.Length > MaxPhraseLength))
+                {
+                    ModelState.AddModelError(nameof(EditVm.Translations), "One of translations is too long");
+                    return View(ToEditVm(inputModel));
+                }
+            }
+
+            // Check that the phrase does not exist
+            if (phraseDal.Text != inputModel.Text)
+            {
+                if (_db.Phrases.Any(dal => dal.Text == inputModel.Text))
+                {
+                    ModelState.AddModelError(nameof(EditVm.Text), "The phrase already exists");
+                    return View(ToEditVm(inputModel));
+                }
+            }
+
+            // *** Phrase modification ***
+            phraseDal.Text = inputModel.Text;
+
+            // Modify translations
+            var newTranslations = new List<PhraseDal>();
+            var oldTranslations = phraseDal.Translations.ToList();
+            if (translationsInputs != null && translationsInputs.Any())
+            {
+                // Merge translations
+                // Check if user removed a translation
+                foreach (var existingTranslation in oldTranslations)
+                {
+                    var userTranslation = translationsInputs.FirstOrDefault(s => s == existingTranslation.Text);
+                    if (userTranslation == null)
+                    {
+                        // User has removed the translation
+
+                        // Remove this phrase from phrases for which it is the translation
+                        existingTranslation.Translations.Remove(phraseDal);
+
+                        continue;
+                    }
+
+                    // Keep existing translation
+                    newTranslations.Add(existingTranslation);
+                }
+
+                // Check for new translations
+                foreach (var translationInput in translationsInputs)
+                {
+                    var existingTranslation = oldTranslations.FirstOrDefault(dal => dal.Text == translationInput);
+                    if (existingTranslation != null)
+                    {
+                        // Already exists
+                        continue;
+                    }
+
+                    // New translation
+                    var existingTranslationDal = _db.Phrases.FirstOrDefault(dal => dal.Text == translationInput);
+                    if (existingTranslationDal != null)
+                    {
+                        // Use existing translation
+                        newTranslations.Add(existingTranslationDal);
+
+                        // Also add new phrase as translation for existing phrase
+                        existingTranslationDal.Translations.Add(phraseDal);
+                    }
+                    else
+                    {
+                        // Create new translation
+                        var newTranslationDal = new PhraseDal()
+                        {
+                            Text = translationInput,
+                            // ToDo: Since now only two languages, determine translation language this way
+                            LanguageId =
+                                _db.Languages.Single(languageDal => languageDal.Id != phraseDal.LanguageId).Id,
+                            Translations = new List<PhraseDal>() { phraseDal } // Use the new phrase as a translation
+                        };
+
+                        _db.Phrases.Add(newTranslationDal);
+                        newTranslations.Add(newTranslationDal);
+                    }
+                }
+            }
+            else
+            {
+                // User removed all translations
+
+                // Remove this phrase from phrases for which it is the translation
+                phraseDal.Translations.ForEach(ts => ts.Translations.Remove(phraseDal));
+
+                // Remove translations for the phrase
+                newTranslations.Clear();
+            }
+            phraseDal.Translations = newTranslations;
+
+            // Modify the phrase in the database
+            _db.Entry(phraseDal).State = EntityState.Modified;
+            _db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         // GET: Phrases/Delete/5
@@ -232,7 +346,7 @@ namespace MyLanguagePalService.Controllers
             {
                 return HttpNotFound();
             }
-            return View(ToIm(phraseDal));
+            return View(ToDeleteVm(phraseDal));
         }
 
         // POST: Phrases/Delete/5
@@ -266,9 +380,9 @@ namespace MyLanguagePalService.Controllers
             base.Dispose(disposing);
         }
 
-        private IEnumerable<LanguageOptionVm> GetLanguagesOptions()
+        private IList<LanguageOptionVm> GetLanguagesOptions()
         {
-            return _db.Languages.Select(ToLanguageOption);
+            return _db.Languages.Select(ToLanguageOption).ToList();
         }
 
         private IList<string> ParseTranslations(string input)
@@ -279,21 +393,46 @@ namespace MyLanguagePalService.Controllers
                         .ToList();
         }
 
-        private PhraseIm ToIm(PhraseDal dal)
+        private EditVm ToEditVm(PhraseDal phraseDal)
         {
-            return new PhraseIm()
+            return new EditVm()
             {
-                Id = dal.Id,
-                Text = dal.Text
+                Id = phraseDal.Id,
+                Text = phraseDal.Text,
+                Translations = string.Join(", ", phraseDal.Translations.Select(dal => dal.Text))
             };
         }
 
-        private PhraseDal ToDal(PhraseIm im)
+        private CreateVm ToCreateVm(CreateIm inputModel)
         {
-            return new PhraseDal()
+            return new CreateVm()
             {
-                Id = im.Id,
-                Text = im.Text
+                // Checked in Create()
+                // ReSharper disable once PossibleInvalidOperationException
+                LanguageId = inputModel.LanguageId.Value,
+                Text = inputModel.Text,
+                Translations = inputModel.Translations,
+                LanguageOptions = GetLanguagesOptions()
+            };
+        }
+
+        private EditVm ToEditVm(EditIm inputModel)
+        {
+            return new EditVm()
+            {
+                // Checked in Edit()
+                // ReSharper disable once PossibleInvalidOperationException
+                Id = inputModel.Id.Value,
+                Text = inputModel.Text,
+                Translations = inputModel.Translations
+            };
+        }
+
+        private DeleteVm ToDeleteVm(PhraseDal phraseDal)
+        {
+            return new DeleteVm()
+            {
+                Text = phraseDal.Text
             };
         }
 

@@ -162,6 +162,7 @@ namespace MyLanguagePalService
             Response.Headers["Content-type"] = "text/html";
 
             // Call target Controller and pass the routeData.
+            // ToDo: Causes System.ObjectDisposedException when Autofac is used
             IController errorController = new ErrorController();
             errorController.Execute(new RequestContext(
                  new HttpContextWrapper(Context), routeData));
