@@ -23,14 +23,14 @@ namespace MyLanguagePalService
             try
             {
                 // *** Configure Autofac ***
-                var builder = new ContainerBuilder();
+                //var builder = new ContainerBuilder();
 
-                // Register your MVC controllers.
-                builder.RegisterControllers(typeof(MvcApplication).Assembly);
+                //// Register your MVC controllers.
+                //builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
-                // Set the dependency resolver to be Autofac.
-                var container = builder.Build();
-                DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+                //// Set the dependency resolver to be Autofac.
+                //var container = builder.Build();
+                //DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
 
                 // *** Configure MVC ***
