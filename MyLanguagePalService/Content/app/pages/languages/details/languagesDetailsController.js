@@ -1,11 +1,17 @@
 ﻿(function () {
 
-    function LanguagesDetailsController($scope) {
-        $scope.language = { id: 1, name: 'english' };
+    function LanguagesDetailsController($scope, $routeParams, languagesService) {
+        $scope.language = {};
+
+        languagesService.getLanguage($routeParams.languageId).then(function (language) {
+            $scope.language = language;
+        });
     }
 
     angular.module('app').controller('languagesDetailsController', [
-        '$scope',        
+        '$scope',
+        '$routeParams',
+        'languagesService',
         LanguagesDetailsController
     ]);
 }());

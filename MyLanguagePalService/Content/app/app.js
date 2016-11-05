@@ -1,9 +1,11 @@
-﻿var app = angular.module('app', [
+﻿/* Setup application dependencies */
+var app = angular.module('app', [
     'ui.bootstrap',
     'ngRoute',
     'ngAnimate'
 ]);
 
+/* Setup routes */
 app.config(function ($routeProvider) {
     $routeProvider
     .when('/', {
@@ -32,3 +34,6 @@ app.config(function ($routeProvider) {
         controller: 'languagesDeleteController'
     });
 });
+
+/* Register shared services */
+app.service('utils', Utils);

@@ -262,7 +262,9 @@
     <Content Include="Content\app\pages\languages\index\languagesIndex.tpl.html" />
     <Content Include="Content\app\pages\languages\index\languagesIndexController.js" />
     <Content Include="Content\app\pages\phrases\phrases.html" />
+    <Content Include="Content\app\services\languagesService.js" />
     <Content Include="Content\app\shared\app.css" />
+    <Content Include="Content\app\shared\utils.js" />
     <Content Include="Content\deps\angular\angular-animate.js" />
     <Content Include="Content\deps\angular\angular-route.js" />
     <Content Include="Content\deps\angular\angular-touch.js" />
@@ -348,7 +350,6 @@
     <Folder Include="Areas\App\Views\Shared\" />
     <Folder Include="Areas\Other\Models\" />
     <Folder Include="Areas\Other\Views\Shared\" />
-    <Folder Include="Content\app\services\" />
     <Folder Include="Core\" />
   </ItemGroup>
   <ItemGroup>

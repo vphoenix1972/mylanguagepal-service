@@ -45,7 +45,9 @@ namespace MyLanguagePalService
                 "~/Content/deps/angular/angular-touch.js",
                 "~/Content/deps/angular/ui-bootstrap-tpls-2.2.0.js",
                 // App scripts
+                "~/Content/app/shared/utils.js",
                 "~/Content/app/app.js",
+                "~/Content/app/services/languagesService.js",
                 "~/Content/app/pages/languages/index/languagesIndexController.js",
                 "~/Content/app/pages/languages/details/languagesDetailsController.js",
                 "~/Content/app/pages/languages/edit/languagesEditController.js",
