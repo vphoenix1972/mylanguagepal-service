@@ -1,0 +1,25 @@
+﻿<h2>Languages</h2>
+
+<p>
+    <a href="#languages/create">Create New</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Language
+        </th>
+        <th></th>
+    </tr>
+
+    <tr ng-repeat="language in languages">
+        <td>
+            {{language.name}}
+        </td>
+        <td>
+            <a href="#languages/edit/{{language.id}}">Edit</a> |
+            <a href="#languages/details/{{language.id}}">Details</a> |
+            <a href="#languages/delete/{{language.id}}">Delete</a>
+        </td>
+    </tr>
+
+</table>

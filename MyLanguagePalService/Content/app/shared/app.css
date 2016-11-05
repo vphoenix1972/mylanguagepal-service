@@ -25,11 +25,11 @@ textarea {
 
 /* Route change animations */
 .b-view.ng-enter {
-    -webkit-transition: 1.5s;
-    -moz-transition: 1.5s;
-    -ms-transition: 1.5s;
-    -o-transition: 1.5s;
-    transition: 1.5s;
+    -webkit-transition: .5s;
+    -moz-transition: .5s;
+    -ms-transition: .5s;
+    -o-transition: .5s;
+    transition: .5s;
     /* start with opacity 0 (invisible) */
     -ms-opacity: 0;
     opacity: 0;

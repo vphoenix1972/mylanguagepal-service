@@ -254,7 +254,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\app\app.js" />
-    <Content Include="Content\app\pages\languages\languages.html" />
+    <Content Include="Content\app\pages\languages\delete\languagesDelete.tpl.html" />
+    <Content Include="Content\app\pages\languages\delete\languagesDeleteController.js" />
+    <Content Include="Content\app\pages\languages\details\languagesDetailsController.js" />
+    <Content Include="Content\app\pages\languages\edit\languagesEdit.tpl.html" />
+    <Content Include="Content\app\pages\languages\edit\languagesEditController.js" />
+    <Content Include="Content\app\pages\languages\index\languagesIndex.tpl.html" />
+    <Content Include="Content\app\pages\languages\index\languagesIndexController.js" />
     <Content Include="Content\app\pages\phrases\phrases.html" />
     <Content Include="Content\app\shared\app.css" />
     <Content Include="Content\deps\angular\angular-animate.js" />
@@ -285,6 +291,7 @@
     <Content Include="Areas\App\Views\web.config" />
     <Content Include="Areas\App\Views\Main\Index.cshtml" />
     <Content Include="Areas\Other\Views\web.config" />
+    <Content Include="Content\app\pages\languages\details\languagesDetails.tpl.html" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -341,6 +348,7 @@
     <Folder Include="Areas\App\Views\Shared\" />
     <Folder Include="Areas\Other\Models\" />
     <Folder Include="Areas\Other\Views\Shared\" />
+    <Folder Include="Content\app\services\" />
     <Folder Include="Core\" />
   </ItemGroup>
   <ItemGroup>
