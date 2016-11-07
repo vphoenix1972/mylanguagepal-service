@@ -1,20 +1,22 @@
-﻿<h2>Details</h2>
+﻿<div class="b-page" ng-hide="isLoading">
+    <h2>Details</h2>
 
-<div>
-    <h4>Language</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Language:
-        </dt>
+    <div>
+        <h4>Language</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Language:
+            </dt>
 
-        <dd>
-            {{language.name}}
-        </dd>
+            <dd>
+                {{language.name}}
+            </dd>
 
-    </dl>
+        </dl>
+    </div>
+    <p>
+        <a href="#languages/edit/{{language.id}}">Edit</a> |
+        <a href="#languages">Back to List</a>
+    </p>
 </div>
-<p>
-    <a href="#languages/edit/{{language.id}}">Edit</a> |
-    <a href="#languages">Back to List</a>
-</p>

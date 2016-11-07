@@ -1,16 +1,20 @@
-﻿(function () {
+﻿function LanguagesIndexController($scope, $location, languagesService) {
+    PageController.call(this, $scope, $location);
 
-    function LanguagesIndexController($scope, languagesService) {
-        $scope.languages = [];
+    $scope.languages = [];
 
-        languagesService.getLanguages().then(function (languages) {
-            $scope.languages = languages;
-        });
-    }
+    languagesService.getLanguages().then(function (languages) {
+        $scope.isLoading = false;
+        $scope.languages = languages;
+    });
+}
 
-    angular.module('app').controller('languagesIndexController', [
-        '$scope',
-        'languagesService',
-        LanguagesIndexController
-    ]);
-}());
+LanguagesIndexController.prototype = Object.create(PageController.prototype);
+LanguagesIndexController.prototype.constructor = LanguagesIndexController;
+
+angular.module('app').controller('languagesIndexController', [
+    '$scope',
+    '$location',
+    'languagesService',
+    LanguagesIndexController
+]);

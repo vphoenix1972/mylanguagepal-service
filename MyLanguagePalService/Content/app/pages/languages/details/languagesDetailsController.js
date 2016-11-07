@@ -1,17 +1,28 @@
-﻿(function () {
+﻿function LanguagesDetailsController($scope, $location, $routeParams, utils, languagesService) {
+    PageController.call(this, $scope, $location);
 
-    function LanguagesDetailsController($scope, $routeParams, languagesService) {
-        $scope.language = {};
+    $scope.language = {};
 
-        languagesService.getLanguage($routeParams.languageId).then(function (language) {
+    utils.asyncTryCatch(
+        function () { return languagesService.getLanguage($routeParams.languageId) },
+        function (language) {
+            $scope.isLoading = false;
             $scope.language = language;
-        });
-    }
+        },
+        function () {
+            $location.path('/languages');
+        }
+    );
+}
 
-    angular.module('app').controller('languagesDetailsController', [
-        '$scope',
-        '$routeParams',
-        'languagesService',
-        LanguagesDetailsController
-    ]);
-}());
+LanguagesDetailsController.prototype = Object.create(PageController.prototype);
+LanguagesDetailsController.prototype.constructor = LanguagesDetailsController;
+
+angular.module('app').controller('languagesDetailsController', [
+    '$scope',
+    '$location',
+    '$routeParams',
+    'utils',
+    'languagesService',
+    LanguagesDetailsController
+]);

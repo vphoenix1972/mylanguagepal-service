@@ -32,7 +32,8 @@ namespace MyLanguagePalService
             bundles.Add(new StyleBundle("~/app/app-css").Include(
                 "~/Content/deps/bootstrap/css/bootstrap.css",
                 "~/Content/shared/shared.css",
-                "~/Content/app/shared/app.css"));
+                "~/Content/app/shared/app.css",
+                "~/Content/app/pages/shared/page/page.css"));
 
             bundles.Add(new ScriptBundle("~/app/app-js").Include(
                 // Deps
@@ -48,6 +49,7 @@ namespace MyLanguagePalService
                 "~/Content/app/shared/utils.js",
                 "~/Content/app/app.js",
                 "~/Content/app/services/languagesService.js",
+                "~/Content/app/pages/shared/page/pageController.js",
                 "~/Content/app/pages/languages/index/languagesIndexController.js",
                 "~/Content/app/pages/languages/details/languagesDetailsController.js",
                 "~/Content/app/pages/languages/edit/languagesEditController.js",

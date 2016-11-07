@@ -1,0 +1,17 @@
+﻿/* Page loading animation */
+.b-page.ng-hide {
+    /* end with opacity 1 (fade in) */
+    -ms-opacity: 0;
+    opacity: 0;
+}
+
+.b-page {
+    -webkit-transition: .5s;
+    -moz-transition: .5s;
+    -ms-transition: .5s;
+    -o-transition: .5s;
+    transition: .5s;
+    /* start with opacity 0 (invisible) */
+    -ms-opacity: 1;
+    opacity: 1;
+}

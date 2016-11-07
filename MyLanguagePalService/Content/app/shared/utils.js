@@ -17,3 +17,11 @@ Utils.prototype.parseIntOrThrow = function (value, valueName, radix) {
         throw new Error(valueName + ' is not an integer');
     return result;
 }
+
+Utils.prototype.asyncTryCatch = function (func, successHandler, errorHandler) {
+    try {
+        return func().then(successHandler, errorHandler);
+    } catch (e) {
+        errorHandler(e);
+    }
+}
