@@ -1,20 +1,26 @@
-﻿function LanguagesIndexController($scope, $location, languagesService) {
-    PageController.call(this, $scope, $location);
+﻿(function () {
+    function LanguagesIndexController($scope, $location, progressBarService, languagesService) {
+        PageController.call(this, $scope, $location);
 
-    $scope.languages = [];
+        $scope.languages = [];
 
-    languagesService.getLanguages().then(function (languages) {
-        $scope.isLoading = false;
-        $scope.languages = languages;
-    });
-}
+        progressBarService.start();
+        languagesService.getLanguages().then(function (languages) {
+            progressBarService.complete();
 
-LanguagesIndexController.prototype = Object.create(PageController.prototype);
-LanguagesIndexController.prototype.constructor = LanguagesIndexController;
+            $scope.isLoading = false;
+            $scope.languages = languages;
+        });
+    }
 
-angular.module('app').controller('languagesIndexController', [
-    '$scope',
-    '$location',
-    'languagesService',
-    LanguagesIndexController
-]);
+    LanguagesIndexController.prototype = Object.create(PageController.prototype);
+    LanguagesIndexController.prototype.constructor = LanguagesIndexController;
+
+    angular.module('app').controller('languagesIndexController', [
+        '$scope',
+        '$location',
+        'progressBarService',
+        'languagesService',
+        LanguagesIndexController
+    ]);
+}());

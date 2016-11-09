@@ -2,7 +2,8 @@
 var app = angular.module('app', [
     'ui.bootstrap',
     'ngRoute',
-    'ngAnimate'
+    'ngAnimate',
+    'ngProgress'
 ]);
 
 /* Setup routes */
@@ -37,3 +38,7 @@ app.config(function ($routeProvider) {
 
 /* Register shared services */
 app.service('utils', Utils);
+app.service('restService', [
+    '$http',
+    RestService
+]);

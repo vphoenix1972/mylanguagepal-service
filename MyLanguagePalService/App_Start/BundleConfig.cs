@@ -31,8 +31,10 @@ namespace MyLanguagePalService
             // *** App bundles ***
             bundles.Add(new StyleBundle("~/app/app-css").Include(
                 "~/Content/deps/bootstrap/css/bootstrap.css",
+                "~/Content/deps/angular/ngprogress.css",
                 "~/Content/shared/shared.css",
                 "~/Content/app/shared/app.css",
+                "~/Content/app/services/progressBar/progressBarService.css",
                 "~/Content/app/pages/shared/page/page.css"));
 
             bundles.Add(new ScriptBundle("~/app/app-js").Include(
@@ -45,9 +47,13 @@ namespace MyLanguagePalService
                 "~/Content/deps/angular/angular-animate.js",
                 "~/Content/deps/angular/angular-touch.js",
                 "~/Content/deps/angular/ui-bootstrap-tpls-2.2.0.js",
+                "~/Content/deps/angular/ngprogress.js",
                 // App scripts
                 "~/Content/app/shared/utils.js",
+                "~/Content/app/shared/restService.js",
                 "~/Content/app/app.js",
+                "~/Content/app/services/connectorService.js",
+                "~/Content/app/services/progressBar/progressBarService.js",
                 "~/Content/app/services/languagesService.js",
                 "~/Content/app/pages/shared/page/pageController.js",
                 "~/Content/app/pages/languages/index/languagesIndexController.js",

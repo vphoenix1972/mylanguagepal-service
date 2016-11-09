@@ -212,7 +212,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\App\AppAreaRegistration.cs" />
     <Compile Include="Areas\App\Controllers\MainController.cs" />
+    <Compile Include="Areas\App\Controllers\LanguagesController.cs" />
     <Compile Include="Areas\App\Controllers\TestApiController.cs" />
+    <Compile Include="Areas\App\Models\Controller\Languages\LanguageAm.cs" />
     <Compile Include="Areas\Other\OtherAreaRegistration.cs" />
     <Compile Include="Areas\Site\SiteAreaRegistration.cs" />
     <Compile Include="Areas\Site\Controllers\AboutController.cs" />
@@ -264,13 +266,19 @@
     <Content Include="Content\app\pages\phrases\phrases.html" />
     <Content Include="Content\app\pages\shared\page\page.css" />
     <Content Include="Content\app\pages\shared\page\pageController.js" />
+    <Content Include="Content\app\services\connectorService.js" />
     <Content Include="Content\app\services\languagesService.js" />
+    <Content Include="Content\app\services\progressBar\progressBarService.css" />
+    <Content Include="Content\app\services\progressBar\progressBarService.js" />
     <Content Include="Content\app\shared\app.css" />
+    <Content Include="Content\app\shared\restService.js" />
     <Content Include="Content\app\shared\utils.js" />
     <Content Include="Content\deps\angular\angular-animate.js" />
     <Content Include="Content\deps\angular\angular-route.js" />
     <Content Include="Content\deps\angular\angular-touch.js" />
     <Content Include="Content\deps\angular\angular.js" />
+    <Content Include="Content\deps\angular\ngProgress.css" />
+    <Content Include="Content\deps\angular\ngprogress.js" />
     <Content Include="Content\deps\angular\ui-bootstrap-tpls-2.2.0.js" />
     <Content Include="Content\deps\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Content\deps\bootstrap\css\bootstrap.css" />
@@ -348,7 +356,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\App\Models\" />
     <Folder Include="Areas\App\Views\Shared\" />
     <Folder Include="Areas\Other\Models\" />
     <Folder Include="Areas\Other\Views\Shared\" />

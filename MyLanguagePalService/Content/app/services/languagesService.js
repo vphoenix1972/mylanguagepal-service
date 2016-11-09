@@ -1,9 +1,10 @@
 ﻿(function () {
 
-    function LanguagesService($q, $timeout, utils) {
+    function LanguagesService($q, $timeout, utils, connector) {
         this._$q = $q;
         this._$timeout = $timeout;
         this._utils = utils;
+        this._connector = connector;
 
         this._languages = [
             { id: 1, name: 'English' },
@@ -18,11 +19,9 @@
         /// resolve(languages): Array of languages.
         /// </summary>
 
-        var self = this;
-
-        return this._$timeout(function () {
-            return angular.copy(self._languages);
-        }, 100);
+        return this._connector.getLanguages().then(function(response) {
+            return response.data;
+        });
     }
 
     LanguagesService.prototype.getLanguage = function (id) {
@@ -47,6 +46,7 @@
         '$q',
         '$timeout',
         'utils',
+        'connectorService',
         LanguagesService
     ]);
 }());
