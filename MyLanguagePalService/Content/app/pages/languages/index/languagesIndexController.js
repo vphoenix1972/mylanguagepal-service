@@ -4,8 +4,17 @@
 
         $scope.languages = [];
 
+        var hasLeft = false;
+        $scope.$on('$routeChangeStart', function (next, current) {
+            hasLeft = true;
+            progressBarService.reset();
+        });
+
         progressBarService.start();
         languagesService.getLanguages().then(function (languages) {
+            if (hasLeft)
+                return;
+
             progressBarService.complete();
 
             $scope.isLoading = false;

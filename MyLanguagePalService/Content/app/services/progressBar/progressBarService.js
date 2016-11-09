@@ -14,10 +14,18 @@
 
     ProgressBarService.prototype.complete = function () {
         /// <summary>
-        /// Jumps to 100% progress and fades away progressbar.        
+        /// Jumps to 100% progress and fades away progressbar.
         /// </summary>
 
         this._ngProgress.complete();
+    }
+
+    ProgressBarService.prototype.reset = function () {
+        /// <summary>
+        /// Jumps to 100% progress and fades away progressbar.        
+        /// </summary>
+
+        this._ngProgress.reset();
     }
 
     angular.module('app').service('progressBarService', [

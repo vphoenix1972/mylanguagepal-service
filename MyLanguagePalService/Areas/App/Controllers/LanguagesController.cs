@@ -23,6 +23,17 @@ namespace MyLanguagePalService.Areas.App.Controllers
             return _db.Languages.Select(ToAm).ToList();
         }
 
+        public IHttpActionResult GetLanguage(int id)
+        {
+            Thread.Sleep(3000);
+            var languageDal = _db.Languages.Find(id);
+            if (languageDal == null)
+            {
+                return NotFound();
+            }
+            return Ok(ToAm(languageDal));
+        }
+
         private LanguageAm ToAm(LanguageDal languageDal)
         {
             return new LanguageAm()
