@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -7,6 +8,7 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using MyLanguagePalService.Areas.Other.Controllers;
+using MyLanguagePalService.Core;
 using NLog;
 
 namespace MyLanguagePalService
@@ -73,17 +75,7 @@ namespace MyLanguagePalService
             }
             else
             {
-                // If there was a error (except 503), show custom error page to user
-                var response = Response;
-
-                // Check status code
-                var statusCode = response.StatusCode;
-                if (statusCode >= 400)
-                {
-                    ShowErrorPage(statusCode);
-                }
-
-                // else request finished successfully
+                HandleEndRequest();
             }
 
             // Dump response
@@ -105,6 +97,26 @@ namespace MyLanguagePalService
             }
 
             logger.Fatal(exception, "Internal server error");
+        }
+
+        private void HandleEndRequest()
+        {
+            var statusCode = Response.StatusCode;
+
+            if (statusCode < 400)
+            {
+                // Request has finished successfully
+                return;
+            }
+
+            if (Response.Headers[WebApiControllerBase.WebApiHeaderName] != null)
+            {
+                // Ignore errors from web api
+                return;
+            }
+
+            // Show custom error page to user
+            ShowErrorPage(statusCode);
         }
 
         private void ShowErrorPage(int statusCode)

@@ -223,6 +223,7 @@
     <Compile Include="Areas\Site\Controllers\PhrasesController.cs" />
     <Compile Include="Areas\Site\Controllers\SecuredSiteControllerBase.cs" />
     <Compile Include="Areas\Other\Controllers\TestController.cs" />
+    <Compile Include="Core\WebApiControllerBase.cs" />
     <Compile Include="DAL\ApplicationDbContext.cs" />
     <Compile Include="DAL\DebugInitializer.cs" />
     <Compile Include="DAL\IApplicationDbContext.cs" />
@@ -232,6 +233,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Annotations.cs" />
+    <Compile Include="Core\AddResponseHeaderAttribute.cs" />
     <Compile Include="Helpers\OwinMiddleware\BasicAuthenticationExtensions.cs" />
     <Compile Include="Helpers\OwinMiddleware\BasicAuthenticationHandler.cs" />
     <Compile Include="Helpers\OwinMiddleware\BasicAuthenticationMiddleware.cs" />
@@ -359,7 +361,6 @@
     <Folder Include="Areas\App\Views\Shared\" />
     <Folder Include="Areas\Other\Models\" />
     <Folder Include="Areas\Other\Views\Shared\" />
-    <Folder Include="Core\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />

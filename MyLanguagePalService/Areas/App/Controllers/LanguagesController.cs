@@ -3,12 +3,13 @@ using System.Linq;
 using System.Threading;
 using System.Web.Http;
 using MyLanguagePalService.Areas.App.Models.Controller.Languages;
+using MyLanguagePalService.Core;
 using MyLanguagePalService.DAL;
 using MyLanguagePalService.DAL.Models;
 
 namespace MyLanguagePalService.Areas.App.Controllers
-{
-    public class LanguagesController : ApiController
+{    
+    public class LanguagesController : WebApiControllerBase
     {
         private readonly IApplicationDbContext _db;
 
