@@ -54,6 +54,7 @@ namespace MyLanguagePalService
                 "~/Content/app/shared/restService.js",
                 "~/Content/app/app.js",
                 "~/Content/app/services/connectorService.js",
+                "~/Content/app/services/errorReporting/errorReportingService.js",
                 "~/Content/app/services/progressBar/progressBarService.js",
                 "~/Content/app/services/languagesService.js",
                 "~/Content/app/pages/shared/page/pageController.js",

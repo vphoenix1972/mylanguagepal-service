@@ -1,33 +1,17 @@
-﻿function LanguagesDetailsController($scope, $location, $routeParams, progressBarService, utils, languagesService) {
-    PageController.call(this, $scope, $location);
+﻿function LanguagesDetailsController($scope, $location, $routeParams, errorReportingService, progressBarService, languagesService) {
+    PageController.call(this, $scope, errorReportingService, progressBarService);
 
     $scope.language = {};
 
-    //utils.asyncTryCatch(
-    //    function () { return languagesService.getLanguage($routeParams.languageId) },
-    //    function (language) {
-    //        $scope.isLoading = false;
-    //        $scope.language = language;
-    //    },
-    //    function () {
-    //        $location.path('/languages');
-    //    }
-    //);
-    var hasLeft = false;
-    $scope.$on('$routeChangeStart', function (next, current) {
-        hasLeft = true;
-        progressBarService.reset();
-    });
-
-    progressBarService.start();
-    languagesService.getLanguage($routeParams.languageId).then(function (language) {
-        if (hasLeft)
-            return;
-
-        progressBarService.complete();
-
-        $scope.isLoading = false;
-        $scope.language = language;
+    this.asyncRequest({
+        request: function () { return languagesService.getLanguage($routeParams.languageId); },
+        success: function (language) {
+            $scope.isLoading = false;
+            $scope.language = language;
+        },
+        error: function () {
+            $location.path('/languages');
+        }
     });
 }
 
@@ -38,8 +22,8 @@ angular.module('app').controller('languagesDetailsController', [
     '$scope',
     '$location',
     '$routeParams',
+    'errorReportingService',
     'progressBarService',
-    'utils',
     'languagesService',
     LanguagesDetailsController
 ]);

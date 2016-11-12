@@ -269,6 +269,7 @@
     <Content Include="Content\app\pages\shared\page\page.css" />
     <Content Include="Content\app\pages\shared\page\pageController.js" />
     <Content Include="Content\app\services\connectorService.js" />
+    <Content Include="Content\app\services\errorReporting\errorReportingService.js" />
     <Content Include="Content\app\services\languagesService.js" />
     <Content Include="Content\app\services\progressBar\progressBarService.css" />
     <Content Include="Content\app\services\progressBar\progressBarService.js" />

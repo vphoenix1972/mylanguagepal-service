@@ -1,24 +1,15 @@
 ﻿(function () {
-    function LanguagesIndexController($scope, $location, progressBarService, languagesService) {
-        PageController.call(this, $scope, $location);
+    function LanguagesIndexController($scope, errorReportingService, progressBarService, languagesService) {
+        PageController.call(this, $scope, errorReportingService, progressBarService);
 
         $scope.languages = [];
 
-        var hasLeft = false;
-        $scope.$on('$routeChangeStart', function (next, current) {
-            hasLeft = true;
-            progressBarService.reset();
-        });
-
-        progressBarService.start();
-        languagesService.getLanguages().then(function (languages) {
-            if (hasLeft)
-                return;
-
-            progressBarService.complete();
-
-            $scope.isLoading = false;
-            $scope.languages = languages;
+        this.asyncRequest({
+            request: function () { return languagesService.getLanguages(); },
+            success: function (languages) {
+                $scope.isLoading = false;
+                $scope.languages = languages;
+            }
         });
     }
 
@@ -27,7 +18,7 @@
 
     angular.module('app').controller('languagesIndexController', [
         '$scope',
-        '$location',
+        'errorReportingService',
         'progressBarService',
         'languagesService',
         LanguagesIndexController

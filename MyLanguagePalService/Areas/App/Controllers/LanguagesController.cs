@@ -20,13 +20,11 @@ namespace MyLanguagePalService.Areas.App.Controllers
 
         public IEnumerable<LanguageAm> GetAllLanguages()
         {
-            Thread.Sleep(3000);
             return _db.Languages.Select(ToAm).ToList();
         }
 
         public IHttpActionResult GetLanguage(int id)
         {
-            Thread.Sleep(3000);
             var languageDal = _db.Languages.Find(id);
             if (languageDal == null)
             {
