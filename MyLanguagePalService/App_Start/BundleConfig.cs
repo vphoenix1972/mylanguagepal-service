@@ -52,8 +52,7 @@ namespace MyLanguagePalService
                 "~/Content/app/shared/utils.js",
                 "~/Content/app/shared/promiseQueueService.js",
                 "~/Content/app/shared/restService.js",
-                "~/Content/app/app.js",
-                "~/Content/app/services/connectorService.js",
+                "~/Content/app/services/connector/connectorService.js",
                 "~/Content/app/services/errorReporting/errorReportingService.js",
                 "~/Content/app/services/progressBar/progressBarService.js",
                 "~/Content/app/services/languagesService.js",
@@ -61,7 +60,8 @@ namespace MyLanguagePalService
                 "~/Content/app/pages/languages/index/languagesIndexController.js",
                 "~/Content/app/pages/languages/details/languagesDetailsController.js",
                 "~/Content/app/pages/languages/edit/languagesEditController.js",
-                "~/Content/app/pages/languages/delete/languagesDeleteController.js"
+                "~/Content/app/pages/languages/delete/languagesDeleteController.js",
+                "~/Content/app/app.js"
                 ));
 
             // *** Other bundles ***

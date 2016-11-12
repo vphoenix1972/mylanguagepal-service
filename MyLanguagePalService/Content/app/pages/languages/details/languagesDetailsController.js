@@ -17,13 +17,3 @@
 
 LanguagesDetailsController.prototype = Object.create(PageController.prototype);
 LanguagesDetailsController.prototype.constructor = LanguagesDetailsController;
-
-angular.module('app').controller('languagesDetailsController', [
-    '$scope',
-    '$location',
-    '$routeParams',
-    'errorReportingService',
-    'progressBarService',
-    'languagesService',
-    LanguagesDetailsController
-]);

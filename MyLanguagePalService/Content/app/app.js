@@ -40,7 +40,7 @@ app.config(function ($routeProvider) {
 app.service('utils', Utils);
 
 app.service('promiseQueue', [
-    '$q',    
+    '$q',
     PromiseQueueService
 ]);
 
@@ -48,4 +48,54 @@ app.service('restService', [
     '$http',
     'promiseQueue',
     RestService
+]);
+
+/* Register application services */
+app.service('connectorService', [
+    'restService',
+    ConnectorService
+]);
+
+app.service('errorReportingService', [
+    ErrorReportingService
+]);
+
+app.service('progressBarService', [
+    'ngProgressFactory',
+    ProgressBarService
+]);
+
+app.service('languagesService', [
+    'utils',
+    'connectorService',
+    LanguagesService
+]);
+
+/* Register controllers */
+app.controller('languagesIndexController', [
+    '$scope',
+    'errorReportingService',
+    'progressBarService',
+    'languagesService',
+    LanguagesIndexController
+]);
+
+app.controller('languagesDetailsController', [
+    '$scope',
+    '$location',
+    '$routeParams',
+    'errorReportingService',
+    'progressBarService',
+    'languagesService',
+    LanguagesDetailsController
+]);
+
+app.controller('languagesEditController', [
+    '$scope',
+    LanguagesEditController
+]);
+
+app.controller('languagesDeleteController', [
+    '$scope',
+    LanguagesDeleteController
 ]);
