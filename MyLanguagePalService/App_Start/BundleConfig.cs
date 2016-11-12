@@ -34,7 +34,7 @@ namespace MyLanguagePalService
                 "~/Content/deps/angular/ngprogress.css",
                 "~/Content/shared/shared.css",
                 "~/Content/app/core/core.module.css",
-                "~/Content/app/services/progressBar/progressBarService.css",
+                "~/Content/app/services/progressBar/progressBar.service.css",
                 "~/Content/app/pages/shared/page/page.css"));
 
             bundles.Add(new ScriptBundle("~/app/app-js").Include(
@@ -54,18 +54,18 @@ namespace MyLanguagePalService
                 "~/Content/app/core/promiseQueue.js",
                 "~/Content/app/core/rest.js",
                 "~/Content/app/core/customError.js",
+                "~/Content/app/app.module.js",
                 "~/Content/app/services/connector/httpError.js",
                 "~/Content/app/services/connector/networkError.js",
-                "~/Content/app/services/connector/connectorService.js",
-                "~/Content/app/services/errorReporting/errorReportingService.js",
-                "~/Content/app/services/progressBar/progressBarService.js",
-                "~/Content/app/services/languagesService.js",
-                "~/Content/app/pages/shared/page/pageController.js",
-                "~/Content/app/pages/languages/index/languagesIndexController.js",
-                "~/Content/app/pages/languages/details/languagesDetailsController.js",
-                "~/Content/app/pages/languages/edit/languagesEditController.js",
-                "~/Content/app/pages/languages/delete/languagesDeleteController.js",
-                "~/Content/app/app.module.js"
+                "~/Content/app/services/connector/connector.service.js",
+                "~/Content/app/services/errorReporting/errorReporting.service.js",
+                "~/Content/app/services/progressBar/progressBar.service.js",
+                "~/Content/app/services/languages.service.js",
+                "~/Content/app/pages/shared/page/page.controller.js",
+                "~/Content/app/pages/languages/index/languagesIndex.controller.js",
+                "~/Content/app/pages/languages/details/languagesDetails.controller.js",
+                "~/Content/app/pages/languages/edit/languagesEdit.controller.js",
+                "~/Content/app/pages/languages/delete/languagesDelete.controller.js"                
                 ));
 
             // *** Other bundles ***

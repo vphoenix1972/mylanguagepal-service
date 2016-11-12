@@ -1,9 +1,17 @@
-﻿function HttpError(statusCode) {
-    CustomError.call(this, 'HttpError');
-    this.name = 'HttpError';
+﻿(function () {
+    angular
+        .module('app')
+        .factory('HttpErrorType', ['CustomErrorType', function (CustomErrorType) {
+            function HttpError(statusCode) {
+                CustomErrorType.call(this, 'HttpError');
+                this.name = 'HttpError';
 
-    this.statusCode = statusCode;
-}
+                this.statusCode = statusCode;
+            }
 
-HttpError.prototype = Object.create(CustomError.prototype);
-HttpError.prototype.constructor = HttpError;
+            HttpError.prototype = Object.create(CustomErrorType.prototype);
+            HttpError.prototype.constructor = HttpError;
+
+            return HttpError;
+        }]);
+})();
