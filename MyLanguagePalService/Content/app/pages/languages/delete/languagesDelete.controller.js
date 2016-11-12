@@ -1,7 +1,7 @@
 ﻿(function () {
     angular
         .module('app')
-        .controller('languagesEditController', [
+        .controller('languagesDeleteController', [
             '$scope',
             'PageControllerType',
             'errorReportingService',
