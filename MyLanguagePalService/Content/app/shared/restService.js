@@ -1,13 +1,14 @@
-﻿function RestService($http) {
+﻿function RestService($http, promiseQueue) {
     this._$http = $http;
+    this._promiseQueue = promiseQueue;
 }
 
 RestService.prototype.get = function (url) {
     /// <summary>
-    /// Gets the language list.
-    /// Returns a promise:
-    /// resolve(languages): Array of languages.
+    /// Executes GET request.
+    /// Returns a $http.get promise.
     /// </summary>
 
-    return this._$http.get(url);
+    var self = this;
+    return self._promiseQueue.enqueue(function () { return self._$http.get(url); });
 }

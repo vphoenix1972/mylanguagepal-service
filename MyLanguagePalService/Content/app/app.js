@@ -38,7 +38,14 @@ app.config(function ($routeProvider) {
 
 /* Register shared services */
 app.service('utils', Utils);
+
+app.service('promiseQueue', [
+    '$q',    
+    PromiseQueueService
+]);
+
 app.service('restService', [
     '$http',
+    'promiseQueue',
     RestService
 ]);

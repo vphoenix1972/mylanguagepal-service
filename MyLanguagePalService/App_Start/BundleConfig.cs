@@ -50,6 +50,7 @@ namespace MyLanguagePalService
                 "~/Content/deps/angular/ngprogress.js",
                 // App scripts
                 "~/Content/app/shared/utils.js",
+                "~/Content/app/shared/promiseQueueService.js",
                 "~/Content/app/shared/restService.js",
                 "~/Content/app/app.js",
                 "~/Content/app/services/connectorService.js",
