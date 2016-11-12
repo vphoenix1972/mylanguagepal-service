@@ -3,7 +3,8 @@ var app = angular.module('app', [
     'ui.bootstrap',
     'ngRoute',
     'ngAnimate',
-    'ngProgress'
+    'ngProgress',
+    'app.core'
 ]);
 
 /* Setup routes */
@@ -37,25 +38,9 @@ app.config(function ($routeProvider) {
 });
 
 /* Register shared services */
-app.service('utils', Utils);
-
-app.service('promiseQueue', [
-    '$q',
-    PromiseQueueService
-]);
-
-app.service('restService', [
-    '$http',
-    'promiseQueue',
-    RestService
-]);
 
 /* Register application services */
-app.service('connectorService', [
-    '$q',
-    'restService',
-    ConnectorService
-]);
+
 
 app.service('errorReportingService', [
     ErrorReportingService
@@ -96,7 +81,4 @@ app.controller('languagesEditController', [
     LanguagesEditController
 ]);
 
-app.controller('languagesDeleteController', [
-    '$scope',
-    LanguagesDeleteController
-]);
+app.controller('languagesDeleteController', LanguagesDeleteController);

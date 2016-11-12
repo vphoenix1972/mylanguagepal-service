@@ -33,7 +33,7 @@ namespace MyLanguagePalService
                 "~/Content/deps/bootstrap/css/bootstrap.css",
                 "~/Content/deps/angular/ngprogress.css",
                 "~/Content/shared/shared.css",
-                "~/Content/app/shared/app.css",
+                "~/Content/app/core/core.module.css",
                 "~/Content/app/services/progressBar/progressBarService.css",
                 "~/Content/app/pages/shared/page/page.css"));
 
@@ -49,10 +49,11 @@ namespace MyLanguagePalService
                 "~/Content/deps/angular/ui-bootstrap-tpls-2.2.0.js",
                 "~/Content/deps/angular/ngprogress.js",
                 // App scripts
-                "~/Content/app/shared/utils.js",
-                "~/Content/app/shared/promiseQueueService.js",
-                "~/Content/app/shared/restService.js",
-                "~/Content/app/shared/customError.js",
+                "~/Content/app/core/core.module.js",
+                "~/Content/app/core/utils.service.js",
+                "~/Content/app/core/promiseQueue.js",
+                "~/Content/app/core/rest.js",
+                "~/Content/app/core/customError.js",
                 "~/Content/app/services/connector/httpError.js",
                 "~/Content/app/services/connector/networkError.js",
                 "~/Content/app/services/connector/connectorService.js",
@@ -64,7 +65,7 @@ namespace MyLanguagePalService
                 "~/Content/app/pages/languages/details/languagesDetailsController.js",
                 "~/Content/app/pages/languages/edit/languagesEditController.js",
                 "~/Content/app/pages/languages/delete/languagesDeleteController.js",
-                "~/Content/app/app.js"
+                "~/Content/app/app.module.js"
                 ));
 
             // *** Other bundles ***

@@ -257,7 +257,8 @@
     <Compile Include="Areas\Site\Models\Controllers\Phrase\DeleteVm.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\app\app.js" />
+    <Content Include="Content\app\app.module.js" />
+    <Content Include="Content\app\core\core.module.js" />
     <Content Include="Content\app\pages\languages\delete\languagesDelete.tpl.html" />
     <Content Include="Content\app\pages\languages\delete\languagesDeleteController.js" />
     <Content Include="Content\app\pages\languages\details\languagesDetailsController.js" />
@@ -275,11 +276,11 @@
     <Content Include="Content\app\services\languagesService.js" />
     <Content Include="Content\app\services\progressBar\progressBarService.css" />
     <Content Include="Content\app\services\progressBar\progressBarService.js" />
-    <Content Include="Content\app\shared\app.css" />
-    <Content Include="Content\app\shared\customError.js" />
-    <Content Include="Content\app\shared\promiseQueueService.js" />
-    <Content Include="Content\app\shared\restService.js" />
-    <Content Include="Content\app\shared\utils.js" />
+    <Content Include="Content\app\core\core.module.css" />
+    <Content Include="Content\app\core\customError.js" />
+    <Content Include="Content\app\core\promiseQueue.js" />
+    <Content Include="Content\app\core\rest.js" />
+    <Content Include="Content\app\core\utils.service.js" />
     <Content Include="Content\deps\angular\angular-animate.js" />
     <Content Include="Content\deps\angular\angular-route.js" />
     <Content Include="Content\deps\angular\angular-touch.js" />
