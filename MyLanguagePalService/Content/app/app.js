@@ -52,6 +52,7 @@ app.service('restService', [
 
 /* Register application services */
 app.service('connectorService', [
+    '$q',
     'restService',
     ConnectorService
 ]);

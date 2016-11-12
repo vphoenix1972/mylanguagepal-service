@@ -269,11 +269,14 @@
     <Content Include="Content\app\pages\shared\page\page.css" />
     <Content Include="Content\app\pages\shared\page\pageController.js" />
     <Content Include="Content\app\services\connector\connectorService.js" />
+    <Content Include="Content\app\services\connector\httpError.js" />
+    <Content Include="Content\app\services\connector\networkError.js" />
     <Content Include="Content\app\services\errorReporting\errorReportingService.js" />
     <Content Include="Content\app\services\languagesService.js" />
     <Content Include="Content\app\services\progressBar\progressBarService.css" />
     <Content Include="Content\app\services\progressBar\progressBarService.js" />
     <Content Include="Content\app\shared\app.css" />
+    <Content Include="Content\app\shared\customError.js" />
     <Content Include="Content\app\shared\promiseQueueService.js" />
     <Content Include="Content\app\shared\restService.js" />
     <Content Include="Content\app\shared\utils.js" />
