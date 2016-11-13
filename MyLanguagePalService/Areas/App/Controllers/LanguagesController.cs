@@ -58,6 +58,21 @@ namespace MyLanguagePalService.Areas.App.Controllers
             return Ok();
         }
 
+        [HttpDelete]
+        public IHttpActionResult DeleteLanguage(int id)
+        {
+            var languageDal = _db.Languages.Find(id);
+            if (languageDal == null)
+            {
+                return NotFound();
+            }
+
+            _db.Languages.Remove(languageDal);
+            _db.SaveChanges();
+            
+            return Ok();
+        }
+
         private LanguagesApiAm ToAm(LanguageDal languageDal)
         {
             return new LanguagesApiAm()

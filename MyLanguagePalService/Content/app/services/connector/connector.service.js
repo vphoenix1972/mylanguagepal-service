@@ -23,6 +23,11 @@
         return self._postAndHandle422('/api/languages', language);
     }
 
+    ConnectorService.prototype.deleteLanguage = function (id) {
+        var self = this;
+        return self._delete('/api/languages/' + id);
+    }
+
     /* Private */
 
     ConnectorService.prototype._get = function (url) {
