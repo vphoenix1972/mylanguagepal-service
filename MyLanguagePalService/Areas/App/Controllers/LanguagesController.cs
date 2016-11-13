@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
 using MyLanguagePalService.Areas.App.Models.Controller.LanguagesApi;
@@ -17,11 +18,13 @@ namespace MyLanguagePalService.Areas.App.Controllers
             _db = new ApplicationDbContext();
         }
 
+        [HttpGet]
         public IEnumerable<LanguagesApiAm> GetAllLanguages()
         {
             return _db.Languages.Select(ToAm).ToList();
         }
 
+        [HttpGet]
         public IHttpActionResult GetLanguage(int id)
         {
             var languageDal = _db.Languages.Find(id);
@@ -36,17 +39,9 @@ namespace MyLanguagePalService.Areas.App.Controllers
         public IHttpActionResult CreateLanguage(LanguagesApiCreateIm im)
         {
             /* Validation */
-            if (im == null)
-            {
-                ModelState.AddModelError("Language", "Language cannot be null");
-                return BadRequest(ModelState);
-            }
-
-            if (string.IsNullOrWhiteSpace(im.Name))
-            {
-                ModelState.AddModelError(nameof(LanguagesApiCreateIm.Name), "Language name cannot be empty");
-                return UnprocessableEntity(ModelState);
-            }
+            IHttpActionResult actionResult;
+            if (ValidateLanguageIm(im, out actionResult))
+                return actionResult;
 
             /* Create a language */
             _db.Languages.Add(new LanguageDal()
@@ -58,19 +53,66 @@ namespace MyLanguagePalService.Areas.App.Controllers
             return Ok();
         }
 
-        [HttpDelete]
-        public IHttpActionResult DeleteLanguage(int id)
+        [HttpPut]
+        public IHttpActionResult UpdateLanguage(int id, LanguagesApiCreateIm im)
         {
+            /* Validation */
             var languageDal = _db.Languages.Find(id);
             if (languageDal == null)
             {
                 return NotFound();
             }
 
+            IHttpActionResult actionResult;
+            if (ValidateLanguageIm(im, out actionResult))
+                return actionResult;
+
+            /* Update the language */
+            languageDal.Name = im.Name;
+
+            _db.Entry(languageDal).State = EntityState.Modified;
+            _db.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        public IHttpActionResult DeleteLanguage(int id)
+        {
+            /* Validation */
+            var languageDal = _db.Languages.Find(id);
+            if (languageDal == null)
+            {
+                return NotFound();
+            }
+
+            /* Delete the language */
             _db.Languages.Remove(languageDal);
             _db.SaveChanges();
-            
+
             return Ok();
+        }
+
+        private bool ValidateLanguageIm(LanguagesApiCreateIm im, out IHttpActionResult actionResult)
+        {
+            if (im == null)
+            {
+                ModelState.AddModelError("Language", "Language cannot be null");
+
+                actionResult = BadRequest(ModelState);
+                return true;
+            }
+
+            if (string.IsNullOrWhiteSpace(im.Name))
+            {
+                ModelState.AddModelError(nameof(LanguagesApiCreateIm.Name), "Language name cannot be empty");
+
+                actionResult = UnprocessableEntity(ModelState);
+                return true;
+            }
+
+            actionResult = null;
+            return false;
         }
 
         private LanguagesApiAm ToAm(LanguageDal languageDal)

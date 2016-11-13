@@ -18,6 +18,12 @@
         return this._connector.createLanguage(language);
     }
 
+    LanguagesService.prototype.updateLanguage = function (id, language) {
+        id = this._utils.parseIntOrThrow(id, 'id');
+
+        return this._connector.updateLanguage(id, language);
+    }
+
     LanguagesService.prototype.deleteLanguage = function (id) {
         id = this._utils.parseIntOrThrow(id, 'id');
 
