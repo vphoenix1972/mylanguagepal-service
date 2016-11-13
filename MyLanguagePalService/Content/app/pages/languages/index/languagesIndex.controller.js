@@ -1,7 +1,6 @@
 ﻿(function () {
-    function LanguagesIndexController($scope, PageControllerType, errorReportingService, progressBarService, languagesService) {
-        this.prototype = PageControllerType.prototype;
-        PageControllerType.call(this, $scope, errorReportingService, progressBarService);
+    function LanguagesIndexController($scope, errorReportingService, progressBarService, languagesService) {
+        PageController.call(this, $scope, errorReportingService, progressBarService);
 
         $scope.languages = [];
 
@@ -14,11 +13,13 @@
         });
     }
 
+    LanguagesIndexController.prototype = Object.create(PageController.prototype);
+    LanguagesIndexController.prototype.constructor = LanguagesIndexController;
+
     angular
         .module('app')
         .controller('languagesIndexController', [
-            '$scope',
-            'PageControllerType',
+            '$scope',            
             'errorReportingService',
             'progressBarService',
             'languagesService',

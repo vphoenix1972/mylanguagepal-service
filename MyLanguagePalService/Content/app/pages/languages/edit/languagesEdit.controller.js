@@ -1,19 +1,20 @@
 ﻿(function () {
+    function LanguagesEditController($scope, errorReportingService, progressBarService, languagesService) {
+        PageController.call(this, $scope, errorReportingService, progressBarService);
+
+        $scope.language = { id: 1, name: 'english' };
+    }
+
+    LanguagesEditController.prototype = Object.create(PageController.prototype);
+    LanguagesEditController.prototype.constructor = LanguagesEditController;
+
     angular
         .module('app')
         .controller('languagesEditController', [
-            '$scope',
-            'PageControllerType',
+            '$scope',            
             'errorReportingService',
             'progressBarService',
             'languagesService',
-            function ($scope, PageControllerType, errorReportingService, progressBarService, languagesService) {
-                function LanguagesEditController() {
-                    PageControllerType.call(this, $scope, errorReportingService, progressBarService);
-
-                    $scope.language = { id: 1, name: 'english' };
-                }
-
-                return LanguagesEditController;
-            }]);
+            LanguagesEditController
+        ]);
 })();

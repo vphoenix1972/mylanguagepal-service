@@ -1,6 +1,6 @@
 ﻿(function () {
-    function LanguagesDetailsController($scope, $routeParams, PageControllerType, errorReportingService, progressBarService, languagesService) {
-        PageControllerType.call(this, $scope, errorReportingService, progressBarService);
+    function LanguagesDetailsController($scope, $routeParams, errorReportingService, progressBarService, languagesService) {
+        PageController.call(this, $scope, errorReportingService, progressBarService);
 
         $scope.language = {};
 
@@ -16,12 +16,14 @@
         });
     }
 
+    LanguagesDetailsController.prototype = Object.create(PageController.prototype);
+    LanguagesDetailsController.prototype.constructor = LanguagesDetailsController;
+
     angular
         .module('app')
         .controller('languagesDetailsController', [
             '$scope',
-            '$routeParams',
-            'PageControllerType',
+            '$routeParams',            
             'errorReportingService',
             'progressBarService',
             'languagesService',
