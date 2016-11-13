@@ -2,13 +2,15 @@
     function LanguagesIndexController($scope, errorReportingService, progressBarService, languagesService) {
         PageController.call(this, $scope, errorReportingService, progressBarService);
 
-        $scope.languages = [];
+        var self = this;
+
+        self.languages = [];
 
         this.asyncRequest({
             request: function () { return languagesService.getLanguages(); },
-            success: function (languages) {
-                $scope.isLoading = false;
-                $scope.languages = languages;
+            success: function (result) {
+                self.isLoading = false;
+                self.languages = result.data;
             }
         });
     }

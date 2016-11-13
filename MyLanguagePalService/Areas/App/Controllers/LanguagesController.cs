@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Web.Http;
-using MyLanguagePalService.Areas.App.Models.Controller.Languages;
+using MyLanguagePalService.Areas.App.Models.Controller.LanguagesApi;
 using MyLanguagePalService.Core;
 using MyLanguagePalService.DAL;
 using MyLanguagePalService.DAL.Models;
 
 namespace MyLanguagePalService.Areas.App.Controllers
-{    
+{
     public class LanguagesController : WebApiControllerBase
     {
         private readonly IApplicationDbContext _db;
@@ -18,7 +17,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
             _db = new ApplicationDbContext();
         }
 
-        public IEnumerable<LanguageAm> GetAllLanguages()
+        public IEnumerable<LanguagesApiAm> GetAllLanguages()
         {
             return _db.Languages.Select(ToAm).ToList();
         }
@@ -33,9 +32,35 @@ namespace MyLanguagePalService.Areas.App.Controllers
             return Ok(ToAm(languageDal));
         }
 
-        private LanguageAm ToAm(LanguageDal languageDal)
+        [HttpPost]
+        public IHttpActionResult CreateLanguage(LanguagesApiCreateIm im)
         {
-            return new LanguageAm()
+            /* Validation */
+            if (im == null)
+            {
+                ModelState.AddModelError("Language", "Language cannot be null");
+                return BadRequest(ModelState);
+            }
+
+            if (string.IsNullOrWhiteSpace(im.Name))
+            {
+                ModelState.AddModelError(nameof(LanguagesApiCreateIm.Name), "Language name cannot be empty");
+                return UnprocessableEntity(ModelState);
+            }
+
+            /* Create a language */
+            _db.Languages.Add(new LanguageDal()
+            {
+                Name = im.Name
+            });
+            _db.SaveChanges();
+
+            return Ok();
+        }
+
+        private LanguagesApiAm ToAm(LanguageDal languageDal)
+        {
+            return new LanguagesApiAm()
             {
                 Id = languageDal.Id,
                 Name = languageDal.Name

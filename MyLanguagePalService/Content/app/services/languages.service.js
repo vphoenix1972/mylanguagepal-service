@@ -14,6 +14,10 @@
         return this._connector.getLanguage(id);
     }
 
+    LanguagesService.prototype.createLanguage = function (language) {
+        return this._connector.createLanguage(language);
+    }
+
     angular.module('app').service('languagesService', [
         'utils',
         'connectorService',

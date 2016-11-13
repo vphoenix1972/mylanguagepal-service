@@ -8,7 +8,7 @@
 
         self._userHasLeftThePage = false;
 
-        self._$scope.isLoading = true;
+        self.isLoading = true;
 
         // Subscribe to route change event
         $scope.$on('$routeChangeStart', function () {

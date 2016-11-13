@@ -22,19 +22,23 @@
         })
         .when('/languages', {
             templateUrl: '/Content/app/pages/languages/index/languagesIndex.tpl.html',
-            controller: 'languagesIndexController'
+            controller: 'languagesIndexController as vm'
         })
         .when('/languages/details/:languageId', {
             templateUrl: '/Content/app/pages/languages/details/languagesDetails.tpl.html',
-            controller: 'languagesDetailsController'
+            controller: 'languagesDetailsController as vm'
+        })
+        .when('/languages/create', {
+            templateUrl: '/Content/app/pages/languages/edit/languagesEdit.tpl.html',
+            controller: 'languagesEditController as vm'
         })
         .when('/languages/edit/:languageId', {
             templateUrl: '/Content/app/pages/languages/edit/languagesEdit.tpl.html',
-            controller: 'languagesEditController'
+            controller: 'languagesEditController as vm'
         })
         .when('/languages/delete/:languageId', {
             templateUrl: '/Content/app/pages/languages/delete/languagesDelete.tpl.html',
-            controller: 'languagesDeleteController'
+            controller: 'languagesDeleteController as vm'
         });
     });
 })();

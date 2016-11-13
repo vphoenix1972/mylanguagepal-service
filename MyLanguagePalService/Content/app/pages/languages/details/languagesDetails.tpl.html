@@ -1,4 +1,4 @@
-﻿<div class="b-page" ng-hide="isLoading">
+﻿<div class="b-page" ng-hide="vm.isLoading">
     <h2>Details</h2>
 
     <div>
@@ -10,13 +10,13 @@
             </dt>
 
             <dd>
-                {{language.name}}
+                {{vm.language.name}}
             </dd>
 
         </dl>
     </div>
     <p>
-        <a href="#languages/edit/{{language.id}}">Edit</a> |
+        <a href="#languages/edit/{{vm.language.id}}">Edit</a> |
         <a href="#languages">Back to List</a>
     </p>
 </div>

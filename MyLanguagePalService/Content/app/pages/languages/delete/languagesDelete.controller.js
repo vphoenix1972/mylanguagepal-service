@@ -2,7 +2,8 @@
     function LanguagesDeleteController($scope, errorReportingService, progressBarService, languagesService) {
         PageController.call(this, $scope, errorReportingService, progressBarService);
 
-        $scope.language = { id: 1, name: 'english' };
+        var self = this;
+        self.language = { id: 1, name: 'english' };
     }
 
     LanguagesDeleteController.prototype = Object.create(PageController.prototype);

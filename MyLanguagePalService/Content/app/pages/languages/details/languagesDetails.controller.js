@@ -2,13 +2,15 @@
     function LanguagesDetailsController($scope, $routeParams, errorReportingService, progressBarService, languagesService) {
         PageController.call(this, $scope, errorReportingService, progressBarService);
 
-        $scope.language = {};
+        var self = this;
 
-        this.asyncRequest({
+        self.language = {};        
+
+        self.asyncRequest({
             request: function () { return languagesService.getLanguage($routeParams.languageId); },
-            success: function (language) {
-                $scope.isLoading = false;
-                $scope.language = language;
+            success: function (result) {
+                self.isLoading = false;
+                self.language = result.data;
             },
             error: function () {
                 $location.path('/languages');

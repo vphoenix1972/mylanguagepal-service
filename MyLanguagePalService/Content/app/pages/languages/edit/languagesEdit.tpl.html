@@ -1,25 +1,27 @@
-﻿<h2>Edit</h2>
+﻿<div class="b-page" ng-hide="vm.isLoading">
+    <h2>{{vm.isNew ? 'Create' : 'Edit'}}</h2>
 
 
-<div class="form-horizontal">
-    <h4>Language</h4>
-    <hr />
+    <div class="form-horizontal">
+        <h4>Language</h4>
+        <hr />
 
-    <div class="form-group">
-        <label class="control-label col-md-2">Language:</label>
-        <div class="col-md-10">
-            <input type="text" class="form-control" />
-            <span class="text-danger"></span>
+        <div class="form-group">
+            <label class="control-label col-md-2">Language:</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" ng-model="vm.languageName" />
+                <span class="text-danger">{{vm.languageNameValidationError}}</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" ng-click="vm.saveLanguage()" />
+            </div>
         </div>
     </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
+    <div>
+        <a href="#languages">Back to List</a>
     </div>
-</div>
-
-<div>
-    <a href="#languages">Back to List</a>
 </div>

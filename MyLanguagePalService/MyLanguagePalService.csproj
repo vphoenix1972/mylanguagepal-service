@@ -214,7 +214,8 @@
     <Compile Include="Areas\App\Controllers\MainController.cs" />
     <Compile Include="Areas\App\Controllers\LanguagesController.cs" />
     <Compile Include="Areas\App\Controllers\TestApiController.cs" />
-    <Compile Include="Areas\App\Models\Controller\Languages\LanguageAm.cs" />
+    <Compile Include="Areas\App\Models\Controller\LanguagesApi\LanguagesApiAm.cs" />
+    <Compile Include="Areas\App\Models\Controller\LanguagesApi\LanguagesApiCreateIm.cs" />
     <Compile Include="Areas\Other\OtherAreaRegistration.cs" />
     <Compile Include="Areas\Site\SiteAreaRegistration.cs" />
     <Compile Include="Areas\Site\Controllers\AboutController.cs" />
@@ -270,8 +271,10 @@
     <Content Include="Content\app\pages\shared\page\page.css" />
     <Content Include="Content\app\pages\shared\page\page.controller.js" />
     <Content Include="Content\app\services\connector\connector.service.js" />
+    <Content Include="Content\app\services\connector\connectorResult.js" />
     <Content Include="Content\app\services\connector\httpError.js" />
     <Content Include="Content\app\services\connector\networkError.js" />
+    <Content Include="Content\app\services\connector\validationResult.js" />
     <Content Include="Content\app\services\errorReporting\errorReporting.service.js" />
     <Content Include="Content\app\services\languages.service.js" />
     <Content Include="Content\app\services\progressBar\progressBar.service.css" />

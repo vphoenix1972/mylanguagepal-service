@@ -57,6 +57,8 @@ namespace MyLanguagePalService
                 "~/Content/app/app.module.js",
                 "~/Content/app/services/connector/httpError.js",
                 "~/Content/app/services/connector/networkError.js",
+                "~/Content/app/services/connector/connectorResult.js",
+                "~/Content/app/services/connector/validationResult.js",
                 "~/Content/app/services/connector/connector.service.js",
                 "~/Content/app/services/errorReporting/errorReporting.service.js",
                 "~/Content/app/services/progressBar/progressBar.service.js",
