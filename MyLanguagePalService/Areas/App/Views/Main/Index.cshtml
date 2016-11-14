@@ -42,6 +42,10 @@
         </footer>
     </div>
 
+    @* Config *@
+    @Html.AntiForgeryToken()
+
+    @* App scripts *@
     @Scripts.Render("~/app/app-js")
 </body>
 </html>

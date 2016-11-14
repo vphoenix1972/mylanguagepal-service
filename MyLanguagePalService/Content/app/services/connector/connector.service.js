@@ -1,9 +1,11 @@
 ﻿(function () {
-    function ConnectorService($q, rest) {
+    function ConnectorService($q, config, rest) {
         var self = this;
 
         self._$q = $q;
+
         self._restService = rest;
+        self._restService.setAntiForgeryToken(config.antiForgeryToken);
     }
 
     /* Public */
@@ -122,6 +124,7 @@
 
     angular.module('app').service('connectorService', [
         '$q',
+        'config',
         'rest',
         ConnectorService
     ]);

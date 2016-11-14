@@ -1,7 +1,10 @@
 ﻿(function () {
     function Rest($http, promiseQueue) {
-        this._$http = $http;
-        this._promiseQueue = promiseQueue;
+        var self = this;
+
+        self._$http = $http;
+        self._promiseQueue = promiseQueue;
+        self._requestConfig = {};
     }
 
     Rest.prototype.get = function (url) {
@@ -11,7 +14,7 @@
         /// </summary>
 
         var self = this;
-        return self._promiseQueue.enqueue(function () { return self._$http.get(url); });
+        return self._promiseQueue.enqueue(function () { return self._$http.get(url, self._requestConfig); });
     }
 
     Rest.prototype.post = function (url, data) {
@@ -21,7 +24,7 @@
         /// </summary>
 
         var self = this;
-        return self._promiseQueue.enqueue(function () { return self._$http.post(url, data); });
+        return self._promiseQueue.enqueue(function () { return self._$http.post(url, data, self._requestConfig); });
     }
 
     Rest.prototype.put = function (url, data) {
@@ -31,17 +34,27 @@
         /// </summary>
 
         var self = this;
-        return self._promiseQueue.enqueue(function () { return self._$http.put(url, data); });
+        return self._promiseQueue.enqueue(function () { return self._$http.put(url, data, self._requestConfig); });
     }
 
-    Rest.prototype.delete = function (url, data) {
+    Rest.prototype.delete = function (url) {
         /// <summary>
         /// Executes DELETE request.
         /// Returns a $http.delete promise.
         /// </summary>
 
         var self = this;
-        return self._promiseQueue.enqueue(function () { return self._$http.delete(url, data); });
+        return self._promiseQueue.enqueue(function () { return self._$http.delete(url, self._requestConfig); });
+    }
+
+    Rest.prototype.setAntiForgeryToken = function (token) {
+        var self = this;
+
+        if (angular.isString(token)) {
+            self._requestConfig.headers = { 'X-XSRF-Token': token };
+        } else {
+            self._requestConfig.headers = undefined;
+        }
     }
 
     Rest.$inject = ['$http', 'promiseQueue'];

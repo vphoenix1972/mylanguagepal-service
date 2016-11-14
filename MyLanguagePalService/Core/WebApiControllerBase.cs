@@ -6,6 +6,7 @@ using System.Web.Http.ModelBinding;
 namespace MyLanguagePalService.Core
 {
     [AddResponseHeader(headerName: WebApiHeaderName, headerValue: "true")]
+    [ValidateAntiForgeryToken]
     public abstract class WebApiControllerBase : ApiController
     {
         public const string WebApiHeaderName = "X-Web-Api";
