@@ -8,8 +8,9 @@
         self._restService.setAntiForgeryToken(config.antiForgeryToken);
     }
 
-    /* Public */
+    /* *** Public *** */
 
+    /* Languages */
     ConnectorService.prototype.getLanguages = function () {
         var self = this;
         return self._get('/api/languages');
@@ -35,7 +36,33 @@
         return self._delete('/api/languages/' + id);
     }
 
-    /* Private */
+    /* Phrases */
+    ConnectorService.prototype.getPhrases = function () {
+        var self = this;
+        return self._get('/api/phrases');
+    }
+
+    ConnectorService.prototype.getPhrase = function (id) {
+        var self = this;
+        return self._get('/api/phrases/' + id);
+    }
+
+    ConnectorService.prototype.createPhrase = function (phrase) {
+        var self = this;
+        return self._postAndHandle422('/api/phrases', phrase);
+    }
+
+    ConnectorService.prototype.updatePhrase = function (id, phrase) {
+        var self = this;
+        return self._putAndHandle422('/api/phrases/' + id, phrase);
+    }
+
+    ConnectorService.prototype.deletePhrase = function (id) {
+        var self = this;
+        return self._delete('/api/phrases/' + id);
+    }
+
+    /* *** Private *** */
 
     ConnectorService.prototype._get = function (url) {
         var self = this;

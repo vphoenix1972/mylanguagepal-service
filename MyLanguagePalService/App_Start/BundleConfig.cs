@@ -30,16 +30,25 @@ namespace MyLanguagePalService
 
             // *** App bundles ***
             bundles.Add(new StyleBundle("~/app/app-css").Include(
+                /* Deps */
                 "~/Content/deps/bootstrap/css/bootstrap.css",
                 "~/Content/deps/angular/ngprogress.css",
+
+                /* Shared site styles */
                 "~/Content/shared/shared.css",
+
+                /* Core */
                 "~/Content/app/core/core.module.css",
-                "~/Content/app/services/progressBar/progressBar.service.css",
+
+                /* Pages */
+                
+                // Shared
+                "~/Content/app/pages/shared/services/progressBar/progressBar.service.css",
                 "~/Content/app/pages/shared/page/page.css",
                 "~/Content/app/pages/shared/directives/textInput/textInput.directive.css"));
 
             bundles.Add(new ScriptBundle("~/app/app-js").Include(
-                // Deps
+                /* Deps */
                 "~/Content/deps/jquery/jquery-3.1.0.js",
                 "~/Content/deps/bootstrap/js/bootstrap.js",
                 "~/Content/deps/respond.js",
@@ -49,28 +58,46 @@ namespace MyLanguagePalService
                 "~/Content/deps/angular/angular-touch.js",
                 "~/Content/deps/angular/ui-bootstrap-tpls-2.2.0.js",
                 "~/Content/deps/angular/ngprogress.js",
-                // App scripts
+
+                /* Core */
                 "~/Content/app/core/core.module.js",
                 "~/Content/app/core/utils.service.js",
                 "~/Content/app/core/promiseQueue.js",
                 "~/Content/app/core/rest.js",
                 "~/Content/app/core/customError.js",
+                "~/Content/app/core/stringExtensions.js",
+
+                /* Pages */
                 "~/Content/app/app.module.js",
-                "~/Content/app/services/config.service.js",
-                "~/Content/app/services/connector/httpError.js",
-                "~/Content/app/services/connector/networkError.js",
-                "~/Content/app/services/connector/connectorResult.js",
-                "~/Content/app/services/connector/validationResult.js",
-                "~/Content/app/services/connector/connector.service.js",
-                "~/Content/app/services/errorReporting/errorReporting.service.js",
-                "~/Content/app/services/progressBar/progressBar.service.js",
-                "~/Content/app/services/languages.service.js",
+
+                // Shared
+                "~/Content/app/pages/shared/services/config.service.js",
+                "~/Content/app/pages/shared/services/connector/httpError.js",
+                "~/Content/app/pages/shared/services/connector/networkError.js",
+                "~/Content/app/pages/shared/services/connector/connectorResult.js",
+                "~/Content/app/pages/shared/services/connector/validationResult.js",
+                "~/Content/app/pages/shared/services/connector/connector.service.js",
+                "~/Content/app/pages/shared/services/errorReporting/errorReporting.service.js",
+                "~/Content/app/pages/shared/services/progressBar/progressBar.service.js",
+                
                 "~/Content/app/pages/shared/page/page.controller.js",
                 "~/Content/app/pages/shared/directives/textInput/textInput.directive.js",
+
+                // Languages
+                "~/Content/app/pages/languages/languages.service.js",
+                "~/Content/app/pages/languages/languages.routes.js",
                 "~/Content/app/pages/languages/index/languagesIndex.controller.js",
                 "~/Content/app/pages/languages/details/languagesDetails.controller.js",
                 "~/Content/app/pages/languages/edit/languagesEdit.controller.js",
-                "~/Content/app/pages/languages/delete/languagesDelete.controller.js"                
+                "~/Content/app/pages/languages/delete/languagesDelete.controller.js",
+
+                // Phrases
+                "~/Content/app/pages/phrases/phrases.service.js",
+                "~/Content/app/pages/phrases/phrases.routes.js",
+                "~/Content/app/pages/phrases/index/phrasesIndex.controller.js",
+                "~/Content/app/pages/phrases/details/phrasesDetails.controller.js",
+                "~/Content/app/pages/phrases/edit/phrasesEdit.controller.js",
+                "~/Content/app/pages/phrases/delete/phrasesDelete.controller.js"
                 ));
 
             // *** Other bundles ***

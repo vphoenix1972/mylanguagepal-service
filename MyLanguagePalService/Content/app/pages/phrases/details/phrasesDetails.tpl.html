@@ -1,0 +1,22 @@
+﻿<div class="b-page" ng-hide="vm.isLoading">
+    <h2>Details</h2>
+
+    <div>
+        <h4>Phrase</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                {{vm.phrase.text}}
+            </dt>
+
+            <dd>
+                {{vm.phrase.translations}}
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        <a href="#phrases/edit/{{vm.phrase.id}}">Edit</a> |
+        <a href="#phrases">Back to List</a>
+    </p>
+</div>

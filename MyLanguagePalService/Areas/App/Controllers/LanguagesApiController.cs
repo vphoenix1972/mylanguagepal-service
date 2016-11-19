@@ -9,21 +9,24 @@ using MyLanguagePalService.DAL.Models;
 
 namespace MyLanguagePalService.Areas.App.Controllers
 {
-    public class LanguagesController : WebApiControllerBase
+    [RoutePrefix("api/languages")]
+    public class LanguagesApiController : WebApiControllerBase
     {
         private readonly IApplicationDbContext _db;
 
-        public LanguagesController()
+        public LanguagesApiController()
         {
             _db = new ApplicationDbContext();
         }
 
+        [Route("")]
         [HttpGet]
         public IEnumerable<LanguagesApiAm> GetAllLanguages()
         {
             return _db.Languages.Select(ToAm).ToList();
         }
 
+        [Route("{id:int}")]
         [HttpGet]
         public IHttpActionResult GetLanguage(int id)
         {
@@ -35,6 +38,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
             return Ok(ToAm(languageDal));
         }
 
+        [Route("")]
         [HttpPost]
         public IHttpActionResult CreateLanguage(LanguagesApiCreateIm im)
         {
@@ -53,6 +57,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
             return Ok();
         }
 
+        [Route("{id:int}")]
         [HttpPut]
         public IHttpActionResult UpdateLanguage(int id, LanguagesApiCreateIm im)
         {
@@ -76,6 +81,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
             return Ok();
         }
 
+        [Route("{id:int}")]
         [HttpDelete]
         public IHttpActionResult DeleteLanguage(int id)
         {

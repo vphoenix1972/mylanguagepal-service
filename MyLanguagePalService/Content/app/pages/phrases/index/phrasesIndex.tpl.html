@@ -1,0 +1,27 @@
+﻿<div class="b-page" ng-hide="vm.isLoading">
+    <h2>Phrases</h2>
+
+    <p>
+        <a href="#phrases/create">Create New</a>
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                Phrase
+            </th>
+            <th></th>
+        </tr>
+
+        <tr ng-repeat="phrase in vm.phrases">
+            <td>
+                {{phrase.text}}
+            </td>
+            <td>
+                <a href="#phrases/edit/{{phrase.id}}">Edit</a> |
+                <a href="#phrases/details/{{phrase.id}}">Details</a> |
+                <a href="#phrases/delete/{{phrase.id}}">Delete</a>
+            </td>
+        </tr>
+
+    </table>
+</div>

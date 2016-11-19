@@ -15,7 +15,7 @@
                 controller: TextInputDirectiveController,
                 controllerAs: 'vm',
                 bindToController: true,
-                templateUrl: '/Content/app/pages/shared/directives/textInput/textInput.directive.html'
+                templateUrl: '/Content/app/pages/shared/directives/textInput/textInput.tpl.html'
             };
         });
 })();

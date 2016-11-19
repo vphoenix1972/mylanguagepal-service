@@ -1,0 +1,49 @@
+﻿<div class="b-page" ng-hide="vm.isLoading">
+    <h2>{{vm.isNew ? 'Create' : 'Edit'}}</h2>
+
+    <div class="form-horizontal">
+        <h4>Language</h4>
+        <hr />
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Phrase:</label>
+            <div class="col-md-4">
+                <text-input text="vm.text" validation-message="{{vm.textValidationError}}"></text-input>
+            </div>
+            <div class="col-md-6">
+                <div class="btn-group" data-toggle="buttons" ng-if="vm.isNew">
+                    <label class="btn btn-default" ng-model="vm.languageId" uib-btn-radio="1">
+                        English
+                    </label>
+                    <label class="btn btn-default" ng-model="vm.languageId" uib-btn-radio="2">
+                        Русский
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Translations:</label>
+            <div class="col-md-10">
+                <text-input text="vm.translations" validation-message="{{vm.translationsValidationError}}"></text-input>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Synonims:</label>
+            <div class="col-md-10">
+                <text-input></text-input>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" ng-click="vm.save()" />
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <a href="#phrases">Back to List</a>
+    </div>
+</div>
