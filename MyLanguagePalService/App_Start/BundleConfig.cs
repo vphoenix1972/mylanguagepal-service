@@ -35,7 +35,8 @@ namespace MyLanguagePalService
                 "~/Content/shared/shared.css",
                 "~/Content/app/core/core.module.css",
                 "~/Content/app/services/progressBar/progressBar.service.css",
-                "~/Content/app/pages/shared/page/page.css"));
+                "~/Content/app/pages/shared/page/page.css",
+                "~/Content/app/pages/shared/directives/textInput/textInput.directive.css"));
 
             bundles.Add(new ScriptBundle("~/app/app-js").Include(
                 // Deps
@@ -65,6 +66,7 @@ namespace MyLanguagePalService
                 "~/Content/app/services/progressBar/progressBar.service.js",
                 "~/Content/app/services/languages.service.js",
                 "~/Content/app/pages/shared/page/page.controller.js",
+                "~/Content/app/pages/shared/directives/textInput/textInput.directive.js",
                 "~/Content/app/pages/languages/index/languagesIndex.controller.js",
                 "~/Content/app/pages/languages/details/languagesDetails.controller.js",
                 "~/Content/app/pages/languages/edit/languagesEdit.controller.js",

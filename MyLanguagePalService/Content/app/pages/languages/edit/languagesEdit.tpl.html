@@ -1,7 +1,6 @@
 ﻿<div class="b-page" ng-hide="vm.isLoading">
     <h2>{{vm.isNew ? 'Create' : 'Edit'}}</h2>
 
-
     <div class="form-horizontal">
         <h4>Language</h4>
         <hr />
@@ -9,8 +8,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Language:</label>
             <div class="col-md-10">
-                <input type="text" class="form-control" ng-model="vm.languageName" />
-                <span class="text-danger">{{vm.languageNameValidationError}}</span>
+                <text-input text="vm.languageName" validation-message="{{vm.languageNameValidationError}}"></text-input>
             </div>
         </div>
 

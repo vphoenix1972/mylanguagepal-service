@@ -269,6 +269,9 @@
     <Content Include="Content\app\pages\languages\index\languagesIndex.tpl.html" />
     <Content Include="Content\app\pages\languages\index\languagesIndex.controller.js" />
     <Content Include="Content\app\pages\phrases\phrases.html" />
+    <Content Include="Content\app\pages\shared\directives\textInput\textInput.directive.html" />
+    <Content Include="Content\app\pages\shared\directives\textInput\textInput.directive.css" />
+    <Content Include="Content\app\pages\shared\directives\textInput\textInput.directive.js" />
     <Content Include="Content\app\pages\shared\page\page.css" />
     <Content Include="Content\app\pages\shared\page\page.controller.js" />
     <Content Include="Content\app\services\config.service.js" />
