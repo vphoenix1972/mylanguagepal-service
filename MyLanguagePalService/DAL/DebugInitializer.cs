@@ -29,29 +29,40 @@ namespace MyLanguagePalService.DAL
                 new PhraseDal() { Text = "говорить", Language = languages[1] },
             };
 
-            phrases[0].Translations = new List<PhraseDal>()
+            var translations = new List<TranslationDal>
             {
-                phrases[2]
-            };
-            phrases[2].Translations = new List<PhraseDal>()
-            {
-                phrases[0]
-            };
-            phrases[1].Translations = new List<PhraseDal>()
-            {
-                phrases[3],
-                phrases[4],
-            };
-            phrases[3].Translations = new List<PhraseDal>()
-            {
-                phrases[1]
-            };
-            phrases[4].Translations = new List<PhraseDal>()
-            {
-                phrases[1]
+                new TranslationDal() { ForPhrase = phrases[0], TranslationPhrase = phrases[2], Prevalence = 4 },
+                //new TranslationDal() { ForPhrase = phrases[2], TranslationPhrase = phrases[0], Prevalence = 4 },
+                new TranslationDal() { ForPhrase = phrases[1], TranslationPhrase = phrases[3], Prevalence = 4 },
+                new TranslationDal() { ForPhrase = phrases[1], TranslationPhrase = phrases[4], Prevalence = 2 },
+                //new TranslationDal() { ForPhrase = phrases[3], TranslationPhrase = phrases[1], Prevalence = 4 },
+                //new TranslationDal() { ForPhrase = phrases[4], TranslationPhrase = phrases[1], Prevalence = 2 }                
             };
 
+            //phrases[0].Translations = new List<PhraseDal>()
+            //{
+            //    phrases[2]
+            //};
+            //phrases[2].Translations = new List<PhraseDal>()
+            //{
+            //    phrases[0]
+            //};
+            //phrases[1].Translations = new List<PhraseDal>()
+            //{
+            //    phrases[3],
+            //    phrases[4],
+            //};
+            //phrases[3].Translations = new List<PhraseDal>()
+            //{
+            //    phrases[1]
+            //};
+            //phrases[4].Translations = new List<PhraseDal>()
+            //{
+            //    phrases[1]
+            //};
+
             phrases.ForEach(phrase => context.Phrases.Add(phrase));
+            translations.ForEach(translation => context.Translations.Add(translation));
 
             context.SaveChanges();
         }

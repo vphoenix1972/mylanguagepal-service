@@ -87,7 +87,9 @@
 
         self.languageId = dto.languageId;
         self.text = dto.text;
-        self.translations = dto.translations.join(', ');
+        self.translations = dto.translations
+            .map(function (t) { return t.text; })
+            .join(', ');;
     }
 
     PhrasesEditController.prototype._toPhraseDto = function () {

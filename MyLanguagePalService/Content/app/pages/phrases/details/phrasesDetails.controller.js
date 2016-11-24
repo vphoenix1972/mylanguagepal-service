@@ -4,21 +4,20 @@
 
         var self = this;
 
-        self.phrase = {
-            id: $routeParams.phraseId,
-            text: '',
-            translations: ''
-        };
+        self.id = $routeParams.phraseId;
+        self.text = '';
+        self.translations = '';
 
         self.asyncRequest({
             request: function () { return phrasesService.getPhrase($routeParams.phraseId); },
             success: function (result) {
                 self.isLoading = false;
-                self.phrase = {
-                    id: $routeParams.phraseId,
-                    text: result.data.text,
-                    translations: result.data.translations.join(' ')
-                }
+
+                self.id = $routeParams.phraseId;
+                self.text = result.data.text;
+                self.translations = result.data.translations
+                .map(function (t) { return t.text; })
+                .join(' ');
             },
             error: function () {
                 $location.path('/phrases');

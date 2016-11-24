@@ -12,6 +12,8 @@ namespace MyLanguagePalService.DAL.Models
 
         public virtual LanguageDal Language { get; set; }
 
-        public virtual ICollection<PhraseDal> Translations { get; set; }
+        public virtual ICollection<TranslationDal> Translations { get; set; }
+
+        public virtual ICollection<TranslationDal> PhrasesTranslatedBy { get; set; }
     }
 }

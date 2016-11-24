@@ -13,6 +13,8 @@ namespace MyLanguagePalService.DAL
 
         public IDbSet<PhraseDal> Phrases { get; set; }
 
+        public IDbSet<TranslationDal> Translations { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -21,11 +23,14 @@ namespace MyLanguagePalService.DAL
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
-            // *** Configure tables ***
+            /* Configure tables */
+
+            // Languages
             modelBuilder.Entity<LanguageDal>().ToTable("Languages");
             modelBuilder.Entity<LanguageDal>().HasKey(e => e.Id);
             modelBuilder.Entity<LanguageDal>().Property(e => e.Name).IsRequired().HasMaxLength(100);
 
+            // Phrases
             modelBuilder.Entity<PhraseDal>().ToTable("Phrases");
             modelBuilder.Entity<PhraseDal>().HasKey(e => e.Id);
             modelBuilder.Entity<PhraseDal>()
@@ -36,7 +41,12 @@ namespace MyLanguagePalService.DAL
                     new IndexAnnotation(new IndexAttribute("UX_Text") { IsUnique = true })
                 );
 
-            // *** Configure relationships ***
+            // Translations
+            modelBuilder.Entity<TranslationDal>().ToTable("Translations");
+            modelBuilder.Entity<TranslationDal>()
+                .HasKey(e => new { e.ForPhraseId, e.TranslationPhraseId });
+
+            /* Configure relationships */
 
             // Pharses <-> Languages
             modelBuilder.Entity<LanguageDal>()
@@ -44,16 +54,16 @@ namespace MyLanguagePalService.DAL
                 .WithRequired(p => p.Language)
                 .HasForeignKey(p => p.LanguageId);
 
-            // Pharses <-> Phrases (Translations)
+            // Pharses <-> Translations
             modelBuilder.Entity<PhraseDal>()
                 .HasMany(p => p.Translations)
-                .WithMany()
-                .Map(m =>
-                {
-                    m.MapLeftKey("PhraseId");
-                    m.MapRightKey("TranslationId");
-                    m.ToTable("Translations");
-                });
+                .WithRequired(t => t.ForPhrase)
+                .HasForeignKey(t => t.ForPhraseId);
+
+            modelBuilder.Entity<PhraseDal>()
+                .HasMany(p => p.PhrasesTranslatedBy)
+                .WithRequired(t => t.TranslationPhrase)
+                .HasForeignKey(t => t.TranslationPhraseId);
         }
     }
 }

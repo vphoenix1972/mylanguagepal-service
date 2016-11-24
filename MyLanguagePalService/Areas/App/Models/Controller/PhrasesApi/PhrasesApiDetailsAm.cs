@@ -6,6 +6,6 @@ namespace MyLanguagePalService.Areas.App.Models.Controller.PhrasesApi
     {
         public int Id { get; set; }
         public string Text { get; set; }
-        public IList<string> Translations { get; set; }
+        public IList<TranslationAm> Translations { get; set; }
     }
 }

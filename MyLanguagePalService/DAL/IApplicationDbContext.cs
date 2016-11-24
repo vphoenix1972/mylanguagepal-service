@@ -11,6 +11,8 @@ namespace MyLanguagePalService.DAL
 
         IDbSet<PhraseDal> Phrases { get; set; }
 
+        IDbSet<TranslationDal> Translations { get; set; }
+
         DbEntityEntry Entry(object entity);
 
         int SaveChanges();
