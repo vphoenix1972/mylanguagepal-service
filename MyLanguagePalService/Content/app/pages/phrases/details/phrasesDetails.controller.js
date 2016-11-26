@@ -6,7 +6,7 @@
 
         self.id = $routeParams.phraseId;
         self.text = '';
-        self.translations = '';
+        self.translations = [];
 
         self.asyncRequest({
             request: function () { return phrasesService.getPhrase($routeParams.phraseId); },
@@ -15,9 +15,7 @@
 
                 self.id = $routeParams.phraseId;
                 self.text = result.data.text;
-                self.translations = result.data.translations
-                .map(function (t) { return t.text; })
-                .join(' ');
+                self.translations = result.data.translations;
             },
             error: function () {
                 $location.path('/phrases');

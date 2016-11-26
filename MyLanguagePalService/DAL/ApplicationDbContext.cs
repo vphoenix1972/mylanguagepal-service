@@ -44,7 +44,7 @@ namespace MyLanguagePalService.DAL
             // Translations
             modelBuilder.Entity<TranslationDal>().ToTable("Translations");
             modelBuilder.Entity<TranslationDal>()
-                .HasKey(e => new { e.ForPhraseId, e.TranslationPhraseId });
+                .HasKey(e => e.Id);
 
             /* Configure relationships */
 

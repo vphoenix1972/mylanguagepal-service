@@ -96,7 +96,15 @@
         var self = this;
 
         // Split and trim the translations
-        var translations = self.translations.split(',').filter(function (s) { return s.trim(); });
+        var translations = self.translations
+            .split(',')
+            .filter(function (s) { return s.trim(); })
+            .map(function (ts) {
+                return {
+                    text: ts,
+                    prevalence: 40
+                }
+            });
 
         return {
             languageId: self.languageId,

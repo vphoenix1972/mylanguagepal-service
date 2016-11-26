@@ -2,6 +2,8 @@
 {
     public class TranslationDal
     {
+        public int Id { get; set; }
+
         public int ForPhraseId { get; set; }
 
         public int TranslationPhraseId { get; set; }

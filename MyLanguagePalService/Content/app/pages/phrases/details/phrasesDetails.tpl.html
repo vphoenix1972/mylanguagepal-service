@@ -4,16 +4,22 @@
     <div>
         <h4>Phrase</h4>
         <hr />
-        <dl class="dl-horizontal">
-            <dt>
+        <div class="row">
+            <div class="col-md-3">
                 {{vm.text}}
-            </dt>
-
-            <dd>
-                {{vm.translations}}
-            </dd>
-
-        </dl>
+            </div>
+            <div class="col-md-9">
+                <div class="row"
+                     ng-repeat="translation in vm.translations">
+                    <span>
+                        {{translation.prevalence}}                        
+                    </span>
+                    <span>
+                        {{translation.text}}
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
     <p>
         <a href="#phrases/edit/{{vm.id}}">Edit</a> |

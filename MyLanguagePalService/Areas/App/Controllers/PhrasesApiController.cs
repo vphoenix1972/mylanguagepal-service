@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Web.Http;
 using MyLanguagePalService.Areas.App.Models.Controller.PhrasesApi;
+using MyLanguagePalService.BLL;
+using MyLanguagePalService.BLL.Models;
 using MyLanguagePalService.Core;
 using MyLanguagePalService.DAL;
 
@@ -11,19 +13,19 @@ namespace MyLanguagePalService.Areas.App.Controllers
     public class PhrasesApiController : WebApiControllerBase
     {
         private readonly IApplicationDbContext _db;
-        private readonly IApplicationDbManager _dbManager;
+        private readonly IPhrasesService _phrasesService;
 
         public PhrasesApiController()
         {
             _db = new ApplicationDbContext();
-            _dbManager = new ApplicationDbManager(_db);
+            _phrasesService = new PhrasesService(_db);
         }
 
         [Route("")]
         [HttpGet]
         public IEnumerable<PhrasesApiGetAllAm> GetAllPhrases()
         {
-            return _dbManager.GetPhrases().Select(dal => new PhrasesApiGetAllAm()
+            return _phrasesService.GetPhrases().Select(dal => new PhrasesApiGetAllAm()
             {
                 Id = dal.Id,
                 Text = dal.Text
@@ -35,7 +37,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
         [HttpGet]
         public IHttpActionResult GetPhrase(int id)
         {
-            var phraseDal = _dbManager.GetPhrase(id);
+            var phraseDal = _phrasesService.GetPhrase(id);
             if (phraseDal == null)
             {
                 return NotFound();
@@ -45,7 +47,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
             {
                 Id = phraseDal.Id,
                 Text = phraseDal.Text,
-                Translations = _dbManager.GetTranslations(phraseDal).Select(t => new TranslationAm()
+                Translations = _phrasesService.GetTranslations(phraseDal).Select(t => new TranslationAm()
                 {
                     Id = t.Phrase.Id,
                     Text = t.Phrase.Text,
@@ -74,13 +76,12 @@ namespace MyLanguagePalService.Areas.App.Controllers
             }
 
             // *** Phrase creation ***
-            PreparePhraseText(inputModel);
-            PreparePhraseTranslations(inputModel);
-
             try
             {
                 // ReSharper disable once AssignNullToNotNullAttribute
-                _dbManager.CreatePhrase(inputModel.Text, inputModel.LanguageId.Value, inputModel.Translations);
+                _phrasesService.CreatePhrase(inputModel.Text,
+                    inputModel.LanguageId.Value,
+                    inputModel.Translations.Select(ToTranslationImBll).ToList());
             }
             catch (ValidationFailedException vfe)
             {
@@ -105,12 +106,11 @@ namespace MyLanguagePalService.Areas.App.Controllers
             }
 
             // *** Phrase modification ***
-            PreparePhraseText(inputModel);
-            PreparePhraseTranslations(inputModel);
-
             try
             {
-                _dbManager.UpdatePhrase(phraseDal, inputModel.Text, inputModel.Translations);
+                _phrasesService.UpdatePhrase(phraseDal,
+                    inputModel.Text,
+                    inputModel.Translations.Select(ToTranslationImBll).ToList());
             }
             catch (ValidationFailedException vfe)
             {
@@ -125,35 +125,28 @@ namespace MyLanguagePalService.Areas.App.Controllers
         public IHttpActionResult DeletePhrase(int id)
         {
             /* Validation */
-            var dal = _dbManager.GetPhrase(id);
+            var dal = _phrasesService.GetPhrase(id);
             if (dal == null)
             {
                 return NotFound();
             }
 
             /* Delete the phrase */
-            _dbManager.DeletePhrase(dal);
+            _phrasesService.DeletePhrase(dal);
 
             return Ok();
         }
 
-        private void PreparePhraseTranslations(PhrasesApiCreateIm inputModel)
+        private TranslationImBll ToTranslationImBll(TranslationIm im)
         {
-            if (inputModel.Translations != null)
-            {
-                inputModel.Translations = inputModel.Translations
-                    .Where(s => !string.IsNullOrWhiteSpace(s))
-                    .Select(s => s.Trim())
-                    .ToList();
-            }
-        }
+            if (im == null)
+                return null;
 
-        private void PreparePhraseText(PhrasesApiCreateIm inputModel)
-        {
-            if (inputModel.Text != null)
+            return new TranslationImBll()
             {
-                inputModel.Text = inputModel.Text.Trim();
-            }
+                Text = im.Text,
+                Prevalence = im.Prevalence
+            };
         }
     }
 }
