@@ -307,11 +307,16 @@ namespace MyLanguagePalService.BLL
             if (translations == null)
                 return;
 
-            if (translations.Any(t => string.IsNullOrWhiteSpace(t.Text)))
-                throw new ValidationFailedException(nameof(translations), "Translation cannot be empty");
+            for (var i = 0; i < translations.Count; i++)
+            {
+                var translation = translations[i];
 
-            if (translations.Any(ts => ts.Text.Length > MaxPhraseLength))
-                throw new ValidationFailedException(nameof(translations), "One of translations is too long");
+                if (string.IsNullOrWhiteSpace(translation.Text))
+                    throw new ValidationFailedException($"Translations[{i}]", "Translation cannot be empty");
+
+                if (translation.Text.Length > MaxPhraseLength)
+                    throw new ValidationFailedException($"Translations[{i}]", "Translation is too long");
+            }
         }
 
         private void AssertPhraseNotExist(string text)

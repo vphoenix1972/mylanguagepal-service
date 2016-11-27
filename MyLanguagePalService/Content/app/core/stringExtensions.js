@@ -1,6 +1,20 @@
 ﻿(function () {
     'use strict';
 
+    // Taken from https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith
+    if (!String.prototype.startsWith) {
+        Object.defineProperty(String.prototype, 'startsWith', {
+            enumerable: false,
+            configurable: false,
+            writable: false,
+            value: function (searchString, position) {
+                position = position || 0;
+                return this.lastIndexOf(searchString, position) === position;
+            }
+        });
+    }
+
+    // Taken from https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith
     if (!String.prototype.endsWith) {
         Object.defineProperty(String.prototype, 'endsWith', {
             value: function (searchString, position) {
@@ -13,5 +27,27 @@
                 return lastIndex !== -1 && lastIndex === position;
             }
         });
+    }
+
+    if (!String.prototype.getBetween) {
+        String.prototype.getBetween = function (sub1, sub2) {
+            /// <summary>
+            /// Gets the first substring between sub1 and sub2. Returns null if no substring was found.
+            /// </summary>
+
+            var self = this;
+
+            var indexSub1 = self.indexOf(sub1);
+            var indexSub2 = self.indexOf(sub2);
+
+            if (indexSub1 < 0 || indexSub2 < 0 ||
+                indexSub1 >= indexSub2)
+                return null;
+
+            var start = indexSub1 + sub1.length;
+            var end = indexSub2;
+
+            return self.substring(start, end);
+        }
     }
 })();

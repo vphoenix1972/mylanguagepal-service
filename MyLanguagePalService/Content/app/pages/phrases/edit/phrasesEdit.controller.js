@@ -11,7 +11,8 @@
         self.isNew = !angular.isDefined(self._phraseId);
         self.languageId = 1; // ToDo: Use English by default right now
         self.text = '';
-        self.translations = '';
+        self.translations = [];
+        self.levels = [20, 30, 40];
         self.save = self._save;
 
         /* Initialize */
@@ -20,6 +21,24 @@
 
     PhrasesEditController.prototype = Object.create(PageController.prototype);
     PhrasesEditController.prototype.constructor = PhrasesEditController;
+
+    /* Public */
+    PhrasesEditController.prototype.onAddNewTranslationButtonClick = function () {
+        var self = this;
+
+        self.translations.add({
+            text: '',
+            prevalence: 40
+        });
+    }
+
+    PhrasesEditController.prototype.onDeleteTranslationButtonClicked = function (translation) {
+        var self = this;
+
+        self.translations.remove(translation);
+    }
+
+    /* Private */
 
     PhrasesEditController.prototype._init = function () {
         var self = this;
@@ -67,13 +86,26 @@
 
         if (result instanceof ValidationConnectorResult) {
 
-            angular.forEach(self, function (value, key) {
-                if (key.endsWith('ValidationError'))
-                    self[key] = undefined;
-            });
+            // Get phrase text error
+            self.textValidationError = undefined;
+            if (angular.isDefined(result.validationState.text))
+                self.textValidationError = result.validationState.text.join();
 
+            // Get translations errors
+            self.translations.forEach(function (ts) { ts.textValidationError = undefined; });
             angular.forEach(result.validationState, function (value, key) {
-                self[key + 'ValidationError'] = value.join();
+                if (!key.startsWith('translations'))
+                    return;
+
+                var indexValue = key.getBetween('[', ']');
+                if (indexValue == null)
+                    return;
+
+                var index = parseInt(indexValue, 10);
+                if (index === NaN || index < 0 || index > self.translations.length - 1)
+                    return;
+
+                self.translations[index].textValidationError = value.join();
             });
 
             return;
@@ -87,22 +119,17 @@
 
         self.languageId = dto.languageId;
         self.text = dto.text;
-        self.translations = dto.translations
-            .map(function (t) { return t.text; })
-            .join(', ');;
+        self.translations = dto.translations.orderBy(function (ts1, ts2) { return ts2.prevalence - ts1.prevalence; });
     }
 
     PhrasesEditController.prototype._toPhraseDto = function () {
         var self = this;
 
-        // Split and trim the translations
         var translations = self.translations
-            .split(',')
-            .filter(function (s) { return s.trim(); })
             .map(function (ts) {
                 return {
-                    text: ts,
-                    prevalence: 40
+                    text: ts.text.trim(),
+                    prevalence: ts.prevalence
                 }
             });
 

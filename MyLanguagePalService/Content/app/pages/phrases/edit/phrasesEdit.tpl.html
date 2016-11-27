@@ -1,4 +1,4 @@
-﻿<div class="b-page" ng-hide="vm.isLoading">
+﻿<div class="b-page b-edit-phrase" ng-hide="vm.isLoading">
     <h2>{{vm.isNew ? 'Create' : 'Edit'}}</h2>
 
     <div class="form-horizontal">
@@ -25,25 +25,49 @@
         <div class="form-group">
             <label class="control-label col-md-2">Translations:</label>
             <div class="col-md-10">
-                <text-input text="vm.translations" validation-message="{{vm.translationsValidationError}}"></text-input>
-            </div>
-        </div>
+                <div class="b-edit-phrase-translations__row">
+                    <input type="button"
+                           class="btn btn-primary"
+                           value="Add a translation"
+                           ng-click="vm.onAddNewTranslationButtonClick()" />
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Synonims:</label>
-            <div class="col-md-10">
-                <text-input></text-input>
-            </div>
-        </div>
+                </div>
+                <div class="b-edit-phrase-translations__row clearfix"
+                     ng-repeat="ts in vm.translations">
+                    <div class="pull-left b-edit-phrase-translation__block">
+                        <input type="text" class="form-control" ng-model="ts.text" />
+                        <span class="text-danger">{{ts.textValidationError}}</span>
+                    </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" ng-click="vm.save()" />
+                    <div class="pull-left b-edit-phrase-translation__block">
+                        <select class="form-control"
+                                ng-model="ts.prevalence"
+                                convert-to-number>
+                            <option value="40">Usual translation</option>
+                            <option value="30">Unusual translation</option>
+                            <option value="20">Rare translation</option>
+                        </select>
+                    </div>
+
+                    <div class="pull-left b-edit-phrase-translation__block">
+                        <button type="button"
+                                class="btn btn-danger"
+                                ng-click="vm.onDeleteTranslationButtonClicked(ts)">
+                            Delete
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div>
-        <a href="#phrases">Back to List</a>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10 b-edit-phrase__save-block">
+        <input type="submit" value="Save" class="btn btn-default" ng-click="vm.save()" />
     </div>
+</div>
+
+<div>
+    <a href="#phrases">Back to List</a>
 </div>

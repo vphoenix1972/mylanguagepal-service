@@ -274,7 +274,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\app\app.module.js" />
+    <Content Include="Content\app\core\arrayExtensions.js" />
     <Content Include="Content\app\core\core.module.js" />
+    <Content Include="Content\app\core\directives\convertToNumber.directive.js" />
     <Content Include="Content\app\core\stringExtensions.js" />
     <Content Include="Content\app\pages\languages\delete\languagesDelete.tpl.html" />
     <Content Include="Content\app\pages\languages\delete\languagesDelete.controller.js" />
@@ -289,6 +291,7 @@
     <Content Include="Content\app\pages\phrases\details\phrasesDetails.controller.js" />
     <Content Include="Content\app\pages\phrases\details\phrasesDetails.tpl.html" />
     <Content Include="Content\app\pages\phrases\edit\phrasesEdit.controller.js" />
+    <Content Include="Content\app\pages\phrases\edit\phrasesEdit.css" />
     <Content Include="Content\app\pages\phrases\edit\phrasesEdit.tpl.html" />
     <Content Include="Content\app\pages\phrases\index\phrasesIndex.controller.js" />
     <Content Include="Content\app\pages\phrases\index\phrasesIndex.tpl.html" />

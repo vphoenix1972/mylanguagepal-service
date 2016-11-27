@@ -41,7 +41,8 @@ namespace MyLanguagePalService
                 "~/Content/app/core/core.module.css",
 
                 /* Pages */
-                
+                "~/Content/app/pages/phrases/edit/phrasesEdit.css",
+
                 // Shared
                 "~/Content/app/pages/shared/services/progressBar/progressBar.service.css",
                 "~/Content/app/pages/shared/page/page.css",
@@ -65,7 +66,9 @@ namespace MyLanguagePalService
                 "~/Content/app/core/promiseQueue.js",
                 "~/Content/app/core/rest.js",
                 "~/Content/app/core/customError.js",
+                "~/Content/app/core/arrayExtensions.js",
                 "~/Content/app/core/stringExtensions.js",
+                "~/Content/app/core/directives/convertToNumber.directive.js",
 
                 /* Pages */
                 "~/Content/app/app.module.js",
@@ -79,7 +82,7 @@ namespace MyLanguagePalService
                 "~/Content/app/pages/shared/services/connector/connector.service.js",
                 "~/Content/app/pages/shared/services/errorReporting/errorReporting.service.js",
                 "~/Content/app/pages/shared/services/progressBar/progressBar.service.js",
-                
+
                 "~/Content/app/pages/shared/page/page.controller.js",
                 "~/Content/app/pages/shared/directives/textInput/textInput.directive.js",
 
