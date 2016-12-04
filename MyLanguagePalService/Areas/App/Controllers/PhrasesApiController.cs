@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using MyLanguagePalService.Areas.App.Models.Controller.PhrasesApi;
+using MyLanguagePalService.Areas.App.Models.Controller.TranslationsApi;
 using MyLanguagePalService.BLL;
 using MyLanguagePalService.BLL.Models;
 using MyLanguagePalService.Core;
@@ -47,12 +48,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
             {
                 Id = phraseDal.Id,
                 Text = phraseDal.Text,
-                Translations = _phrasesService.GetTranslations(phraseDal).Select(t => new TranslationAm()
-                {
-                    Id = t.Phrase.Id,
-                    Text = t.Phrase.Text,
-                    Prevalence = t.Prevalence
-                }).ToList()
+                Translations = _phrasesService.GetTranslations(phraseDal).Select(TranslationAm.MapFrom).ToList()
             });
         }
 

@@ -21,7 +21,7 @@
         </div>
         <div class="b-phrase-details-translations">
             <div class="b-row b-phrase-details-translation"
-                 ng-repeat="translation in vm.translations">
+                 ng-repeat="translation in vm.phrase.translations">
                 <div class="b-phrase-details-translation__prevalence">
                     <div class="b-non-empty b-phrase-details-translation__prevalence-marker-container"
                          title="{{ translation.prevalence > 30 ?
@@ -38,20 +38,21 @@
                     </div>
                 </div>
                 <div class="b-phrase-details-translation__text">
-                    {{translation.text}}
+                    <a href="#phrases/details/{{translation.id}}">
+                        {{translation.text}}
+                    </a>
                 </div>
                 <div class="b-phrase-details-translation__synonims">
-                    white, Caucasian, whitey, honky, lily, blanch
+                    <a ng-repeat="synonim in translation.synonims"
+                       href="#phrases/details/{{synonim.id}}">
+                        {{$last ? synonim.text : synonim.text + ', '}}
+                    </a>
                 </div>
             </div>
-        </div>
-        <div class="b-row b-phrase-details-translation"
-             ng-repeat="translation in vm.translations">
-
-        </div>
+        </div>        
     </div>
     <p>
-        <a href="#phrases/edit/{{vm.id}}">Edit</a> |
+        <a href="#phrases/edit/{{vm.phrase.id}}">Edit</a> |
         <a href="#phrases">Back to List</a>
     </p>
 </div>

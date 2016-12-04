@@ -62,6 +62,12 @@
         return self._delete('/api/phrases/' + id);
     }
 
+    /* Translations */
+    ConnectorService.prototype.getTranslations = function (phraseId) {
+        var self = this;
+        return self._get('/api/phrases/' + phraseId + '/translations');
+    }
+
     /* *** Private *** */
 
     ConnectorService.prototype._get = function (url) {

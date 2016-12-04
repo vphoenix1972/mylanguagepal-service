@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
@@ -12,6 +11,11 @@ namespace MyLanguagePalService.Core
     public abstract class WebApiControllerBase : ApiController
     {
         public const string WebApiHeaderName = "X-Web-Api";
+
+        protected IHttpActionResult NotFound(string message)
+        {
+            return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.NotFound, message));
+        }
 
         protected internal virtual IHttpActionResult UnprocessableEntity(ValidationFailedException vfe)
         {
