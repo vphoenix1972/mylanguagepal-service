@@ -1,0 +1,12 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/CodeEditing/TypingAssist/Html/ChangedTagNameTracking/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeEditing/TypingAssist/Html/FormatOnClosingTag/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeEditing/TypingAssist/Html/FormatOnEnter/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/CodeInspection/Browsers/Browsers/@EntryValue">C7+,FF7+,IE8+,O11+,S5+</s:String>
+	<s:Boolean x:Key="/Default/CodeInspection/Browsers/Enable/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/Todo/TodoPatterns/=E7C4EA72190E5542910EBD935ED13037/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/Todo/TodoPatterns/=E7C4EA72190E5542910EBD935ED13037/Color/@EntryValue">WindowText</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/Todo/TodoPatterns/=E7C4EA72190E5542910EBD935ED13037/MatchComments/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/Todo/TodoPatterns/=E7C4EA72190E5542910EBD935ED13037/Name/@EntryValue">Hack</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/Todo/TodoPatterns/=E7C4EA72190E5542910EBD935ED13037/Pattern/@EntryValue">(?&lt;=\W|^)(?&lt;TAG&gt;HACK)(\W|$)(.*)</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/Todo/TodoPatterns/=E7C4EA72190E5542910EBD935ED13037/TodoIconStyle/@EntryValue">Warning</s:String></wpf:ResourceDictionary>

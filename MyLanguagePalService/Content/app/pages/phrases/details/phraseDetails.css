@@ -1,0 +1,84 @@
+﻿.b-phrase-details-phrase {
+    line-height: 25px;
+}
+
+.b-phrase-details-phrase__language {
+    float: left;
+    width: 20px;
+    margin-right: 20px;
+}
+
+.b-phrase-details-phrase__text {
+    float: left;
+    width: calc(100% - 40px);
+    font-size: 18px;
+    font-weight: 500;
+    word-wrap: break-word;
+}
+
+.b-phrase-details-translations {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.b-phrase-details-translation {
+    min-height: 18px;
+    line-height: 18px;
+}
+
+.b-phrase-details-translation__prevalence {
+    float: left;
+    width: 37px;
+}
+
+.b-phrase-details-translation__prevalence-marker-container {
+    float: left;
+    width: 27px;
+    padding-left: 3px;
+    margin-right: 10px;
+    height: 18px;
+    text-align: right;
+}
+
+.b-phrase-details-translation__prevalence-marker {
+    background: #aaa;
+    display: inline-block;
+    height: 7px;
+    margin: 6px 2px 5px 0;
+}
+
+.b-phrase-details-translation__prevalence-marker_usual {
+    width: 24px;
+}
+
+.b-phrase-details-translation__prevalence-marker_unusual {
+    width: 16px;
+}
+
+.b-phrase-details-translation__prevalence-marker_rare {
+    width: 8px;
+}
+
+.b-phrase-details-translation__text {
+    float: left;
+    width: calc(30% - 37px);
+    word-wrap: break-word;
+    margin-right: 10px;
+}
+
+.b-phrase-details-translation__synonims {
+    float: left;
+    width: calc(70% - 37px);
+    text-align: left;
+    word-wrap: break-word;
+}
+
+@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
+    .b-phrase-details-translation__text {
+        width: calc(50% - 37px);
+    }
+
+    .b-phrase-details-translation__synonims {
+        width: calc(50% - 37px);
+    }
+}

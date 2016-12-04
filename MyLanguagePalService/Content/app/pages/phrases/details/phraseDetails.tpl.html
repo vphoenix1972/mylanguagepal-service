@@ -1,0 +1,57 @@
+﻿<div class="b-page b-phrase-details" ng-hide="vm.isLoading">
+    <h2>Details</h2>
+
+    <div>
+        <div class="b-row b-phrase-details-phrase">
+            <div class="b-phrase-details-phrase__language">
+                <span class="flag-icon"
+                      ng-class="{
+                        'flag-icon-gb': vm.phrase.languageId === 1,
+                        'flag-icon-ru': vm.phrase.languageId === 2
+                      }">
+                </span>
+            </div>
+            <div class="b-phrase-details-phrase__text">
+                {{vm.phrase.text}}
+            </div>
+        </div>                
+        <hr/>
+        <div>
+            Translation options:
+        </div>
+        <div class="b-phrase-details-translations">
+            <div class="b-row b-phrase-details-translation"
+                 ng-repeat="translation in vm.translations">
+                <div class="b-phrase-details-translation__prevalence">
+                    <div class="b-non-empty b-phrase-details-translation__prevalence-marker-container"
+                         title="{{ translation.prevalence > 30 ?
+                                   'Usual translation' :
+                                    translation.prevalence <= 20 ? 'Rare translation' : 'Unusual translation' }}">
+                        <div class="b-non-empty b-phrase-details-translation__prevalence-marker"
+                             ng-class="{
+                                'b-phrase-details-translation__prevalence-marker_usual': translation.prevalence > 30,
+                                'b-phrase-details-translation__prevalence-marker_unusual': translation.prevalence > 20 && translation.prevalence <= 30,
+                                'b-phrase-details-translation__prevalence-marker_rare': translation.prevalence <= 20
+                             }">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="b-phrase-details-translation__text">
+                    {{translation.text}}
+                </div>
+                <div class="b-phrase-details-translation__synonims">
+                    white, Caucasian, whitey, honky, lily, blanch
+                </div>
+            </div>
+        </div>
+        <div class="b-row b-phrase-details-translation"
+             ng-repeat="translation in vm.translations">
+
+        </div>
+    </div>
+    <p>
+        <a href="#phrases/edit/{{vm.id}}">Edit</a> |
+        <a href="#phrases">Back to List</a>
+    </p>
+</div>

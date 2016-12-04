@@ -32,6 +32,7 @@ namespace MyLanguagePalService
             bundles.Add(new StyleBundle("~/app/app-css").Include(
                 /* Deps */
                 "~/Content/deps/bootstrap/css/bootstrap.css",
+                "~/Content/deps/flag-icon/css/flag-icon.css",
                 "~/Content/deps/angular/ngprogress.css",
 
                 /* Shared site styles */
@@ -42,6 +43,7 @@ namespace MyLanguagePalService
 
                 /* Pages */
                 "~/Content/app/pages/phrases/edit/phrasesEdit.css",
+                "~/Content/app/pages/phrases/details/phraseDetails.css",
 
                 // Shared
                 "~/Content/app/pages/shared/services/progressBar/progressBar.service.css",
@@ -52,7 +54,9 @@ namespace MyLanguagePalService
                 /* Deps */
                 "~/Content/deps/jquery/jquery-3.1.0.js",
                 "~/Content/deps/bootstrap/js/bootstrap.js",
+
                 "~/Content/deps/respond.js",
+
                 "~/Content/deps/angular/angular.js",
                 "~/Content/deps/angular/angular-route.js",
                 "~/Content/deps/angular/angular-animate.js",
@@ -98,7 +102,7 @@ namespace MyLanguagePalService
                 "~/Content/app/pages/phrases/phrases.service.js",
                 "~/Content/app/pages/phrases/phrases.routes.js",
                 "~/Content/app/pages/phrases/index/phrasesIndex.controller.js",
-                "~/Content/app/pages/phrases/details/phrasesDetails.controller.js",
+                "~/Content/app/pages/phrases/details/phraseDetails.controller.js",
                 "~/Content/app/pages/phrases/edit/phrasesEdit.controller.js",
                 "~/Content/app/pages/phrases/delete/phrasesDelete.controller.js"
                 ));

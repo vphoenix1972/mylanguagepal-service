@@ -10,8 +10,8 @@
                 controller: 'phrasesIndexController as vm'
             })
             .when('/phrases/details/:phraseId', {
-                templateUrl: '/Content/app/pages/phrases/details/phrasesDetails.tpl.html',
-                controller: 'phrasesDetailsController as vm'
+                templateUrl: '/Content/app/pages/phrases/details/phraseDetails.tpl.html',
+                controller: 'phraseDetailsController as vm'
             })
             .when('/phrases/create', {
                 templateUrl: '/Content/app/pages/phrases/edit/phrasesEdit.tpl.html',

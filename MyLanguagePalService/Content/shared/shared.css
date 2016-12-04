@@ -1,1 +1,32 @@
-﻿
+﻿.b-row {
+    width: 100%;
+}
+
+    .b-row:after {
+        /* Clear float */
+        clear: both;
+        display: block;
+        height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        content: ".";
+        font-size: 0;
+    }
+
+.b-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+.b-non-empty {
+    /* According to http://www.w3schools.com/cssref/pr_dim_min-width.asp min-width is supported */
+    /* ReSharper disable once CssBrowserCompatibility */
+    min-width: 1px;
+    min-height: 1px;
+}
+
+.b-full-height {
+    height: 100%;
+}
