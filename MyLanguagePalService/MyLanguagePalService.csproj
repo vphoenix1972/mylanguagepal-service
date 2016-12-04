@@ -215,7 +215,6 @@
     <Compile Include="Areas\App\Controllers\MainController.cs" />
     <Compile Include="Areas\App\Controllers\LanguagesApiController.cs" />
     <Compile Include="Areas\App\Controllers\PhrasesApiController.cs" />
-    <Compile Include="Areas\App\Controllers\TestApiController.cs" />
     <Compile Include="Areas\App\Controllers\TranslationsApiController.cs" />
     <Compile Include="Areas\App\Models\Controller\LanguagesApi\LanguagesApiAm.cs" />
     <Compile Include="Areas\App\Models\Controller\LanguagesApi\LanguagesApiCreateIm.cs" />
