@@ -52,7 +52,7 @@ namespace MyLanguagePalService.BLL
 
             AssertPhraseText(text);
             AssertLanguageId(languageId);
-            AssertTranslations(translations);
+            AssertTranslations(translations, languageId);
             AssertPhraseNotExist(text);
 
             /* Phrase creation */
@@ -107,7 +107,7 @@ namespace MyLanguagePalService.BLL
             translations = PreparePhraseTranslations(translations);
 
             AssertPhraseText(text);
-            AssertTranslations(translations);
+            AssertTranslations(translations, phrase.LanguageId);
 
             // Check that the phrase does not exist
             if (phrase.Text != text)
@@ -302,7 +302,7 @@ namespace MyLanguagePalService.BLL
             }
         }
 
-        private void AssertTranslations(IList<TranslationImBll> translations)
+        private void AssertTranslations(IList<TranslationImBll> translations, int phraseLanguageId)
         {
             if (translations == null)
                 return;
@@ -311,11 +311,21 @@ namespace MyLanguagePalService.BLL
             {
                 var translation = translations[i];
 
+                // Check emptyness
                 if (string.IsNullOrWhiteSpace(translation.Text))
                     throw new ValidationFailedException($"Translations[{i}]", "Translation cannot be empty");
 
+                // Check length
                 if (translation.Text.Length > MaxPhraseLength)
                     throw new ValidationFailedException($"Translations[{i}]", "Translation is too long");
+
+                // Check that none of translations has the same language as the language of the phrase
+                if (_db.Phrases.Any(p => p.Text == translation.Text &&
+                                         p.LanguageId == phraseLanguageId))
+                {
+                    throw new ValidationFailedException($"Translations[{i}]",
+                        "Translation cannot have the same language as the language of the phrase");
+                }
             }
         }
 

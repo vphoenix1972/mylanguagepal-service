@@ -34,6 +34,7 @@
                 </div>
                 <div class="b-edit-phrase-translations__row clearfix"
                      ng-repeat="ts in vm.translations">
+                    
                     <div class="pull-left b-edit-phrase-translation__block">
                         <input type="text" class="form-control" ng-model="ts.text" />
                         <span class="text-danger">{{ts.textValidationError}}</span>
