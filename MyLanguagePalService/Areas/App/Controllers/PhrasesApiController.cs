@@ -47,6 +47,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
             return Ok(new PhrasesApiDetailsAm()
             {
                 Id = phraseDal.Id,
+                LanguageId = phraseDal.LanguageId,
                 Text = phraseDal.Text,
                 Translations = _phrasesService.GetTranslations(phraseDal).Select(TranslationAm.MapFrom).ToList()
             });
