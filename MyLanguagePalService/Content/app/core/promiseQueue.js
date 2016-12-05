@@ -34,7 +34,7 @@
 
         self._isExecuting = true;
 
-        fn().then(function () {
+        self._$q.when(fn()).then(function () {
             // Notify caller
             deferred.resolve.apply(deferred, arguments);
 
