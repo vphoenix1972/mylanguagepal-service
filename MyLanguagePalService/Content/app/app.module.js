@@ -17,10 +17,10 @@
     app.config(function ($routeProvider) {
         $routeProvider
         .when('/', {
-            templateUrl: '/Content/app/pages/about/about.html'
+            redirectTo: '/dashboard'
         })
-        .when('/about', {
-            templateUrl: '/Content/app/pages/about/about.html'
+        .otherwise({
+            redirectTo: '/dashboard'
         });
     });
 })();

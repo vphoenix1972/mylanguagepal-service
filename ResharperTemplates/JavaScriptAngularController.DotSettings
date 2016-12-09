@@ -1,0 +1,37 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B7319511BAB08D40A0BC38056B2B6445/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B7319511BAB08D40A0BC38056B2B6445/Shortcut/@EntryValue">ngctrl</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B7319511BAB08D40A0BC38056B2B6445/Description/@EntryValue">Angular controller</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B7319511BAB08D40A0BC38056B2B6445/Text/@EntryValue">(function () {&#xD;
+    'use strict';&#xD;
+&#xD;
+    function $controllerName$() {&#xD;
+        var self = this;&#xD;
+&#xD;
+		$END$&#xD;
+    }&#xD;
+&#xD;
+    /* Private */&#xD;
+&#xD;
+&#xD;
+    $controllerName$.$inject = [];&#xD;
+&#xD;
+    angular&#xD;
+        .module('$module$')&#xD;
+		.controller('$controllerNameInModule$', $controllerName$);&#xD;
+&#xD;
+})();</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B7319511BAB08D40A0BC38056B2B6445/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B7319511BAB08D40A0BC38056B2B6445/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B7319511BAB08D40A0BC38056B2B6445/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B7319511BAB08D40A0BC38056B2B6445/Scope/=FFA15E6CFCBE90499C572A859225B012/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B7319511BAB08D40A0BC38056B2B6445/Scope/=FFA15E6CFCBE90499C572A859225B012/Type/@EntryValue">InJavaScriptFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B7319511BAB08D40A0BC38056B2B6445/Scope/=FFA15E6CFCBE90499C572A859225B012/CustomProperties/=availableInTypeScript/@EntryIndexedValue">True</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B7319511BAB08D40A0BC38056B2B6445/Field/=controllerName/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B7319511BAB08D40A0BC38056B2B6445/Field/=controllerName/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B7319511BAB08D40A0BC38056B2B6445/Field/=module/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B7319511BAB08D40A0BC38056B2B6445/Field/=module/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B7319511BAB08D40A0BC38056B2B6445/Field/=controllerNameInModule/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B7319511BAB08D40A0BC38056B2B6445/Field/=controllerNameInModule/Expression/@EntryValue">decapitalize(controllerName)</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B7319511BAB08D40A0BC38056B2B6445/Field/=controllerNameInModule/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B7319511BAB08D40A0BC38056B2B6445/Field/=controllerNameInModule/Order/@EntryValue">2</s:Int64></wpf:ResourceDictionary>

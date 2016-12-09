@@ -42,13 +42,19 @@ namespace MyLanguagePalService
                 "~/Content/app/core/core.module.css",
 
                 /* Pages */
+
+                // Pages shared
+                "~/Content/app/pages/shared/services/progressBar/progressBar.service.css",
+                "~/Content/app/pages/shared/page/page.css",
+                "~/Content/app/pages/shared/directives/textInput/textInput.directive.css",
+
+                // Phrases
                 "~/Content/app/pages/phrases/edit/phrasesEdit.css",
                 "~/Content/app/pages/phrases/details/phraseDetails.css",
 
-                // Shared
-                "~/Content/app/pages/shared/services/progressBar/progressBar.service.css",
-                "~/Content/app/pages/shared/page/page.css",
-                "~/Content/app/pages/shared/directives/textInput/textInput.directive.css"));
+                // Dashboard
+                "~/Content/app/pages/dashboard/dashboard.css"
+                ));
 
             bundles.Add(new ScriptBundle("~/app/app-js").Include(
                 /* Deps */
@@ -78,7 +84,7 @@ namespace MyLanguagePalService
                 /* Pages */
                 "~/Content/app/app.module.js",
 
-                // Shared
+                // Pages shared
                 "~/Content/app/pages/shared/services/config.service.js",
                 "~/Content/app/pages/shared/services/connector/httpError.js",
                 "~/Content/app/pages/shared/services/connector/networkError.js",
@@ -90,6 +96,9 @@ namespace MyLanguagePalService
 
                 "~/Content/app/pages/shared/page/page.controller.js",
                 "~/Content/app/pages/shared/directives/textInput/textInput.directive.js",
+
+                // About
+                "~/Content/app/pages/about/about.routes.js",
 
                 // Languages
                 "~/Content/app/pages/languages/languages.service.js",
@@ -105,7 +114,11 @@ namespace MyLanguagePalService
                 "~/Content/app/pages/phrases/index/phrasesIndex.controller.js",
                 "~/Content/app/pages/phrases/details/phraseDetails.controller.js",
                 "~/Content/app/pages/phrases/edit/phrasesEdit.controller.js",
-                "~/Content/app/pages/phrases/delete/phrasesDelete.controller.js"
+                "~/Content/app/pages/phrases/delete/phrasesDelete.controller.js",
+
+                // Dashboard
+                "~/Content/app/pages/dashboard/dashboard.routes.js",
+                "~/Content/app/pages/dashboard/dashboard.controller.js"
                 ));
 
             // *** Other bundles ***
