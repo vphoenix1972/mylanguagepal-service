@@ -44,7 +44,7 @@ namespace MyLanguagePalService.BLL
             }).ToList();
         }
 
-        public void CreatePhrase(string text, int languageId, IList<TranslationImBll> translations = null)
+        public int CreatePhrase(string text, int languageId, IList<TranslationImBll> translations = null)
         {
             /* Validation */
             text = PreparePhraseText(text);
@@ -95,6 +95,8 @@ namespace MyLanguagePalService.BLL
             _db.Phrases.Add(newPhraseDal);
 
             _db.SaveChanges();
+
+            return newPhraseDal.Id;
         }
 
         public void UpdatePhrase(PhraseDal phrase, string text, IList<TranslationImBll> translations)

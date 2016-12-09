@@ -16,7 +16,7 @@ namespace MyLanguagePalService.BLL
         [NotNull]
         IList<TranslationBll> GetTranslations([NotNull] PhraseDal phraseDal);
 
-        void CreatePhrase([NotNull] string text, int languageId, [CanBeNull] IList<TranslationImBll> translations);
+        int CreatePhrase([NotNull] string text, int languageId, [CanBeNull] IList<TranslationImBll> translations);
 
         void UpdatePhrase([NotNull] PhraseDal phrase, [NotNull] string text, [CanBeNull] IList<TranslationImBll> translations);
 

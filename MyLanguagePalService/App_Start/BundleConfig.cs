@@ -66,6 +66,7 @@ namespace MyLanguagePalService
 
                 /* Core */
                 "~/Content/app/core/core.module.js",
+                "~/Content/app/core/resharper.js",
                 "~/Content/app/core/utils.service.js",
                 "~/Content/app/core/promiseQueue.js",
                 "~/Content/app/core/rest.js",

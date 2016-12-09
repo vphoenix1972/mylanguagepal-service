@@ -34,7 +34,7 @@
                 </div>
                 <div class="b-edit-phrase-translations__row clearfix"
                      ng-repeat="ts in vm.translations">
-                    
+
                     <div class="pull-left b-edit-phrase-translation__block">
                         <input type="text" class="form-control" ng-model="ts.text" />
                         <span class="text-danger">{{ts.textValidationError}}</span>
@@ -65,7 +65,12 @@
 
 <div class="form-group">
     <div class="col-md-offset-2 col-md-10 b-edit-phrase__save-block">
-        <input type="submit" value="Save" class="btn btn-default" ng-click="vm.save()" />
+        <button type="button" class="btn btn-default" ng-click="vm.onSaveAndGotoListButtonClicked()">
+            Save and go to list
+        </button>
+        <button type="button" class="btn btn-default" ng-click="vm.onSaveAndGotoDetailsButtonClicked()">
+            Save and go to details
+        </button>
     </div>
 </div>
 

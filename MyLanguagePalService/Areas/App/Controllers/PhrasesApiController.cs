@@ -73,10 +73,11 @@ namespace MyLanguagePalService.Areas.App.Controllers
             }
 
             // *** Phrase creation ***
+            int newId;
             try
             {
                 // ReSharper disable once AssignNullToNotNullAttribute
-                _phrasesService.CreatePhrase(inputModel.Text,
+                newId = _phrasesService.CreatePhrase(inputModel.Text,
                     inputModel.LanguageId.Value,
                     inputModel.Translations.Select(ToTranslationImBll).ToList());
             }
@@ -85,7 +86,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
                 return UnprocessableEntity(vfe);
             }
 
-            return Ok();
+            return Ok(new { id = newId });
         }
 
 

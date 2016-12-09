@@ -38,6 +38,18 @@
         self.translations.remove(translation);
     }
 
+    PhrasesEditController.prototype.onSaveAndGotoListButtonClicked = function () {
+        var self = this;
+
+        self.save();
+    }
+
+    PhrasesEditController.prototype.onSaveAndGotoDetailsButtonClicked = function () {
+        var self = this;
+
+        self.save('gotoDetails');
+    }
+
     /* Private */
 
     PhrasesEditController.prototype._init = function () {
@@ -61,31 +73,10 @@
         }
     }
 
-    PhrasesEditController.prototype._save = function () {
+    PhrasesEditController.prototype._save = function (isRedirectToDetails) {
         var self = this;
 
-        if (self.isNew) {
-            self.asyncRequest({
-                request: function () {
-                    return self._phrasesService.createPhrase(self._toPhraseDto());
-                },
-                success: self._onSaveSuccess
-            });
-        } else {
-            self.asyncRequest({
-                request: function () {
-                    return self._phrasesService.updatePhrase(self._phraseId, self._toPhraseDto());
-                },
-                success: self._onSaveSuccess
-            });
-        }
-    }
-
-    PhrasesEditController.prototype._onSaveSuccess = function (result) {
-        var self = this;
-
-        if (result instanceof ValidationConnectorResult) {
-
+        var showValidationErrors = function (result) {
             // Get phrase text error
             self.textValidationError = undefined;
             if (angular.isDefined(result.validationState.text))
@@ -107,11 +98,48 @@
 
                 self.translations[index].textValidationError = value.join();
             });
-
-            return;
         }
 
-        self._redirectToIndex();
+        var leavePage = function () {
+            if (isRedirectToDetails) {
+                self._redirectToDetails();
+            } else {
+                self._redirectToIndex();
+            }
+        }
+
+
+        if (self.isNew) {
+            self.asyncRequest({
+                request: function () {
+                    return self._phrasesService.createPhrase(self._toPhraseDto());
+                },
+                success: function (result) {
+                    if (result instanceof ValidationConnectorResult) {
+                        showValidationErrors(result);
+                        return;
+                    }
+
+                    self._phraseId = result.data.id;
+
+                    leavePage();
+                }
+            });
+        } else {
+            self.asyncRequest({
+                request: function () {
+                    return self._phrasesService.updatePhrase(self._phraseId, self._toPhraseDto());
+                },
+                success: function (result) {
+                    if (result instanceof ValidationConnectorResult) {
+                        showValidationErrors(result);
+                        return;
+                    }
+
+                    leavePage();
+                }
+            });
+        }
     }
 
     PhrasesEditController.prototype._fromPhraseDto = function (dto) {
@@ -140,13 +168,17 @@
         }
     }
 
+    PhrasesEditController.prototype._redirectToDetails = function () {
+        var self = this;
+        self._$location.path('/phrases/details/' + self._phraseId);
+    }
+
     PhrasesEditController.prototype._redirectToIndex = function () {
         var self = this;
         self._$location.path('/phrases');
     }
 
-    angular
-        .module('app')
+    angular.module('app')
         .controller('phrasesEditController', [
             '$scope',
             '$routeParams',
