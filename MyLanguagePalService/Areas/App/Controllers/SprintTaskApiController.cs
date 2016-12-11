@@ -1,9 +1,7 @@
 ﻿using System.Web.Http;
 using MyLanguagePalService.Areas.App.Models.Controller.SprintTaskApi;
-using MyLanguagePalService.BLL.Languages;
 using MyLanguagePalService.BLL.Tasks.Sprint;
 using MyLanguagePalService.Core;
-using MyLanguagePalService.DAL;
 
 namespace MyLanguagePalService.Areas.App.Controllers
 {
@@ -14,9 +12,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
 
         public SprintTaskApiController()
         {
-            var db = new ApplicationDbContext();
-            var languagesService = new LanguagesService(db);
-            _sprintTaskService = new SprintTaskService(languagesService, db);
+            _sprintTaskService = UnitOfWork.SprintTaskService;
         }
 
         [Route("settings")]
@@ -41,6 +37,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
             try
             {
                 _sprintTaskService.SetSettings(FromAm(inputModel));
+                UnitOfWork.Save();
             }
             catch (ValidationFailedException vfe)
             {

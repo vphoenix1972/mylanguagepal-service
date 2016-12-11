@@ -1,12 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Http;
-using MyLanguagePalService.Areas.App.Models.Controller.PhrasesApi;
 using MyLanguagePalService.Areas.App.Models.Controller.TranslationsApi;
 using MyLanguagePalService.BLL;
-using MyLanguagePalService.BLL.Models;
-using MyLanguagePalService.Core;
-using MyLanguagePalService.DAL;
 
 namespace MyLanguagePalService.Areas.App.Controllers
 {
@@ -17,7 +12,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
 
         public TranslationsApiController()
         {
-            _phrasesService = new PhrasesService(new ApplicationDbContext());
+            _phrasesService = UnitOfWork.PhrasesService;
         }
 
         [Route("")]

@@ -70,8 +70,6 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
             {
                 _db.Entry(settingDal).State = EntityState.Modified;
             }
-
-            _db.SaveChanges();
         }
 
         public SprintTaskData GetDataForNewTask()
