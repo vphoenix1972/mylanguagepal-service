@@ -215,12 +215,14 @@
     <Compile Include="Areas\App\Controllers\MainController.cs" />
     <Compile Include="Areas\App\Controllers\LanguagesApiController.cs" />
     <Compile Include="Areas\App\Controllers\PhrasesApiController.cs" />
+    <Compile Include="Areas\App\Controllers\SprintTaskApiController.cs" />
     <Compile Include="Areas\App\Controllers\TranslationsApiController.cs" />
     <Compile Include="Areas\App\Models\Controller\LanguagesApi\LanguagesApiAm.cs" />
     <Compile Include="Areas\App\Models\Controller\LanguagesApi\LanguagesApiCreateIm.cs" />
     <Compile Include="Areas\App\Models\Controller\PhrasesApi\PhrasesApiCreateIm.cs" />
     <Compile Include="Areas\App\Models\Controller\PhrasesApi\PhrasesApiDetailsAm.cs" />
     <Compile Include="Areas\App\Models\Controller\PhrasesApi\PhrasesApiGetAllAm.cs" />
+    <Compile Include="Areas\App\Models\Controller\SprintTaskApi\SprintTaskApiSettingsAm.cs" />
     <Compile Include="Areas\App\Models\Controller\TranslationsApi\TranslationAm.cs" />
     <Compile Include="Areas\App\Models\Controller\PhrasesApi\TranslationIm.cs" />
     <Compile Include="Areas\Other\OtherAreaRegistration.cs" />
@@ -231,7 +233,15 @@
     <Compile Include="Areas\Site\Controllers\PhrasesController.cs" />
     <Compile Include="Areas\Site\Controllers\SecuredSiteControllerBase.cs" />
     <Compile Include="Areas\Other\Controllers\TestController.cs" />
+    <Compile Include="BLL\Languages\ILanguagesService.cs" />
+    <Compile Include="BLL\Languages\LanguageModel.cs" />
+    <Compile Include="BLL\Languages\LanguagesService.cs" />
+    <Compile Include="BLL\ServiceBase.cs" />
+    <Compile Include="BLL\Tasks\Sprint\ISprintTaskService.cs" />
     <Compile Include="BLL\Models\TranslationImBll.cs" />
+    <Compile Include="BLL\Tasks\Sprint\SprintTaskData.cs" />
+    <Compile Include="BLL\Tasks\Sprint\SprintTaskService.cs" />
+    <Compile Include="BLL\Tasks\Sprint\SprintTaskSettingModel.cs" />
     <Compile Include="Core\EnumerableExtensions.cs" />
     <Compile Include="Core\ValidateAntiForgeryTokenAttribute .cs" />
     <Compile Include="Core\ValidationError.cs" />
@@ -245,6 +255,7 @@
     <Compile Include="BLL\IPhrasesService.cs" />
     <Compile Include="DAL\Models\LanguageDal.cs" />
     <Compile Include="DAL\Models\PhraseDal.cs" />
+    <Compile Include="DAL\Models\SprintTaskSettingDal.cs" />
     <Compile Include="DAL\Models\TranslationDal.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -922,6 +933,7 @@
     <Folder Include="Areas\App\Views\Shared\" />
     <Folder Include="Areas\Other\Models\" />
     <Folder Include="Areas\Other\Views\Shared\" />
+    <Folder Include="Content\app\pages\tasks\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />

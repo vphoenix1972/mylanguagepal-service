@@ -15,6 +15,8 @@ namespace MyLanguagePalService.DAL
 
         public IDbSet<TranslationDal> Translations { get; set; }
 
+        public IDbSet<SprintTaskSettingDal> SprintTaskSettings { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -46,6 +48,11 @@ namespace MyLanguagePalService.DAL
             modelBuilder.Entity<TranslationDal>()
                 .HasKey(e => e.Id);
 
+            // Sprint task settings
+            modelBuilder.Entity<SprintTaskSettingDal>().ToTable("SprintTaskSettings");
+            modelBuilder.Entity<SprintTaskSettingDal>()
+                .HasKey(e => e.Id);
+
             /* Configure relationships */
 
             // Pharses <-> Languages
@@ -64,6 +71,12 @@ namespace MyLanguagePalService.DAL
                 .HasMany(p => p.PhrasesTranslatedBy)
                 .WithRequired(t => t.TranslationPhrase)
                 .HasForeignKey(t => t.TranslationPhraseId);
+
+            // Sprint task settings <-> Languages
+            modelBuilder.Entity<LanguageDal>()
+                .HasMany(l => l.SprintTaskSettings)
+                .WithRequired(s => s.Language)
+                .HasForeignKey(s => s.LanguageId);
         }
     }
 }

@@ -13,6 +13,8 @@ namespace MyLanguagePalService.DAL
 
         IDbSet<TranslationDal> Translations { get; set; }
 
+        IDbSet<SprintTaskSettingDal> SprintTaskSettings { get; set; }
+
         DbEntityEntry Entry(object entity);
 
         int SaveChanges();

@@ -13,6 +13,7 @@ namespace MyLanguagePalService.DAL
     {
         protected override void Seed(ApplicationDbContext context)
         {
+            /* Languages */
             var languages = new List<LanguageDal>
             {
                 new LanguageDal() { Name = "English" },
@@ -20,6 +21,7 @@ namespace MyLanguagePalService.DAL
             };
             languages.ForEach(language => context.Languages.Add(language));
 
+            /* Phrases */
             var phrases = new List<PhraseDal>
             {
                 new PhraseDal() { Text = "to think", Language = languages[0] }, // 0
@@ -112,6 +114,7 @@ namespace MyLanguagePalService.DAL
                 new PhraseDal() { Text = "взгромоздить", Language = languages[1] } // 86
             };
 
+            /* Translations */
             var translations = new List<TranslationDal>
             {
                 new TranslationDal() { ForPhrase = phrases[0], TranslationPhrase = phrases[35], Prevalence = 40 },
