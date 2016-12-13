@@ -5,12 +5,12 @@ using MyLanguagePalService.DAL;
 
 namespace MyLanguagePalService.BLL
 {
-    public class UnitOfWork : IUnitOfWork
+    public class ServiceManager : IServiceManager
     {
         private bool _disposed;
         private readonly IApplicationDbContext _db;
 
-        public UnitOfWork(IApplicationDbContext db)
+        public ServiceManager(IApplicationDbContext db)
         {
             _db = db;
 

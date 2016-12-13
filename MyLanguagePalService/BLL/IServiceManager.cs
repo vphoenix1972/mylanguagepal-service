@@ -5,7 +5,7 @@ using MyLanguagePalService.BLL.Tasks.Sprint;
 
 namespace MyLanguagePalService.BLL
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IServiceManager : IDisposable
     {
         [NotNull]
         ILanguagesService LanguagesService { get; }

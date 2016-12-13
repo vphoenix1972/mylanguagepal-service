@@ -12,7 +12,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
 
         public TranslationsApiController()
         {
-            _phrasesService = UnitOfWork.PhrasesService;
+            _phrasesService = ServiceManager.PhrasesService;
         }
 
         [Route("")]

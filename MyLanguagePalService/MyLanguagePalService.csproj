@@ -233,7 +233,7 @@
     <Compile Include="Areas\Site\Controllers\PhrasesController.cs" />
     <Compile Include="Areas\Site\Controllers\SecuredSiteControllerBase.cs" />
     <Compile Include="Areas\Other\Controllers\TestController.cs" />
-    <Compile Include="BLL\IUnitOfWork.cs" />
+    <Compile Include="BLL\IServiceManager.cs" />
     <Compile Include="BLL\Languages\ILanguagesService.cs" />
     <Compile Include="BLL\Languages\LanguageModel.cs" />
     <Compile Include="BLL\Languages\LanguagesService.cs" />
@@ -243,7 +243,7 @@
     <Compile Include="BLL\Tasks\Sprint\SprintTaskData.cs" />
     <Compile Include="BLL\Tasks\Sprint\SprintTaskService.cs" />
     <Compile Include="BLL\Tasks\Sprint\SprintTaskSettingModel.cs" />
-    <Compile Include="BLL\UnitOfWork.cs" />
+    <Compile Include="BLL\ServiceManager.cs" />
     <Compile Include="Core\EnumerableExtensions.cs" />
     <Compile Include="Core\ValidateAntiForgeryTokenAttribute .cs" />
     <Compile Include="Core\ValidationError.cs" />

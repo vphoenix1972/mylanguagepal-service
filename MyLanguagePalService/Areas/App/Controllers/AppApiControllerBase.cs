@@ -11,15 +11,15 @@ namespace MyLanguagePalService.Areas.App.Controllers
         protected AppApiControllerBase()
         {
             var db = new ApplicationDbContext();
-            UnitOfWork = new UnitOfWork(db);
+            ServiceManager = new ServiceManager(db);
         }
 
         [NotNull]
-        protected IUnitOfWork UnitOfWork { get; }
+        protected IServiceManager ServiceManager { get; }
 
         protected override void Dispose(bool disposing)
         {
-            UnitOfWork.Dispose();
+            ServiceManager.Dispose();
             base.Dispose(disposing);
         }
 

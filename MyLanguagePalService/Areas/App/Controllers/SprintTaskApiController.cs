@@ -12,7 +12,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
 
         public SprintTaskApiController()
         {
-            _sprintTaskService = UnitOfWork.SprintTaskService;
+            _sprintTaskService = ServiceManager.SprintTaskService;
         }
 
         [Route("settings")]
@@ -37,7 +37,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
             try
             {
                 _sprintTaskService.SetSettings(FromAm(inputModel));
-                UnitOfWork.Save();
+                ServiceManager.Save();
             }
             catch (ValidationFailedException vfe)
             {
