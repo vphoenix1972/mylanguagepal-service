@@ -1,12 +1,12 @@
 ﻿(function () {
-    function PhrasesEditController($scope, $routeParams, $location, errorReportingService, progressBarService, phrasesService) {
-        PageController.call(this, $scope, errorReportingService, progressBarService);
+    function PhrasesEditController($injector, $scope, phrasesService) {
+        $injector.invoke(PageController, this, { $scope: $scope });
 
         var self = this;
         self._phrasesService = phrasesService;
-        self._phraseId = $routeParams.phraseId;
-        self._$location = $location;
-
+        // ReSharper disable once PossiblyUnassignedProperty
+        self._phraseId = self.$routeParams.phraseId;
+        
         /* View model defaults */
         self.isNew = !angular.isDefined(self._phraseId);
         self.languageId = 1; // ToDo: Use English by default right now
@@ -170,22 +170,16 @@
 
     PhrasesEditController.prototype._redirectToDetails = function () {
         var self = this;
-        self._$location.path('/phrases/details/' + self._phraseId);
+        self.$location.path('/phrases/details/' + self._phraseId);
     }
 
     PhrasesEditController.prototype._redirectToIndex = function () {
         var self = this;
-        self._$location.path('/phrases');
+        self.$location.path('/phrases');
     }
 
+    PhrasesEditController.$inject = ['$injector', '$scope', 'phrasesService'];
+
     angular.module('app')
-        .controller('phrasesEditController', [
-            '$scope',
-            '$routeParams',
-            '$location',
-            'errorReportingService',
-            'progressBarService',
-            'phrasesService',
-            PhrasesEditController
-        ]);
+        .controller('phrasesEditController', PhrasesEditController);
 })();

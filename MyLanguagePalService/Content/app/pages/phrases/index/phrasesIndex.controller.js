@@ -1,6 +1,6 @@
 ﻿(function () {
-    function PhrasesIndexController($scope, errorReportingService, progressBarService, phrasesService) {
-        PageController.call(this, $scope, errorReportingService, progressBarService);
+    function PhrasesIndexController($injector, $scope, phrasesService) {
+        $injector.invoke(PageController, this, { $scope: $scope });
 
         var self = this;
 
@@ -18,12 +18,7 @@
     PhrasesIndexController.prototype = Object.create(PageController.prototype);
     PhrasesIndexController.prototype.constructor = PhrasesIndexController;
 
-    PhrasesIndexController.$inject = [
-        '$scope',
-        'errorReportingService',
-        'progressBarService',
-        'phrasesService'
-    ];
+    PhrasesIndexController.$inject = ['$injector', '$scope', 'phrasesService'];
 
     angular
         .module('app')

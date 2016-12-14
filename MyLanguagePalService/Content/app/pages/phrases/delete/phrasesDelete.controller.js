@@ -1,11 +1,11 @@
 ﻿(function () {
-    function PhrasesDeleteController($scope, $routeParams, $location, errorReportingService, progressBarService, phrasesService) {
-        PageController.call(this, $scope, errorReportingService, progressBarService);
+    function PhrasesDeleteController($injector, $scope, phrasesService) {
+        $injector.invoke(PageController, this, { $scope: $scope });
 
         var self = this;
         self._phrasesService = phrasesService;
-        self._id = $routeParams.phraseId;
-        self._$location = $location;
+        // ReSharper disable once PossiblyUnassignedProperty
+        self._id = self.$routeParams.phraseId;
 
         /* View model */
         self.text = '';
@@ -51,18 +51,12 @@
 
     PhrasesDeleteController.prototype._redirectToIndex = function () {
         var self = this;
-        self._$location.path('/phrases');
+        self.$location.path('/phrases');
     }
+
+    PhrasesDeleteController.$inject = ['$injector', '$scope', 'phrasesService'];
 
     angular
         .module('app')
-        .controller('phrasesDeleteController', [
-            '$scope',
-            '$routeParams',
-            '$location',
-            'errorReportingService',
-            'progressBarService',
-            'phrasesService',
-            PhrasesDeleteController
-        ]);
+        .controller('phrasesDeleteController', PhrasesDeleteController);
 })();

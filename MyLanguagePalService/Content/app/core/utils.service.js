@@ -1,6 +1,8 @@
 ﻿(function () {
-    function Utils() {
+    function Utils($q) {
+        var self = this;
 
+        self._$q = $q;
     }
 
     Utils.prototype.isInteger = function (value) {
@@ -19,6 +21,14 @@
         return result;
     }
 
+    Utils.prototype.cancelPromiseChaining = function () {
+        var self = this;
+
+        // Cancel promise chaining
+        // Code taken from http://blog.zeit.io/stop-a-promise-chain-without-using-reject-with-angular-s-q/
+        return self._$q(function () { return null; });
+    }
+
     //Utils.prototype.asyncTryCatch = function (func, successHandler, errorHandler) {
     //    try {
     //        return func().then(successHandler, errorHandler);
@@ -26,6 +36,8 @@
     //        errorHandler(e);
     //    }
     //}
+
+    Utils.$inject = ['$q'];
 
     angular
         .module('app.core')

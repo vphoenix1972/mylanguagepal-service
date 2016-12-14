@@ -338,6 +338,11 @@
     <Content Include="Content\app\core\promiseQueue.js" />
     <Content Include="Content\app\core\rest.js" />
     <Content Include="Content\app\core\utils.service.js" />
+    <Content Include="Content\app\pages\tasks\sprint\sprintTask.controller.js" />
+    <Content Include="Content\app\pages\tasks\sprint\sprintTask.css" />
+    <Content Include="Content\app\pages\tasks\sprint\sprintTask.routes.js" />
+    <Content Include="Content\app\pages\tasks\sprint\sprintTask.service.js" />
+    <Content Include="Content\app\pages\tasks\sprint\sprintTask.tpl.html" />
     <Content Include="Content\deps\angular\angular-animate.js" />
     <Content Include="Content\deps\angular\angular-route.js" />
     <Content Include="Content\deps\angular\angular-touch.js" />
@@ -935,7 +940,6 @@
     <Folder Include="Areas\App\Views\Shared\" />
     <Folder Include="Areas\Other\Models\" />
     <Folder Include="Areas\Other\Views\Shared\" />
-    <Folder Include="Content\app\pages\tasks\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />

@@ -53,7 +53,13 @@ namespace MyLanguagePalService
                 "~/Content/app/pages/phrases/details/phraseDetails.css",
 
                 // Dashboard
-                "~/Content/app/pages/dashboard/dashboard.css"
+                "~/Content/app/pages/dashboard/dashboard.css",
+
+                // Tasks
+
+                // Sprint task
+                "~/Content/app/pages/tasks/sprint/sprintTask.css"
+
                 ));
 
             bundles.Add(new ScriptBundle("~/app/app-js").Include(
@@ -118,7 +124,14 @@ namespace MyLanguagePalService
 
                 // Dashboard
                 "~/Content/app/pages/dashboard/dashboard.routes.js",
-                "~/Content/app/pages/dashboard/dashboard.controller.js"
+                "~/Content/app/pages/dashboard/dashboard.controller.js",
+
+                // Tasks
+
+                // Sprint task
+                "~/Content/app/pages/tasks/sprint/sprintTask.service.js",
+                "~/Content/app/pages/tasks/sprint/sprintTask.routes.js",
+                "~/Content/app/pages/tasks/sprint/sprintTask.controller.js"
                 ));
 
             // *** Other bundles ***

@@ -1,10 +1,14 @@
 ﻿PageController = (function () {
-    function PageController($scope, errorReportingService, progressBarService) {
+    function PageController($q, $location, $scope, $routeParams, utils, errorReportingService, progressBarService) {
         var self = this;
 
-        self._$scope = $scope;
-        self._errorReportingService = errorReportingService;
-        self._progressBarService = progressBarService;
+        self.$q = $q;
+        self.$location = $location;
+        self.$scope = $scope;
+        self.$routeParams = $routeParams;
+        self.utils = utils;
+        self.errorReportingService = errorReportingService;
+        self.progressBarService = progressBarService;
 
         self._userHasLeftThePage = false;
 
@@ -15,7 +19,7 @@
             self._userHasLeftThePage = true;
 
             // Stop progress bar loading if any
-            self._progressBarService.reset();
+            self.progressBarService.reset();
         });
 
 
@@ -41,14 +45,14 @@
                 throw new Error('Argument "options.request" must be a function');
 
             /* Run request */
-            self._progressBarService.start();
+            self.progressBarService.start();
 
             options.request().then(function () {
                 if (self._userHasLeftThePage)
                     return; // Do not process the response
 
                 // Complete progress bar
-                self._progressBarService.complete();
+                self.progressBarService.complete();
 
                 // Pass the response to caller
                 if (angular.isFunction(options.success)) {
@@ -56,13 +60,13 @@
                 }
             }, function () {
                 // Report about the error
-                self._errorReportingService.reportError.apply(self._errorReportingService, arguments);
+                self.errorReportingService.reportError.apply(self.errorReportingService, arguments);
 
                 if (self._userHasLeftThePage)
                     return;
 
                 // Complete progress bar
-                self._progressBarService.complete();
+                self.progressBarService.complete();
 
                 // Pass the error to caller
                 if (angular.isFunction(options.error)) {
@@ -71,6 +75,39 @@
             });
         }
     }
+
+    PageController.prototype.doAsync = function (fn) {
+        var self = this;
+
+        /* Run request */
+        self.progressBarService.start();
+
+        return self.$q.when(fn()).then(function () {
+            if (self._userHasLeftThePage) {
+                return self.utils.cancelPromiseChaining();
+            }
+
+            // Complete progress bar
+            self.progressBarService.complete();
+
+            // Continue handling
+            return self.$q.resolve(arguments);
+        }, function () {
+            // Report about the error
+            self.errorReportingService.reportError.apply(self.errorReportingService, arguments);
+
+            if (self._userHasLeftThePage)
+                return self.utils.cancelPromiseChaining();
+
+            // Complete progress bar
+            self.progressBarService.complete();
+
+            // Continue handling
+            return self.$q.reject(arguments);
+        });
+    }
+
+    PageController.$inject = ['$q', '$location', '$scope', '$routeParams', 'utils', 'errorReportingService', 'progressBarService'];
 
     return PageController;
 })();

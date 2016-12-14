@@ -68,6 +68,19 @@
         return self._get('/api/phrases/' + phraseId + '/translations');
     }
 
+    /* Tasks */
+
+    /* Sprint Task */
+    ConnectorService.prototype.getSprintTaskSettings = function () {
+        var self = this;
+        return self._get('/api/tasks/sprint/settings');
+    }
+
+    ConnectorService.prototype.setSprintTaskSettings = function (settings) {
+        var self = this;
+        return self._postAndHandle422('/api/tasks/sprint/settings', settings);
+    }
+
     /* *** Private *** */
 
     ConnectorService.prototype._get = function (url) {
@@ -148,9 +161,14 @@
         result.response = response;
 
         /* Extract validation errors */
+
+        // modelState is in protocol contract
+
+        // ReSharper disable PossiblyUnassignedProperty
         if (angular.isObject(response.data.modelState)) {
             result.validationState = response.data.modelState;
         }
+        // ReSharper restore PossiblyUnassignedProperty
 
         return result;
     }

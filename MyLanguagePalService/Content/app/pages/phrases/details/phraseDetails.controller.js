@@ -1,11 +1,12 @@
 ﻿(function () {
-    function PhraseDetailsController($scope, $routeParams, $location, errorReportingService, progressBarService, phrasesService) {
-        PageController.call(this, $scope, errorReportingService, progressBarService);
+    function PhraseDetailsController($injector, $scope, phrasesService) {
+        $injector.invoke(PageController, this, { $scope: $scope });
 
         var self = this;
 
         self.asyncRequest({
-            request: function () { return phrasesService.getPhraseDetails($routeParams.phraseId); },
+            // ReSharper disable once PossiblyUnassignedProperty
+            request: function () { return phrasesService.getPhraseDetails(self.$routeParams.phraseId); },
             success: function (result) {
                 self.isLoading = false;
 
@@ -17,7 +18,7 @@
                 });
             },
             error: function () {
-                $location.path('/phrases');
+                self.$location.path('/phrases');
             }
         });
     }
@@ -25,7 +26,7 @@
     PhraseDetailsController.prototype = Object.create(PageController.prototype);
     PhraseDetailsController.prototype.constructor = PhraseDetailsController;
 
-    PhraseDetailsController.$inject = ['$scope', '$routeParams', '$location', 'errorReportingService', 'progressBarService', 'phrasesService'];
+    PhraseDetailsController.$inject = ['$injector', '$scope', 'phrasesService'];
 
     angular
         .module('app')

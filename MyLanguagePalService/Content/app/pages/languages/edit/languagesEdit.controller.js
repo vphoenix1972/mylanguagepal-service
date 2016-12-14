@@ -1,12 +1,11 @@
 ﻿(function () {
-    function LanguagesEditController($scope, $routeParams, $location, errorReportingService, progressBarService, languagesService) {
-        PageController.call(this, $scope, errorReportingService, progressBarService);
+    function LanguagesEditController($injector, $scope, languagesService) {
+        $injector.invoke(PageController, this, { $scope: $scope });
 
         var self = this;
         self._languagesService = languagesService;
-        self._languageId = $routeParams.languageId;
-        self._$location = $location;
-
+        self._languageId = self.$routeParams.languageId;
+        
         /* View model */
         self.isNew = !angular.isDefined(self._languageId);
         self.languageName = '';
@@ -26,7 +25,7 @@
         // If edit requested ...
         if (self.isNew) {
             self.isLoading = false;
-        } else {            
+        } else {
             self.asyncRequest({
                 request: function () { return self._languagesService.getLanguage(self._languageId); },
                 success: function (result) {
@@ -35,7 +34,7 @@
                     self.languageName = result.data.name;
                 },
                 error: function () {
-                    self._$location.path('/languages');
+                    self.$location.path('/languages');
                 }
             });
         }
@@ -57,7 +56,7 @@
                         return;
                     }
 
-                    self._$location.path('/languages');
+                    self.$location.path('/languages');
                 }
             });
         } else {
@@ -73,21 +72,15 @@
                         return;
                     }
 
-                    self._$location.path('/languages');
+                    self.$location.path('/languages');
                 }
             });
         }
     }
 
+    LanguagesEditController.$inject = ['$injector', '$scope', 'languagesService'];
+
     angular
         .module('app')
-        .controller('languagesEditController', [
-            '$scope',
-            '$routeParams',
-            '$location',
-            'errorReportingService',
-            'progressBarService',
-            'languagesService',
-            LanguagesEditController
-        ]);
+        .controller('languagesEditController', LanguagesEditController);
 })();

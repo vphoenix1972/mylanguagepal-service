@@ -1,11 +1,10 @@
 ﻿(function () {
-    function LanguagesDeleteController($scope, $routeParams, $location, errorReportingService, progressBarService, languagesService) {
-        PageController.call(this, $scope, errorReportingService, progressBarService);
+    function LanguagesDeleteController($injector, $scope, languagesService) {
+        $injector.invoke(PageController, this, { $scope: $scope });
 
         var self = this;
         self._languagesService = languagesService;
-        self._languageId = $routeParams.languageId;
-        self._$location = $location;
+        self._languageId = self.$routeParams.languageId;
 
         /* View model */
         self.language = {};
@@ -25,11 +24,11 @@
             request: function () { return self._languagesService.getLanguage(self._languageId); },
             success: function (result) {
                 self.isLoading = false;
-                
+
                 self.language = result.data;
             },
             error: function () {
-                self._$location.path('/languages');
+                self.$location.path('/languages');
             }
         });
     }
@@ -42,20 +41,14 @@
                 return self._languagesService.deleteLanguage(self._languageId);
             },
             success: function () {
-                self._$location.path('/languages');
+                self.$location.path('/languages');
             }
         });
     }
 
+    LanguagesDeleteController.$inject = ['$injector', '$scope', 'languagesService'];
+
     angular
         .module('app')
-        .controller('languagesDeleteController', [
-            '$scope',
-            '$routeParams',
-            '$location',
-            'errorReportingService',
-            'progressBarService',
-            'languagesService',
-            LanguagesDeleteController
-        ]);
+        .controller('languagesDeleteController', LanguagesDeleteController);
 })();

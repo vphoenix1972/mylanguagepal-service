@@ -1,6 +1,6 @@
 ﻿(function () {
-    function LanguagesIndexController($scope, errorReportingService, progressBarService, languagesService) {
-        PageController.call(this, $scope, errorReportingService, progressBarService);
+    function LanguagesIndexController($injector, $scope, languagesService) {
+        $injector.invoke(PageController, this, { $scope: $scope });
 
         var self = this;
 
@@ -18,13 +18,9 @@
     LanguagesIndexController.prototype = Object.create(PageController.prototype);
     LanguagesIndexController.prototype.constructor = LanguagesIndexController;
 
+    LanguagesIndexController.$inject = ['$injector', '$scope', 'languagesService'];
+
     angular
         .module('app')
-        .controller('languagesIndexController', [
-            '$scope',            
-            'errorReportingService',
-            'progressBarService',
-            'languagesService',
-            LanguagesIndexController
-        ]);
+        .controller('languagesIndexController', LanguagesIndexController);
 })();
