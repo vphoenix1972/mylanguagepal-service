@@ -9,27 +9,19 @@
         self._sprintTaskService = sprintTaskService;
         self._languagesService = languagesService;
 
-        //var onLoadError = function () {
-        //    $location.path('/dashboard');
-        //}
-        
-        //self.asyncRequest({
-        //    request: function () { return self._sprintTaskService.getSettings(); },
-        //    success: function (result) {
-        //        self.asyncRequest({
-        //            request: function () { return self._sprintTaskService.getSettings(); },
-        //            success: function (result) {
-        //                self.asyncRequest
-
-
-        //            },
-        //            error: onLoadError
-        //        });
-
-
-        //    },
-        //    error: onLoadError
-        //});
+        /* Init */
+        self.doAsync(self._languagesService.getLanguages())
+            .then(function (result) {
+                self.languages = result[0].data;
+                return self.doAsync(self._sprintTaskService.getSettings());
+            })
+            .then(function (result) {
+                self.isLoading = false;
+                self.settings = result[0].data;
+            })
+            .catch(function () {
+                self.$location.path('/dashboard');
+            });
     }
 
     SprintTaskController.prototype = Object.create(PageController.prototype);

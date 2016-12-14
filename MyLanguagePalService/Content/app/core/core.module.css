@@ -22,3 +22,43 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.b-row {
+    width: 100%;
+}
+
+    .b-row:after {
+        /* Clear float */
+        clear: both;
+        display: block;
+        height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        content: ".";
+        font-size: 0;
+    }
+
+.b-col-6 {
+    float: left;
+    width: 50%;
+}
+
+.b-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+.b-non-empty {
+    -moz-min-width: 1px;
+    -ms-min-width: 1px;
+    -o-min-width: 1px;
+    -webkit-min-width: 1px;
+    min-width: 1px;
+    min-height: 1px;
+}
+
+.b-full-height {
+    height: 100%;
+}

@@ -317,9 +317,15 @@
     <Content Include="Content\app\pages\phrases\index\phrasesIndex.controller.js" />
     <Content Include="Content\app\pages\phrases\index\phrasesIndex.tpl.html" />
     <Content Include="Content\app\pages\phrases\phrases.routes.js" />
+    <Content Include="Content\app\pages\shared\directives\languageFlag\languageFlag.directive.js" />
+    <Content Include="Content\app\pages\shared\directives\languageFlag\languageFlag.tpl.html" />
+    <Content Include="Content\app\pages\shared\directives\languageSelection\languageSelection.css" />
+    <Content Include="Content\app\pages\shared\directives\languageSelection\languageSelection.directive.js" />
+    <Content Include="Content\app\pages\shared\directives\languageSelection\languageSelection.tpl.html" />
     <Content Include="Content\app\pages\shared\directives\textInput\textInput.tpl.html" />
     <Content Include="Content\app\pages\shared\directives\textInput\textInput.directive.css" />
     <Content Include="Content\app\pages\shared\directives\textInput\textInput.directive.js" />
+    <Content Include="Content\app\pages\shared\pagesShared.css" />
     <Content Include="Content\app\pages\shared\page\page.css" />
     <Content Include="Content\app\pages\shared\page\page.controller.js" />
     <Content Include="Content\app\pages\shared\services\config.service.js" />

@@ -76,13 +76,13 @@
         }
     }
 
-    PageController.prototype.doAsync = function (fn) {
+    PageController.prototype.doAsync = function (promise) {
         var self = this;
 
         /* Run request */
         self.progressBarService.start();
 
-        return self.$q.when(fn()).then(function () {
+        return self.$q.when(promise).then(function () {
             if (self._userHasLeftThePage) {
                 return self.utils.cancelPromiseChaining();
             }

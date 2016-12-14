@@ -1,0 +1,8 @@
+﻿<div class="btn-group" data-toggle="buttons">
+    <label ng-repeat="language in vm.languages"
+           class="btn btn-default"
+           ng-model="vm.selectedLanguageId" uib-btn-radio="language.id">
+        <language-flag language-id="language.id">
+        </language-flag>
+    </label>
+</div>

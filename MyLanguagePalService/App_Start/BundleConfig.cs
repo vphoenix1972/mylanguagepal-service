@@ -44,9 +44,11 @@ namespace MyLanguagePalService
                 /* Pages */
 
                 // Pages shared
+                "~/Content/app/pages/shared/pagesShared.css",
                 "~/Content/app/pages/shared/services/progressBar/progressBar.service.css",
                 "~/Content/app/pages/shared/page/page.css",
                 "~/Content/app/pages/shared/directives/textInput/textInput.directive.css",
+                "~/Content/app/pages/shared/directives/languageSelection/languageSelection.directive.css",
 
                 // Phrases
                 "~/Content/app/pages/phrases/edit/phrasesEdit.css",
@@ -102,6 +104,8 @@ namespace MyLanguagePalService
 
                 "~/Content/app/pages/shared/page/page.controller.js",
                 "~/Content/app/pages/shared/directives/textInput/textInput.directive.js",
+                "~/Content/app/pages/shared/directives/languageFlag/languageFlag.directive.js",
+                "~/Content/app/pages/shared/directives/languageSelection/languageSelection.directive.js",
 
                 // About
                 "~/Content/app/pages/about/about.routes.js",
