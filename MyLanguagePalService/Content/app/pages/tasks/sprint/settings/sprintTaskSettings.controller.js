@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    function SprintTaskController($injector, $scope, sprintTaskService, languagesService, $timeout) {
+    function SprintTaskSettingsController($injector, $scope, sprintTaskService, languagesService) {
         $injector.invoke(PageController, this, { $scope: $scope });
 
         var self = this;
@@ -12,28 +12,28 @@
         /* Init */
         self.doAsync(self._languagesService.getLanguages())
             .then(function (result) {
-                self.languages = result[0].data;
+                self.languages = result.data;
                 return self.doAsync(self._sprintTaskService.getSettings());
             })
             .then(function (result) {
                 self.isLoading = false;
-                self.settings = result[0].data;
+                self.settings = result.data;
             })
             .catch(function () {
                 self.$location.path('/dashboard');
             });
     }
 
-    SprintTaskController.prototype = Object.create(PageController.prototype);
-    SprintTaskController.prototype.constructor = SprintTaskController;
+    SprintTaskSettingsController.prototype = Object.create(PageController.prototype);
+    SprintTaskSettingsController.prototype.constructor = SprintTaskSettingsController;
 
     /* Private */
 
 
-    SprintTaskController.$inject = ['$injector', '$scope', 'sprintTaskService', 'languagesService', '$timeout'];
+    SprintTaskSettingsController.$inject = ['$injector', '$scope', 'sprintTaskService', 'languagesService'];
 
     angular
         .module('app')
-        .controller('sprintTaskController', SprintTaskController);
+        .controller('sprintTaskSettingsController', SprintTaskSettingsController);
 
 })();

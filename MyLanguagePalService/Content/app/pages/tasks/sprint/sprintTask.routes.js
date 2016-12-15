@@ -5,9 +5,9 @@
         .module('app')
         .config(function ($routeProvider) {
             $routeProvider
-            .when('/tasks/sprint', {
-                templateUrl: '/Content/app/pages/tasks/sprint/sprintTask.tpl.html',
-                controller: 'sprintTaskController as vm'
+            .when('/tasks/sprint/settings', {
+                templateUrl: '/Content/app/pages/tasks/sprint/settings/sprintTaskSettings.tpl.html',
+                controller: 'sprintTaskSettingsController as vm'
             });
         });
 })();

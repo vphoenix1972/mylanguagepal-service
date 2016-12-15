@@ -82,7 +82,7 @@
         /* Run request */
         self.progressBarService.start();
 
-        return self.$q.when(promise).then(function () {
+        return self.$q.when(promise).then(function (result) {
             if (self._userHasLeftThePage) {
                 return self.utils.cancelPromiseChaining();
             }
@@ -91,10 +91,10 @@
             self.progressBarService.complete();
 
             // Continue handling
-            return self.$q.resolve(arguments);
-        }, function () {
+            return self.$q.resolve(result);
+        }, function (result) {
             // Report about the error
-            self.errorReportingService.reportError.apply(self.errorReportingService, arguments);
+            self.errorReportingService.reportError(result);
 
             if (self._userHasLeftThePage)
                 return self.utils.cancelPromiseChaining();
@@ -103,7 +103,7 @@
             self.progressBarService.complete();
 
             // Continue handling
-            return self.$q.reject(arguments);
+            return self.$q.reject(result);
         });
     }
 

@@ -60,7 +60,7 @@ namespace MyLanguagePalService
                 // Tasks
 
                 // Sprint task
-                "~/Content/app/pages/tasks/sprint/sprintTask.css"
+                "~/Content/app/pages/tasks/sprint/settings/sprintTaskSettings.css"
 
                 ));
 
@@ -135,7 +135,7 @@ namespace MyLanguagePalService
                 // Sprint task
                 "~/Content/app/pages/tasks/sprint/sprintTask.service.js",
                 "~/Content/app/pages/tasks/sprint/sprintTask.routes.js",
-                "~/Content/app/pages/tasks/sprint/sprintTask.controller.js"
+                "~/Content/app/pages/tasks/sprint/settings/sprintTaskSettings.controller.js"
                 ));
 
             // *** Other bundles ***
