@@ -9,12 +9,12 @@
 
     SprintTaskService.prototype.getSettings = function () {
         var self = this;
-        return self._connector.getSprintTaskSettings();
+        return self._connector.get('/api/tasks/sprint/settings');
     }
 
     SprintTaskService.prototype.setSettings = function (settings) {
         var self = this;
-        return self._connector.setSprintTaskSettings('/api/tasks/sprint/settings', settings);
+        return self._connector.postAndHandle422('/api/tasks/sprint/settings', settings);
     }
 
     /* Private */

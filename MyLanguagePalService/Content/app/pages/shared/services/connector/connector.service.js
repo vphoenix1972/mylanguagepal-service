@@ -13,77 +13,62 @@
     /* Languages */
     ConnectorService.prototype.getLanguages = function () {
         var self = this;
-        return self._get('/api/languages');
+        return self.get('/api/languages');
     }
 
     ConnectorService.prototype.getLanguage = function (id) {
         var self = this;
-        return self._get('/api/languages/' + id);
+        return self.get('/api/languages/' + id);
     }
 
     ConnectorService.prototype.createLanguage = function (language) {
         var self = this;
-        return self._postAndHandle422('/api/languages', language);
+        return self.postAndHandle422('/api/languages', language);
     }
 
     ConnectorService.prototype.updateLanguage = function (id, language) {
         var self = this;
-        return self._putAndHandle422('/api/languages/' + id, language);
+        return self.putAndHandle422('/api/languages/' + id, language);
     }
 
     ConnectorService.prototype.deleteLanguage = function (id) {
         var self = this;
-        return self._delete('/api/languages/' + id);
+        return self.delete('/api/languages/' + id);
     }
 
     /* Phrases */
     ConnectorService.prototype.getPhrases = function () {
         var self = this;
-        return self._get('/api/phrases');
+        return self.get('/api/phrases');
     }
 
     ConnectorService.prototype.getPhrase = function (id) {
         var self = this;
-        return self._get('/api/phrases/' + id);
+        return self.get('/api/phrases/' + id);
     }
 
     ConnectorService.prototype.createPhrase = function (phrase) {
         var self = this;
-        return self._postAndHandle422('/api/phrases', phrase);
+        return self.postAndHandle422('/api/phrases', phrase);
     }
 
     ConnectorService.prototype.updatePhrase = function (id, phrase) {
         var self = this;
-        return self._putAndHandle422('/api/phrases/' + id, phrase);
+        return self.putAndHandle422('/api/phrases/' + id, phrase);
     }
 
     ConnectorService.prototype.deletePhrase = function (id) {
         var self = this;
-        return self._delete('/api/phrases/' + id);
+        return self.delete('/api/phrases/' + id);
     }
 
     /* Translations */
     ConnectorService.prototype.getTranslations = function (phraseId) {
         var self = this;
-        return self._get('/api/phrases/' + phraseId + '/translations');
+        return self.get('/api/phrases/' + phraseId + '/translations');
     }
 
-    /* Tasks */
-
-    /* Sprint Task */
-    ConnectorService.prototype.getSprintTaskSettings = function () {
-        var self = this;
-        return self._get('/api/tasks/sprint/settings');
-    }
-
-    ConnectorService.prototype.setSprintTaskSettings = function (settings) {
-        var self = this;
-        return self._postAndHandle422('/api/tasks/sprint/settings', settings);
-    }
-
-    /* *** Private *** */
-
-    ConnectorService.prototype._get = function (url) {
+    ConnectorService.prototype.get = function (url) {
         var self = this;
         return self._restService.get(url).then(
             function (response) {
@@ -94,7 +79,7 @@
             });
     }
 
-    ConnectorService.prototype._postAndHandle422 = function (url, data) {
+    ConnectorService.prototype.postAndHandle422 = function (url, data) {
         var self = this;
         return self._restService.post(url, data).then(
             function (response) {
@@ -110,7 +95,7 @@
             });
     }
 
-    ConnectorService.prototype._putAndHandle422 = function (url, data) {
+    ConnectorService.prototype.putAndHandle422 = function (url, data) {
         var self = this;
         return self._restService.put(url, data).then(
             function (response) {
@@ -126,7 +111,7 @@
             });
     }
 
-    ConnectorService.prototype._delete = function (url, data) {
+    ConnectorService.prototype.delete = function (url, data) {
         var self = this;
         return self._restService.delete(url, data).then(
             function (response) {
@@ -136,6 +121,8 @@
                 return self._handleError(response);
             });
     }
+
+    /* *** Private *** */    
 
     ConnectorService.prototype._handleError = function (response) {
         // If a network error occured...
