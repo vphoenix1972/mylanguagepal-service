@@ -349,6 +349,9 @@
     <Content Include="Content\app\pages\tasks\sprint\sprintTask.routes.js" />
     <Content Include="Content\app\pages\tasks\sprint\sprintTask.service.js" />
     <Content Include="Content\app\pages\tasks\sprint\settings\sprintTaskSettings.tpl.html" />
+    <Content Include="Content\app\pages\tasks\sprint\task\sprintTask.controller.js" />
+    <Content Include="Content\app\pages\tasks\sprint\task\sprintTask.css" />
+    <Content Include="Content\app\pages\tasks\sprint\task\sprintTask.tpl.html" />
     <Content Include="Content\deps\angular\angular-animate.js" />
     <Content Include="Content\deps\angular\angular-route.js" />
     <Content Include="Content\deps\angular\angular-touch.js" />

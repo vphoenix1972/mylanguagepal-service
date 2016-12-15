@@ -11,6 +11,10 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
     public class SprintTaskService : ServiceBase,
                                      ISprintTaskService
     {
+        private const int MinTotalTimeForTask = 5;
+        private const int MinCountOfWordsUsed = 1;
+        private const int MaxCountOfWordsUsed = 1000;
+
         private readonly ILanguagesService _languagesService;
         private readonly IApplicationDbContext _db;
 
@@ -45,12 +49,26 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
 
         public void SetSettings(SprintTaskSettingModel settings)
         {
+            /* Validate */
             if (settings == null)
                 throw new ArgumentNullException(nameof(settings));
 
             if (!_languagesService.CheckIfLanguageExists(settings.LanguageId))
                 throw new ValidationFailedException(nameof(settings.LanguageId), GetLanguageNotExistString(settings.LanguageId));
 
+            if (settings.TotalTimeForTask < MinTotalTimeForTask)
+            {
+                throw new ValidationFailedException(nameof(settings.TotalTimeForTask),
+                    $"Total time for task cannot be less that {MinTotalTimeForTask} seconds");
+            }
+
+            if (settings.CountOfWordsUsed < MinCountOfWordsUsed || settings.CountOfWordsUsed > MaxCountOfWordsUsed)
+            {
+                throw new ValidationFailedException(nameof(settings.CountOfWordsUsed),
+                    $"Count of words used must be between {MinCountOfWordsUsed} and {MaxCountOfWordsUsed} words");
+            }
+
+            /* Save */
             var settingDal = _db.SprintTaskSettings.FirstOrDefault();
             var isNew = settingDal == null;
             if (isNew)

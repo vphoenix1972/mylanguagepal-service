@@ -107,6 +107,34 @@
         });
     }
 
+    PageController.prototype.validationFailed = function (result) {
+        var self = this;
+
+        if (result instanceof ValidationConnectorResult) {
+            self.bindValidationErrorResult(result);
+            return true;
+        }
+
+        return false;
+    }
+
+    PageController.prototype.bindValidationErrorResult = function (result) {
+        var self = this;
+
+        // Reset validation errors
+        angular.forEach(self, function (value, key) {
+            if (!key.endsWith('ValidationError'))
+                return;
+
+            delete self[key];
+        });
+
+        // Set new errors
+        angular.forEach(result.validationState, function (value, key) {
+            self[key + 'ValidationError'] = value.join();
+        });
+    }
+
     PageController.$inject = ['$q', '$location', '$scope', '$routeParams', 'utils', 'errorReportingService', 'progressBarService'];
 
     return PageController;

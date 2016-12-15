@@ -1,7 +1,8 @@
 ﻿<div class="b-page" ng-hide="vm.isLoading">
     <div class="b-row b-margin-top-25">
         <button type="button"
-                class="btn btn-default">
+                class="btn btn-default"
+                ng-click="vm.onReturnToDashboardButtonClicked()">
             <span class="glyphicon glyphicon-home b-margin-right-5"></span>Return to dashboard
         </button>
     </div>
@@ -29,7 +30,7 @@
                         <input type="number"
                                class="form-control b-number-input"
                                ng-model="vm.settings.totalTimeForTask" />
-                        <span class="text-danger">123</span>
+                        <span class="text-danger">{{vm.totalTimeForTaskValidationError}}</span>
                     </div>
                 </div>
 
@@ -39,7 +40,7 @@
                         <input type="number"
                                class="form-control b-number-input"
                                ng-model="vm.settings.countOfWordsUsed" />
-                        <span class="text-danger">123</span>
+                        <span class="text-danger">{{vm.countOfWordsUsedValidationError}}</span>
                     </div>
                 </div>
             </div>
@@ -49,14 +50,16 @@
     <div class="b-row b-margin-top-25">
         <div class="b-col-6">
             <button type="button"
-                    class="btn btn-primary">
+                    class="btn btn-primary"
+                    ng-click="vm.onSaveAndReturnToDashboardButtonClicked()">
                 <span class="glyphicon glyphicon-floppy-disk b-margin-right-5"></span>Save settings and return to dashboard
             </button>
         </div>
         <div class="b-col-6">
             <div class="pull-right">
                 <button type="button"
-                        class="btn btn-danger">
+                        class="btn btn-danger"
+                        ng-click="vm.onSaveAndRunButtonClicked()">
                     <span class="glyphicon glyphicon-play b-margin-right-5"></span>Run task
                 </button>
             </div>
