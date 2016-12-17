@@ -1,15 +1,21 @@
 ﻿(function() {
     'use strict';
 
-    function SprintTaskController() {
+    function SprintTaskController($scope) {
         var self = this;
 
         self.timerDirective = {};
+        self.elapsedCount = 0;
+
+        $scope.$watch(function () {
+            console.log('self.elapsedCount watch');
+            return self.elapsedCount;
+        }, function() {});
     }
 
     SprintTaskController.prototype.onTimerDirectiveElapsed = function () {
         var self = this;
-
+        self.elapsedCount++;
         console.log('SprintTaskController.prototype.onTimerDirectiveElapsed');
     }
 
@@ -28,7 +34,7 @@
     /* Private */
 
 
-    SprintTaskController.$inject = [];
+    SprintTaskController.$inject = ['$scope'];
 
     angular
         .module('app')

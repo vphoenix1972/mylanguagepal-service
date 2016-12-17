@@ -110,6 +110,7 @@ namespace MyLanguagePalService
                 "~/Content/app/pages/shared/directives/textInput/textInput.directive.js",
                 "~/Content/app/pages/shared/directives/languageFlag/languageFlag.directive.js",
                 "~/Content/app/pages/shared/directives/languageSelection/languageSelection.directive.js",
+                "~/Content/app/pages/shared/directives/timer/timer.controller.js",
                 "~/Content/app/pages/shared/directives/timer/timer.directive.js",
 
                 // About

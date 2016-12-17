@@ -327,6 +327,7 @@
     <Content Include="Content\app\pages\shared\directives\textInput\textInput.tpl.html" />
     <Content Include="Content\app\pages\shared\directives\textInput\textInput.directive.css" />
     <Content Include="Content\app\pages\shared\directives\textInput\textInput.directive.js" />
+    <Content Include="Content\app\pages\shared\directives\timer\timer.controller.js" />
     <Content Include="Content\app\pages\shared\directives\timer\timer.css" />
     <Content Include="Content\app\pages\shared\directives\timer\timer.directive.js" />
     <Content Include="Content\app\pages\shared\directives\timer\timer.tpl.html" />

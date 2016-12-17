@@ -1,1 +1,4 @@
-﻿<span class="js-timer-directive-span"></span>
+﻿<span class="js-timer-directive-span"
+      ng-class="{'b-timer_active': vm.isStarted()}">
+    {{vm.currentCount()}}
+</span>
