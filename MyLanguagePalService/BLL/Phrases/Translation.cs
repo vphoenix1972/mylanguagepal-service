@@ -2,10 +2,10 @@
 
 namespace MyLanguagePalService.BLL.Phrases
 {
-    public class TranslationModel
+    public class Translation
     {
         [NotNull]
-        public PhraseModel Phrase { get; set; } = new PhraseModel();
+        public Phrase Phrase { get; set; } = new Phrase();
 
         public int Prevalence { get; set; }
     }

@@ -1,6 +1,6 @@
 ﻿namespace MyLanguagePalService.BLL.Languages
 {
-    public class LanguageModel
+    public class Language
     {
         public int Id { get; set; }
 

@@ -15,17 +15,17 @@ namespace MyLanguagePalService.BLL.Languages
             _db = db;
         }
 
-        public LanguageModel GetDefaultLanguage()
+        public Language GetDefaultLanguage()
         {
             return GetLanguages().First();
         }
 
-        public IList<LanguageModel> GetLanguages()
+        public IList<Language> GetLanguages()
         {
             return _db.Languages.Select(ToModel).ToList();
         }
 
-        public LanguageModel GetLanguage(int id)
+        public Language GetLanguage(int id)
         {
             var languageDal = _db.Languages.Find(id);
             if (languageDal == null)
@@ -39,9 +39,9 @@ namespace MyLanguagePalService.BLL.Languages
             return _db.Languages.Find(id) != null;
         }
 
-        private LanguageModel ToModel(LanguageDal entity)
+        private Language ToModel(LanguageDal entity)
         {
-            return new LanguageModel()
+            return new Language()
             {
                 Id = entity.Id,
                 Name = entity.Name

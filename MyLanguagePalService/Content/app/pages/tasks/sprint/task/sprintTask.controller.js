@@ -105,7 +105,6 @@
 
         if (state === 'finished') {
 
-
             self.state = state;
 
             return;

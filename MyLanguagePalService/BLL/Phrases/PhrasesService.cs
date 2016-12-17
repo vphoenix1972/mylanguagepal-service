@@ -24,23 +24,20 @@ namespace MyLanguagePalService.BLL.Phrases
             return _db.Phrases.ToList();
         }
 
-        public IList<PhraseModel> GetPhrases()
+        public IList<Phrase> GetPhrases()
         {
-            return _db.Phrases.Select(PhraseModel.MapFrom).ToList();
+            return _db.Phrases.Select(Phrase.MapFrom).ToList();
         }
 
-        public IList<TranslationModel> GetTranslations(PhraseModel phrase)
+        public IList<Translation> GetTranslations(int phraseId)
         {
-            if (phrase == null)
-                throw new ArgumentNullException(nameof(phrase));
-
-            var phraseDal = _db.Phrases.Find(phrase.Id);
+            var phraseDal = _db.Phrases.Find(phraseId);
             if (phraseDal == null)
-                throw new ArgumentException($"Phrase with id '${phrase.Id}' not found");
+                throw new ArgumentException($"Phrase with id '${phraseId}' not found");
 
-            return GetTranslations(phraseDal).Select(bbl => new TranslationModel()
+            return GetTranslations(phraseDal).Select(bbl => new Translation()
             {
-                Phrase = PhraseModel.MapFrom(bbl.Phrase),
+                Phrase = Phrase.MapFrom(bbl.Phrase),
                 Prevalence = bbl.Prevalence
             }).ToList();
         }

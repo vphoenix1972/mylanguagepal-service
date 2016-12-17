@@ -81,10 +81,12 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
         {
             ValidateSettings(settings);
 
-            var phrases = _phrasesService.GetPhrases().Where(p => p.LanguageId == 1).ToList();
+            var phrases = _phrasesService.GetPhrases().Where(p => p.LanguageId == 1)
+                .Select(PhraseWithTranslations.MapFrom)
+                .ToList();
             foreach (var phrase in phrases)
             {
-                phrase.Translations = _phrasesService.GetTranslations(phrase);
+                phrase.Translations = _phrasesService.GetTranslations(phrase.Id);
             }
 
             var result = new SprintTaskRunModel()

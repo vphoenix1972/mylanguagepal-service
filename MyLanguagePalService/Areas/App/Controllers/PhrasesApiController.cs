@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Http;
 using MyLanguagePalService.Areas.App.Models.Controller.PhrasesApi;
 using MyLanguagePalService.Areas.App.Models.Controller.TranslationsApi;
-using MyLanguagePalService.BLL;
 using MyLanguagePalService.BLL.Phrases;
 using MyLanguagePalService.Core;
 using MyLanguagePalService.DAL;

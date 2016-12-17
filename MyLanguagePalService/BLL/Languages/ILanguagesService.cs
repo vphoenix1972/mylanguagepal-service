@@ -9,19 +9,19 @@ namespace MyLanguagePalService.BLL.Languages
         /// Returns the language to use by default.
         /// </summary>        
         [NotNull]
-        LanguageModel GetDefaultLanguage();
+        Language GetDefaultLanguage();
 
         /// <summary>
         /// Returns a list of languages.
         /// </summary>        
         [NotNull]
-        IList<LanguageModel> GetLanguages();
+        IList<Language> GetLanguages();
 
         /// <summary>
         /// Returns a language with id, or null if language was not found.
         /// </summary>        
         [CanBeNull]
-        LanguageModel GetLanguage(int id);
+        Language GetLanguage(int id);
 
         /// <summary>
         /// Checks that language with id exists.

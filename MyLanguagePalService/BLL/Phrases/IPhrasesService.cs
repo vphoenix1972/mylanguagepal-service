@@ -10,10 +10,10 @@ namespace MyLanguagePalService.BLL.Phrases
         IList<PhraseDal> GetPhrasesDals();
 
         [NotNull]
-        IList<PhraseModel> GetPhrases();
+        IList<Phrase> GetPhrases();
 
         [NotNull]
-        IList<TranslationModel> GetTranslations([NotNull] PhraseModel phrase);
+        IList<Translation> GetTranslations(int phraseId);
 
         [NotNull]
         IList<TranslationModelBbl> GetTranslations([NotNull] PhraseDal phraseDal);
