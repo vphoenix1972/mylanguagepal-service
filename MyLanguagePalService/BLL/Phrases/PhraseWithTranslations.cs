@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
+using MyLanguagePalService.DAL.Models;
 
 namespace MyLanguagePalService.BLL.Phrases
 {
@@ -16,12 +18,12 @@ namespace MyLanguagePalService.BLL.Phrases
 
         }
 
-        public IList<Translation> Translations { get; set; }
-
-        [NotNull]
-        public static PhraseWithTranslations MapFrom([NotNull] Phrase phrase)
+        public PhraseWithTranslations([NotNull] PhraseDal dal) :
+            base(dal)
         {
-            return new PhraseWithTranslations(phrase);
+
         }
+
+        public IList<Translation> Translations { get; set; }
     }
 }

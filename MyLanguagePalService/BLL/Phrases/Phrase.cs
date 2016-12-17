@@ -21,6 +21,16 @@ namespace MyLanguagePalService.BLL.Phrases
             Text = other.Text;
         }
 
+        public Phrase([NotNull] PhraseDal dal)
+        {
+            if (dal == null)
+                throw new ArgumentNullException(nameof(dal));
+
+            Id = dal.Id;
+            LanguageId = dal.LanguageId;
+            Text = dal.Text;
+        }
+
         public int Id { get; set; }
 
         public int LanguageId { get; set; }
@@ -31,15 +41,7 @@ namespace MyLanguagePalService.BLL.Phrases
         [NotNull]
         public static Phrase MapFrom([NotNull] PhraseDal dal)
         {
-            if (dal == null)
-                throw new ArgumentNullException(nameof(dal));
-
-            return new Phrase()
-            {
-                Id = dal.Id,
-                LanguageId = dal.LanguageId,
-                Text = dal.Text
-            };
+            return new Phrase(dal);
         }
     }
 }

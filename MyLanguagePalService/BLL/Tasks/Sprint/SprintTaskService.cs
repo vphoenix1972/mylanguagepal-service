@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Linq;
 using MyLanguagePalService.BLL.Languages;
 using MyLanguagePalService.BLL.Phrases;
@@ -73,25 +72,30 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
             }
             else
             {
-                _db.MarkModified(settingDal);                
+                _db.MarkModified(settingDal);
             }
         }
 
         public SprintTaskRunModel RunNewTask(SprintTaskSettingModel settings)
         {
+            /* Validation */
             ValidateSettings(settings);
 
-            var phrases = _phrasesService.GetPhrases().Where(p => p.LanguageId == 1)
-                .Select(PhraseWithTranslations.MapFrom)
+            /* Logic */
+            var phrases = _db.Phrases
+                .Where(p => p.LanguageId == settings.LanguageId)
+                .OrderByDescending(
+                    p => p.SprintTaskJournalRecords.Sum(r => (int?)(r.CorrectAnswersCount - r.WrongAnswersCount)) ?? 0
+                )
+                .Take(settings.CountOfWordsUsed)
                 .ToList();
-            foreach (var phrase in phrases)
-            {
-                phrase.Translations = _phrasesService.GetTranslations(phrase.Id);
-            }
 
             var result = new SprintTaskRunModel()
             {
-                Phrases = phrases.Take(settings.CountOfWordsUsed).ToList()
+                Phrases = phrases.Select(p => new PhraseWithTranslations(p)
+                {
+                    Translations = _phrasesService.GetTranslations(p.Id)
+                }).ToList()
             };
 
             return result;

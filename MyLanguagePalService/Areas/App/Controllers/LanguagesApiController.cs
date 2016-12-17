@@ -75,7 +75,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
             /* Update the language */
             languageDal.Name = im.Name;
 
-            _db.Entry(languageDal).State = EntityState.Modified;
+            _db.MarkModified(languageDal);
             _db.SaveChanges();
 
             return Ok();

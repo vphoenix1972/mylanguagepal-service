@@ -17,6 +17,8 @@ namespace MyLanguagePalService.DAL
 
         public IDbSet<SprintTaskSettingDal> SprintTaskSettings { get; set; }
 
+        public IDbSet<SprintTaskJournalRecordDal> SprintTaskJournal { get; set; }
+
         public void MarkModified(object entity)
         {
             Entry(entity).State = EntityState.Modified;
@@ -58,6 +60,11 @@ namespace MyLanguagePalService.DAL
             modelBuilder.Entity<SprintTaskSettingDal>()
                 .HasKey(e => e.Id);
 
+            // Sprint task journal
+            modelBuilder.Entity<SprintTaskJournalRecordDal>().ToTable("SprintTaskJournal");
+            modelBuilder.Entity<SprintTaskJournalRecordDal>()
+                .HasKey(e => e.Id);
+
             /* Configure relationships */
 
             // Pharses <-> Languages
@@ -82,6 +89,12 @@ namespace MyLanguagePalService.DAL
                 .HasMany(l => l.SprintTaskSettings)
                 .WithRequired(s => s.Language)
                 .HasForeignKey(s => s.LanguageId);
+
+            // Sprint task journal <-> Phrases
+            modelBuilder.Entity<PhraseDal>()
+                .HasMany(e => e.SprintTaskJournalRecords)
+                .WithRequired(e => e.Phrase)
+                .HasForeignKey(e => e.PhraseId);
         }
     }
 }

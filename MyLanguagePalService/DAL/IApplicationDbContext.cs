@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using MyLanguagePalService.DAL.Models;
 
 namespace MyLanguagePalService.DAL
@@ -15,7 +14,7 @@ namespace MyLanguagePalService.DAL
 
         IDbSet<SprintTaskSettingDal> SprintTaskSettings { get; set; }
 
-        DbEntityEntry Entry(object entity);
+        IDbSet<SprintTaskJournalRecordDal> SprintTaskJournal { get; set; }
 
         int SaveChanges();
 

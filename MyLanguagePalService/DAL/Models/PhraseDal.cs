@@ -15,5 +15,7 @@ namespace MyLanguagePalService.DAL.Models
         public virtual ICollection<TranslationDal> Translations { get; set; }
 
         public virtual ICollection<TranslationDal> PhrasesTranslatedBy { get; set; }
+
+        public virtual ICollection<SprintTaskJournalRecordDal> SprintTaskJournalRecords { get; set; }
     }
 }

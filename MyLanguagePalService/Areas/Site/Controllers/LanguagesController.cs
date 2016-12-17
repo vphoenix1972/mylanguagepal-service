@@ -90,7 +90,7 @@ namespace MyLanguagePalService.Areas.Site.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Entry(ToDal(languageVm)).State = EntityState.Modified;
+                _db.MarkModified(ToDal(languageVm));
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }

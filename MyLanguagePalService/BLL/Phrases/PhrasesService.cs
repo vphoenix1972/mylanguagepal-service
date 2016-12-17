@@ -168,7 +168,7 @@ namespace MyLanguagePalService.BLL.Phrases
                         var actualTranslation = _db.Translations.Find(existingTranslation.Id);
                         actualTranslation.Prevalence = translationInput.Prevalence;
 
-                        _db.Entry(actualTranslation).State = EntityState.Modified;
+                        _db.MarkModified(actualTranslation);
 
                         continue;
                     }
@@ -205,7 +205,7 @@ namespace MyLanguagePalService.BLL.Phrases
             }
 
             // Modify the phrase in the database
-            _db.Entry(phrase).State = EntityState.Modified;
+            _db.MarkModified(phrase);
             _db.SaveChanges();
         }
 
