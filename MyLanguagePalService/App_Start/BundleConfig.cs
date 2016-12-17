@@ -89,9 +89,7 @@ namespace MyLanguagePalService
                 "~/Content/app/core/customError.js",
                 "~/Content/app/core/arrayExtensions.js",
                 "~/Content/app/core/stringExtensions.js",
-                "~/Content/app/core/numberExtensions.js",
                 "~/Content/app/core/directives/convertToNumber.directive.js",
-                "~/Content/app/core/angularExtensions.js",
 
                 /* Pages */
                 "~/Content/app/app.module.js",

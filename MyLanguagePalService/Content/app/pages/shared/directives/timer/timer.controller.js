@@ -1,14 +1,15 @@
 ﻿(function () {
     'use strict';
 
-    function TimerController($element, $scope, $log) {
+    function TimerController($element, $scope, $log, utils) {
         var self = this;
 
         self._$element = $element;
         self._$scope = $scope;
         self._$log = $log;
+        self._utils = utils;
 
-        self._currentCount = 0;
+        self._currentCount = undefined;
 
         self._intervalId = null;
     }
@@ -55,8 +56,8 @@
     TimerController.prototype.start = function () {
         var self = this;
 
-        if (!angular.isInteger(self.count)) {
-            self._$log.warn('Cannot start timer directive: count property is not an integer, count = ' + self.count);
+        if (!self._utils.isInteger(self.count)) {
+            self._$log.error('Cannot start timer directive: count property is not an integer, count = ' + self.count);
             return;
         }
 
@@ -102,7 +103,7 @@
         }
 
         // Timer is not started, just render the count property
-        self._setCurrentCountToCountProperty();;
+        self._setCurrentCountToCountProperty();
     }
 
     TimerController.prototype._onTimeout = function () {
@@ -137,16 +138,15 @@
     TimerController.prototype._setCurrentCountToCountProperty = function () {
         var self = this;
 
-        if (!angular.isInteger(self.count)) {
-            self._$log.warn('Cannot set current count: count property is not an integer, count = ' + self.count);
-            self._currentCount = 0;
+        if (!self._utils.isInteger(self.count)) {            
+            self._currentCount = undefined;
             return;
         }
 
         self._currentCount = self.count;
     }
 
-    TimerController.$inject = ['$element', '$scope', '$log'];
+    TimerController.$inject = ['$element', '$scope', '$log', 'utils'];
 
     angular
         .module('app')

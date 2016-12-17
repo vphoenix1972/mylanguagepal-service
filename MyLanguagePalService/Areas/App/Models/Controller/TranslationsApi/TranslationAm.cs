@@ -1,6 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
-using MyLanguagePalService.BLL.Models;
+using MyLanguagePalService.BLL.Phrases;
 
 namespace MyLanguagePalService.Areas.App.Models.Controller.TranslationsApi
 {
@@ -15,7 +15,7 @@ namespace MyLanguagePalService.Areas.App.Models.Controller.TranslationsApi
         public int Prevalence { get; set; }
 
 
-        public static TranslationAm MapFrom([NotNull] TranslationBll translation)
+        public static TranslationAm MapFrom([NotNull] TranslationModelBbl translation)
         {
             if (translation == null)
                 throw new ArgumentNullException(nameof(translation));

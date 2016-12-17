@@ -1,8 +1,8 @@
 ﻿using MyLanguagePalService.DAL.Models;
 
-namespace MyLanguagePalService.BLL.Models
+namespace MyLanguagePalService.BLL.Phrases
 {
-    public class TranslationBll
+    public class TranslationModelBbl
     {
         public PhraseDal Phrase { get; set; }
 

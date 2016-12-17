@@ -1,4 +1,4 @@
-﻿namespace MyLanguagePalService.BLL.Models
+﻿namespace MyLanguagePalService.BLL.Phrases
 {
     public class TranslationImBll
     {

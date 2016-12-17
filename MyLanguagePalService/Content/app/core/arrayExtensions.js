@@ -21,6 +21,41 @@
         return self.length > 0;
     };
 
+    Array.prototype.contains = function (searchElement/*, fromIndex*/) {
+        /// <summary>
+        /// Determines whether an array includes a certain element, returning true or false as appropriate.
+        /// </summary>
+
+        var o = Object(this);
+        var len = parseInt(o.length) || 0;
+        if (len === 0) {
+            return false;
+        }
+        var n = parseInt(arguments[1]) || 0;
+        var k;
+        if (n >= 0) {
+            k = n;
+        } else {
+            k = len + n;
+            if (k < 0) {
+                k = 0;
+            }
+        }
+        while (k < len) {
+            var currentElement = o[k];
+            if (searchElement === currentElement ||
+                // Code taken from https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
+                // ReSharper disable SimilarExpressionsComparison
+                (searchElement !== searchElement && currentElement !== currentElement)
+                // ReSharper restore SimilarExpressionsComparison
+            ) {
+                return true;
+            }
+            k++;
+        }
+        return false;
+    };
+
     Array.prototype.add = function (value) {
         /// <summary>
         /// Adds a value to the array.

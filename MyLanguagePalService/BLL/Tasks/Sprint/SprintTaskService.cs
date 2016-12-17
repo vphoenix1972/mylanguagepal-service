@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using MyLanguagePalService.BLL.Languages;
+using MyLanguagePalService.BLL.Phrases;
 using MyLanguagePalService.Core;
 using MyLanguagePalService.DAL;
 using MyLanguagePalService.DAL.Models;
@@ -15,11 +16,13 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
         private const int MinCountOfWordsUsed = 1;
         private const int MaxCountOfWordsUsed = 1000;
 
+        private readonly IPhrasesService _phrasesService;
         private readonly ILanguagesService _languagesService;
         private readonly IApplicationDbContext _db;
 
-        public SprintTaskService(ILanguagesService languagesService, IApplicationDbContext db)
+        public SprintTaskService(IPhrasesService phrasesService, ILanguagesService languagesService, IApplicationDbContext db)
         {
+            _phrasesService = phrasesService;
             _languagesService = languagesService;
             _db = db;
         }
@@ -50,23 +53,7 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
         public void SetSettings(SprintTaskSettingModel settings)
         {
             /* Validate */
-            if (settings == null)
-                throw new ArgumentNullException(nameof(settings));
-
-            if (!_languagesService.CheckIfLanguageExists(settings.LanguageId))
-                throw new ValidationFailedException(nameof(settings.LanguageId), GetLanguageNotExistString(settings.LanguageId));
-
-            if (settings.TotalTimeForTask < MinTotalTimeForTask)
-            {
-                throw new ValidationFailedException(nameof(settings.TotalTimeForTask),
-                    $"Total time for task cannot be less that {MinTotalTimeForTask} seconds");
-            }
-
-            if (settings.CountOfWordsUsed < MinCountOfWordsUsed || settings.CountOfWordsUsed > MaxCountOfWordsUsed)
-            {
-                throw new ValidationFailedException(nameof(settings.CountOfWordsUsed),
-                    $"Count of words used must be between {MinCountOfWordsUsed} and {MaxCountOfWordsUsed} words");
-            }
+            ValidateSettings(settings);
 
             /* Save */
             var settingDal = _db.SprintTaskSettings.FirstOrDefault();
@@ -90,9 +77,43 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
             }
         }
 
-        public SprintTaskData GetDataForNewTask()
+        public SprintTaskRunModel RunNewTask(SprintTaskSettingModel settings)
         {
-            throw new NotImplementedException();
+            ValidateSettings(settings);
+
+            var phrases = _phrasesService.GetPhrases().Where(p => p.LanguageId == 1).ToList();
+            foreach (var phrase in phrases)
+            {
+                phrase.Translations = _phrasesService.GetTranslations(phrase);
+            }
+
+            var result = new SprintTaskRunModel()
+            {
+                Phrases = phrases.Take(settings.CountOfWordsUsed).ToList()
+            };
+
+            return result;
+        }
+
+        private void ValidateSettings(SprintTaskSettingModel settings)
+        {
+            if (settings == null)
+                throw new ArgumentNullException(nameof(settings));
+
+            if (!_languagesService.CheckIfLanguageExists(settings.LanguageId))
+                throw new ValidationFailedException(nameof(settings.LanguageId), GetLanguageNotExistString(settings.LanguageId));
+
+            if (settings.TotalTimeForTask < MinTotalTimeForTask)
+            {
+                throw new ValidationFailedException(nameof(settings.TotalTimeForTask),
+                    $"Total time for task cannot be less that {MinTotalTimeForTask} seconds");
+            }
+
+            if (settings.CountOfWordsUsed < MinCountOfWordsUsed || settings.CountOfWordsUsed > MaxCountOfWordsUsed)
+            {
+                throw new ValidationFailedException(nameof(settings.CountOfWordsUsed),
+                    $"Count of words used must be between {MinCountOfWordsUsed} and {MaxCountOfWordsUsed} words");
+            }
         }
     }
 }

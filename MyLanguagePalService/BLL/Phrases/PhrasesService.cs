@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using MyLanguagePalService.BLL.Models;
 using MyLanguagePalService.Core;
 using MyLanguagePalService.DAL;
 using MyLanguagePalService.DAL.Models;
 
-namespace MyLanguagePalService.BLL
+namespace MyLanguagePalService.BLL.Phrases
 {
     public class PhrasesService : IPhrasesService
     {
@@ -20,28 +19,49 @@ namespace MyLanguagePalService.BLL
             _db = db;
         }
 
-        public IList<PhraseDal> GetPhrases()
+        public IList<PhraseDal> GetPhrasesDals()
         {
             return _db.Phrases.ToList();
         }
 
-        public PhraseDal GetPhrase(int id)
+        public IList<PhraseModel> GetPhrases()
         {
-            return _db.Phrases.Find(id);
+            return _db.Phrases.Select(PhraseModel.MapFrom).ToList();
         }
 
-        public IList<TranslationBll> GetTranslations(PhraseDal phraseDal)
+        public IList<TranslationModel> GetTranslations(PhraseModel phrase)
+        {
+            if (phrase == null)
+                throw new ArgumentNullException(nameof(phrase));
+
+            var phraseDal = _db.Phrases.Find(phrase.Id);
+            if (phraseDal == null)
+                throw new ArgumentException($"Phrase with id '${phrase.Id}' not found");
+
+            return GetTranslations(phraseDal).Select(bbl => new TranslationModel()
+            {
+                Phrase = PhraseModel.MapFrom(bbl.Phrase),
+                Prevalence = bbl.Prevalence
+            }).ToList();
+        }
+
+        public IList<TranslationModelBbl> GetTranslations(PhraseDal phraseDal)
         {
             if (phraseDal == null)
                 throw new ArgumentNullException(nameof(phraseDal));
 
             var result = GetTranslationsFor(phraseDal);
 
-            return result.Select(t => new TranslationBll()
+            return result.Select(t => new TranslationModelBbl()
             {
                 Phrase = t.TranslationPhrase,
                 Prevalence = t.Prevalence
             }).ToList();
+        }
+
+        public PhraseDal GetPhrase(int id)
+        {
+            return _db.Phrases.Find(id);
         }
 
         public int CreatePhrase(string text, int languageId, IList<TranslationImBll> translations = null)

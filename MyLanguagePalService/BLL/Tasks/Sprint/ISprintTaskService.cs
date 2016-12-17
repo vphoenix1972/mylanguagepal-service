@@ -16,9 +16,9 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
         void SetSettings([NotNull] SprintTaskSettingModel settings);
 
         /// <summary>
-        /// Gets data for a new task using the current settings (settings returned by GetSettings()).
-        /// </summary>
+        /// Creates a model for a new sprint task using settings specified.
+        /// </summary>        
         [NotNull]
-        SprintTaskData GetDataForNewTask();
+        SprintTaskRunModel RunNewTask([NotNull] SprintTaskSettingModel settings);
     }
 }

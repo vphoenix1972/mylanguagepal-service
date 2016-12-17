@@ -79,6 +79,17 @@
             });
     }
 
+    ConnectorService.prototype.post = function (url, data) {
+        var self = this;
+        return self._restService.post(url,data ).then(
+            function (response) {
+                return self._createResult(response);
+            },
+            function (response) {
+                return self._handleError(response);
+            });
+    }
+
     ConnectorService.prototype.postAndHandle422 = function (url, data) {
         var self = this;
         return self._restService.post(url, data).then(

@@ -222,7 +222,6 @@
     <Compile Include="Areas\App\Models\Controller\PhrasesApi\PhrasesApiCreateIm.cs" />
     <Compile Include="Areas\App\Models\Controller\PhrasesApi\PhrasesApiDetailsAm.cs" />
     <Compile Include="Areas\App\Models\Controller\PhrasesApi\PhrasesApiGetAllAm.cs" />
-    <Compile Include="Areas\App\Models\Controller\SprintTaskApi\SprintTaskApiSettingsAm.cs" />
     <Compile Include="Areas\App\Models\Controller\TranslationsApi\TranslationAm.cs" />
     <Compile Include="Areas\App\Models\Controller\PhrasesApi\TranslationIm.cs" />
     <Compile Include="Areas\Other\OtherAreaRegistration.cs" />
@@ -237,10 +236,13 @@
     <Compile Include="BLL\Languages\ILanguagesService.cs" />
     <Compile Include="BLL\Languages\LanguageModel.cs" />
     <Compile Include="BLL\Languages\LanguagesService.cs" />
+    <Compile Include="BLL\Phrases\PhraseModel.cs" />
+    <Compile Include="BLL\Phrases\TranslationModel.cs" />
     <Compile Include="BLL\ServiceBase.cs" />
     <Compile Include="BLL\Tasks\Sprint\ISprintTaskService.cs" />
-    <Compile Include="BLL\Models\TranslationImBll.cs" />
+    <Compile Include="BLL\Phrases\TranslationImBll.cs" />
     <Compile Include="BLL\Tasks\Sprint\SprintTaskData.cs" />
+    <Compile Include="BLL\Tasks\Sprint\SprintTaskRunModel.cs" />
     <Compile Include="BLL\Tasks\Sprint\SprintTaskService.cs" />
     <Compile Include="BLL\Tasks\Sprint\SprintTaskSettingModel.cs" />
     <Compile Include="BLL\ServiceManager.cs" />
@@ -250,11 +252,11 @@
     <Compile Include="Core\ValidationFailedException.cs" />
     <Compile Include="Core\WebApiControllerBase.cs" />
     <Compile Include="DAL\ApplicationDbContext.cs" />
-    <Compile Include="BLL\PhrasesService.cs" />
+    <Compile Include="BLL\Phrases\PhrasesService.cs" />
     <Compile Include="DAL\DebugInitializer.cs" />
-    <Compile Include="BLL\Models\TranslationBll.cs" />
+    <Compile Include="BLL\Phrases\TranslationModelBbl.cs" />
     <Compile Include="DAL\IApplicationDbContext.cs" />
-    <Compile Include="BLL\IPhrasesService.cs" />
+    <Compile Include="BLL\Phrases\IPhrasesService.cs" />
     <Compile Include="DAL\Models\LanguageDal.cs" />
     <Compile Include="DAL\Models\PhraseDal.cs" />
     <Compile Include="DAL\Models\SprintTaskSettingDal.cs" />
@@ -288,11 +290,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\app\app.module.js" />
-    <Content Include="Content\app\core\angularExtensions.js" />
     <Content Include="Content\app\core\arrayExtensions.js" />
     <Content Include="Content\app\core\core.module.js" />
     <Content Include="Content\app\core\directives\convertToNumber.directive.js" />
-    <Content Include="Content\app\core\numberExtensions.js" />
     <Content Include="Content\app\core\resharper.js" />
     <Content Include="Content\app\core\stringExtensions.js" />
     <Content Include="Content\app\pages\about\about.routes.js" />
@@ -952,6 +952,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\App\Models\Controller\SprintTaskApi\" />
     <Folder Include="Areas\App\Views\Shared\" />
     <Folder Include="Areas\Other\Models\" />
     <Folder Include="Areas\Other\Views\Shared\" />

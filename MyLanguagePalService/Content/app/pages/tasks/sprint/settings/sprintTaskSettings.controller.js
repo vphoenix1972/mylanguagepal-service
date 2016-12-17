@@ -17,10 +17,10 @@
             })
             .then(function (result) {
                 self.isLoading = false;
-                self.settings = result.data;
+                self.settings = result;
             })
             .catch(function () {
-                self._returnToDashboard();
+                self.returnToDashboard();
             });
     }
 
@@ -30,14 +30,14 @@
     SprintTaskSettingsController.prototype.onReturnToDashboardButtonClicked = function () {
         var self = this;
 
-        self._returnToDashboard();
+        self.returnToDashboard();
     }
 
     SprintTaskSettingsController.prototype.onSaveAndReturnToDashboardButtonClicked = function () {
         var self = this;
 
         self._save().then(function () {
-            self._returnToDashboard();
+            self.returnToDashboard();
         });
     }
 
@@ -61,12 +61,6 @@
 
                 return result;
             });
-    }
-
-    SprintTaskSettingsController.prototype._returnToDashboard = function () {
-        var self = this;
-
-        self.$location.path('/dashboard');
     }
 
     SprintTaskSettingsController.$inject = ['$injector', '$scope', 'sprintTaskService', 'languagesService'];

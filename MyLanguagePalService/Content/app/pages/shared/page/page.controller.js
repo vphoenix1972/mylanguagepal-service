@@ -135,6 +135,12 @@
         });
     }
 
+    PageController.prototype.returnToDashboard = function () {
+        var self = this;
+
+        self.$location.path('/dashboard');
+    }
+
     PageController.$inject = ['$q', '$location', '$scope', '$routeParams', 'utils', 'errorReportingService', 'progressBarService'];
 
     return PageController;

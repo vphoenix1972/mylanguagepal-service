@@ -1,5 +1,6 @@
 ﻿using System;
 using MyLanguagePalService.BLL.Languages;
+using MyLanguagePalService.BLL.Phrases;
 using MyLanguagePalService.BLL.Tasks.Sprint;
 using MyLanguagePalService.DAL;
 
@@ -16,7 +17,7 @@ namespace MyLanguagePalService.BLL
 
             LanguagesService = new LanguagesService(_db);
             PhrasesService = new PhrasesService(_db);
-            SprintTaskService = new SprintTaskService(LanguagesService, _db);
+            SprintTaskService = new SprintTaskService(PhrasesService, LanguagesService, _db);
         }
 
         public ILanguagesService LanguagesService { get; set; }

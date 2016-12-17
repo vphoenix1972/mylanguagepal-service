@@ -4,7 +4,7 @@ using System.Web.Http;
 using MyLanguagePalService.Areas.App.Models.Controller.PhrasesApi;
 using MyLanguagePalService.Areas.App.Models.Controller.TranslationsApi;
 using MyLanguagePalService.BLL;
-using MyLanguagePalService.BLL.Models;
+using MyLanguagePalService.BLL.Phrases;
 using MyLanguagePalService.Core;
 using MyLanguagePalService.DAL;
 
@@ -26,7 +26,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
         [HttpGet]
         public IEnumerable<PhrasesApiGetAllAm> GetAllPhrases()
         {
-            return _phrasesService.GetPhrases().Select(dal => new PhrasesApiGetAllAm()
+            return _phrasesService.GetPhrasesDals().Select(dal => new PhrasesApiGetAllAm()
             {
                 Id = dal.Id,
                 Text = dal.Text

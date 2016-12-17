@@ -2,6 +2,7 @@
 using System.Web.Http;
 using MyLanguagePalService.Areas.App.Models.Controller.TranslationsApi;
 using MyLanguagePalService.BLL;
+using MyLanguagePalService.BLL.Phrases;
 
 namespace MyLanguagePalService.Areas.App.Controllers
 {

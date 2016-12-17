@@ -1,20 +1,25 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using MyLanguagePalService.BLL.Models;
 using MyLanguagePalService.DAL.Models;
 
-namespace MyLanguagePalService.BLL
+namespace MyLanguagePalService.BLL.Phrases
 {
     public interface IPhrasesService
     {
         [NotNull]
-        IList<PhraseDal> GetPhrases();
+        IList<PhraseDal> GetPhrasesDals();
+
+        [NotNull]
+        IList<PhraseModel> GetPhrases();
+
+        [NotNull]
+        IList<TranslationModel> GetTranslations([NotNull] PhraseModel phrase);
+
+        [NotNull]
+        IList<TranslationModelBbl> GetTranslations([NotNull] PhraseDal phraseDal);
 
         [CanBeNull]
         PhraseDal GetPhrase(int id);
-
-        [NotNull]
-        IList<TranslationBll> GetTranslations([NotNull] PhraseDal phraseDal);
 
         int CreatePhrase([NotNull] string text, int languageId, [CanBeNull] IList<TranslationImBll> translations);
 

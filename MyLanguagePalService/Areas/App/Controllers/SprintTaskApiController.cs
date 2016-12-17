@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using MyLanguagePalService.Areas.App.Models.Controller.SprintTaskApi;
 using MyLanguagePalService.BLL.Tasks.Sprint;
 using MyLanguagePalService.Core;
 
@@ -20,15 +19,15 @@ namespace MyLanguagePalService.Areas.App.Controllers
         public IHttpActionResult GetSettings()
         {
             var settings = _sprintTaskService.GetSettings();
-            return Ok(ToAm(settings));
+            return Ok(settings);
         }
 
         [Route("settings")]
         [HttpPost]
-        public IHttpActionResult SetSettings(SprintTaskApiSettingsAm inputModel)
+        public IHttpActionResult SetSettings(SprintTaskSettingModel settings)
         {
             // *** Request validation ***
-            if (inputModel == null)
+            if (settings == null)
             {
                 ModelState.AddModelError("Settings", "Settings cannot be null");
                 return BadRequest(ModelState);
@@ -36,7 +35,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
 
             try
             {
-                _sprintTaskService.SetSettings(FromAm(inputModel));
+                _sprintTaskService.SetSettings(settings);
                 ServiceManager.Save();
             }
             catch (ValidationFailedException vfe)
@@ -47,24 +46,28 @@ namespace MyLanguagePalService.Areas.App.Controllers
             return Ok();
         }
 
-        private SprintTaskApiSettingsAm ToAm(SprintTaskSettingModel settings)
+        [Route("run")]
+        [HttpPost]
+        public IHttpActionResult RunNewTask(SprintTaskSettingModel settings)
         {
-            return new SprintTaskApiSettingsAm()
+            // *** Request validation ***
+            if (settings == null)
             {
-                TotalTimeForTask = settings.TotalTimeForTask,
-                CountOfWordsUsed = settings.CountOfWordsUsed,
-                LanguageId = settings.LanguageId
-            };
-        }
+                ModelState.AddModelError("Settings", "Settings cannot be null");
+                return BadRequest(ModelState);
+            }
 
-        private SprintTaskSettingModel FromAm(SprintTaskApiSettingsAm inputModel)
-        {
-            return new SprintTaskSettingModel()
+            SprintTaskRunModel result;
+            try
             {
-                TotalTimeForTask = inputModel.TotalTimeForTask,
-                CountOfWordsUsed = inputModel.CountOfWordsUsed,
-                LanguageId = inputModel.LanguageId
-            };
+                result = _sprintTaskService.RunNewTask(settings);
+            }
+            catch (ValidationFailedException vfe)
+            {
+                return UnprocessableEntity(vfe);
+            }
+
+            return Ok(result);
         }
     }
 }
