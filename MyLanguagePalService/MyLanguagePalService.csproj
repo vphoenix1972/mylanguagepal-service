@@ -288,9 +288,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\app\app.module.js" />
+    <Content Include="Content\app\core\angularExtensions.js" />
     <Content Include="Content\app\core\arrayExtensions.js" />
     <Content Include="Content\app\core\core.module.js" />
     <Content Include="Content\app\core\directives\convertToNumber.directive.js" />
+    <Content Include="Content\app\core\numberExtensions.js" />
     <Content Include="Content\app\core\resharper.js" />
     <Content Include="Content\app\core\stringExtensions.js" />
     <Content Include="Content\app\pages\about\about.routes.js" />
@@ -325,6 +327,9 @@
     <Content Include="Content\app\pages\shared\directives\textInput\textInput.tpl.html" />
     <Content Include="Content\app\pages\shared\directives\textInput\textInput.directive.css" />
     <Content Include="Content\app\pages\shared\directives\textInput\textInput.directive.js" />
+    <Content Include="Content\app\pages\shared\directives\timer\timer.css" />
+    <Content Include="Content\app\pages\shared\directives\timer\timer.directive.js" />
+    <Content Include="Content\app\pages\shared\directives\timer\timer.tpl.html" />
     <Content Include="Content\app\pages\shared\pagesShared.css" />
     <Content Include="Content\app\pages\shared\page\page.css" />
     <Content Include="Content\app\pages\shared\page\page.controller.js" />

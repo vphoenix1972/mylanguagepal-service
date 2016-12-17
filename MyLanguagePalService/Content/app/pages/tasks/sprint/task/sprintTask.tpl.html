@@ -1,1 +1,9 @@
 ﻿<h1>Sprint task</h1>
+<timer methods="vm.timerDirective"
+       count="10"
+       on-elapsed="vm.onTimerDirectiveElapsed()">
+
+</timer>
+
+<a ng-click="vm.start()">Start</a>
+<a ng-click="vm.stop()">Stop</a>

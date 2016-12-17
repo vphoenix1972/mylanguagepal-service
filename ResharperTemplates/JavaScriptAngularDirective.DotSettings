@@ -9,18 +9,19 @@
         var self = this;&#xD;
 &#xD;
         self._$element = $element;&#xD;
-        self._$scope = $scope;&#xD;
-&#xD;
-        /* Init */&#xD;
-&#xD;
-		$END$&#xD;
-&#xD;
-        // Bind $destroy event&#xD;
-        self._$scope.$on('$destroy', self.onDestroy);&#xD;
+        self._$scope = $scope;		&#xD;
     }&#xD;
 &#xD;
-    $directiveController$DirectiveController.prototype.onDestroy = function () {&#xD;
+    $directiveController$DirectiveController.prototype.$onInit = function () {&#xD;
+       $END$&#xD;
+    }&#xD;
 &#xD;
+    $directiveController$DirectiveController.prototype.$postLink = function () {&#xD;
+        &#xD;
+    }&#xD;
+&#xD;
+    $directiveController$DirectiveController.prototype.$onDestroy = function () {&#xD;
+        &#xD;
     }&#xD;
 &#xD;
 &#xD;
@@ -58,6 +59,7 @@
 </s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=74C4D51C2495D840974DA2EDBE7174FE/Reformat/@EntryValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=74C4D51C2495D840974DA2EDBE7174FE/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=74C4D51C2495D840974DA2EDBE7174FE/Categories/=Imported_002014_002E12_002E2016/@EntryIndexedValue">Imported 14.12.2016</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=74C4D51C2495D840974DA2EDBE7174FE/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=74C4D51C2495D840974DA2EDBE7174FE/Scope/=FFA15E6CFCBE90499C572A859225B012/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=74C4D51C2495D840974DA2EDBE7174FE/Scope/=FFA15E6CFCBE90499C572A859225B012/Type/@EntryValue">InJavaScriptFile</s:String>

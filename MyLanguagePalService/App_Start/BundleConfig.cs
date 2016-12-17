@@ -49,6 +49,7 @@ namespace MyLanguagePalService
                 "~/Content/app/pages/shared/page/page.css",
                 "~/Content/app/pages/shared/directives/textInput/textInput.directive.css",
                 "~/Content/app/pages/shared/directives/languageSelection/languageSelection.directive.css",
+                "~/Content/app/pages/shared/directives/timer/timer.css",
 
                 // Phrases
                 "~/Content/app/pages/phrases/edit/phrasesEdit.css",
@@ -88,7 +89,9 @@ namespace MyLanguagePalService
                 "~/Content/app/core/customError.js",
                 "~/Content/app/core/arrayExtensions.js",
                 "~/Content/app/core/stringExtensions.js",
+                "~/Content/app/core/numberExtensions.js",
                 "~/Content/app/core/directives/convertToNumber.directive.js",
+                "~/Content/app/core/angularExtensions.js",
 
                 /* Pages */
                 "~/Content/app/app.module.js",
@@ -107,6 +110,7 @@ namespace MyLanguagePalService
                 "~/Content/app/pages/shared/directives/textInput/textInput.directive.js",
                 "~/Content/app/pages/shared/directives/languageFlag/languageFlag.directive.js",
                 "~/Content/app/pages/shared/directives/languageSelection/languageSelection.directive.js",
+                "~/Content/app/pages/shared/directives/timer/timer.directive.js",
 
                 // About
                 "~/Content/app/pages/about/about.routes.js",
