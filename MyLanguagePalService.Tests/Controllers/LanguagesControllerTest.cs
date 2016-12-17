@@ -7,6 +7,7 @@ using Moq;
 using MyLanguagePalService.Areas.Site.Controllers;
 using MyLanguagePalService.DAL;
 using MyLanguagePalService.DAL.Models;
+using MyLanguagePalService.Tests.TestsShared;
 
 namespace MyLanguagePalService.Tests.Controllers
 {

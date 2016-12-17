@@ -73,7 +73,7 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
             }
             else
             {
-                _db.Entry(settingDal).State = EntityState.Modified;
+                _db.MarkModified(settingDal);                
             }
         }
 

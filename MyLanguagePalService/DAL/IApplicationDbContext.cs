@@ -18,5 +18,7 @@ namespace MyLanguagePalService.DAL
         DbEntityEntry Entry(object entity);
 
         int SaveChanges();
+
+        void MarkModified(object entity);
     }
 }
