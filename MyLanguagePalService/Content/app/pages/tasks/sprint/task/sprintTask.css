@@ -1,1 +1,129 @@
-﻿
+﻿.b-sprint-task {
+    padding: 25px;
+}
+
+.b-sprint-task-timer-starting {
+    width: 25px;
+    font-size: 26px;
+    color: #3B9839;
+    margin: auto;
+}
+
+.b-sprint-task-score {
+    text-align: center;
+}
+
+.b-sprint-task-score__text {
+    color: #3B9839;
+    font-size: 36px;
+}
+
+.b-sprint-task-work-area {
+    width: 600px;
+    margin: auto;
+}
+
+.b-sprint-task-work-area__col-1 {
+    float: left;
+    width: 100px;
+    -moz-min-width: 1px;
+    -ms-min-width: 1px;
+    -o-min-width: 1px;
+    -webkit-min-width: 1px;
+    min-width: 1px;
+    min-height: 1px;
+}
+
+.b-sprint-task-work-area__col-2 {
+    float: left;
+    width: 400px;
+}
+
+.b-sprint-task-work-area__phrase {
+    font-size: 22px;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.b-sprint-task-work-area__translation {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.b-sprint-task-work-area-buttons {
+    margin-top: 35px;
+    text-align: center;
+}
+
+.b-sprint-task-work-area-buttons__button {
+    width: 100px;
+    margin: 0 5px;
+}
+
+.b-sprint-task-work-area__col-3 {
+    float: left;
+    width: 100px;
+}
+
+.b-sprint-task-timer-running {
+    width: 25px;
+    font-size: 26px;
+    color: brown;
+    margin-top: 7px;
+    margin-left: 10px;
+}
+
+.b-sprint-task-summary__score {
+    font-size: 34px;
+    font-weight: 300;
+    line-height: 48px;
+    text-align: center;
+}
+
+.b-sprint-task-summary__phrases {
+    margin-top: 25px;
+    padding: 10px;
+}
+
+.b-sprint-task-summary-phrase {
+    padding-right: 10px;
+    padding-left: 5px;
+    margin: 5px 0;    
+}
+
+.b-sprint-task-summary-phrase:hover {
+    background-color: lightgray;
+}
+
+.b-sprint-task-summary-phrase__text {
+    float: left;
+    padding: 0 10px;    
+    width: calc(100% - 30px);
+}
+
+.b-sprint-task-summary-phrase__delta {
+    float: left;
+    width: 30px;
+}
+
+
+@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
+    .b-sprint-task-work-area {
+        width: 290px;        
+    }    
+
+    .b-sprint-task-work-area__col-1 {
+        width: 0;
+    }
+
+    .b-sprint-task-work-area__col-2 {        
+        width: 260px;
+    }
+
+    .b-sprint-task-work-area__col-3 {
+        width: 25px;
+    }
+}

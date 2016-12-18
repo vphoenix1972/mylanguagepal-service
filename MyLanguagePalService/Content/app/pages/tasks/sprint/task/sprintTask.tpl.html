@@ -1,59 +1,84 @@
-﻿<h1>Sprint task</h1>
-
-<div class="b-page" ng-hide="vm.isLoading">
+﻿<div class="b-page b-sprint-task" ng-hide="vm.isLoading">
     <div ng-show="vm.state === 'starting'">
-        <timer methods="vm.startingTimerDirective"
-               count="2"
-               on-elapsed="vm.onTimerDirectiveElapsed()">
+        <div class="b-sprint-task-timer-starting">
+            <timer methods="vm.startingTimerDirective"
+                   count="2"
+                   on-elapsed="vm.onTimerDirectiveElapsed()">
 
-        </timer>
+            </timer>
+        </div>
     </div>
 
     <div ng-show="vm.state === 'running'">
-        <div class="b-row">
-            <div>
-                Score: {{vm.score}}
-            </div>
-            <div>
-                <timer methods="vm.runningTimerDirective"
-                       count="vm.settings.totalTimeForTask"
-                       on-elapsed="vm.onTimerDirectiveElapsed()">
+        <div class="b-row b-sprint-task-work-area__container">
+            <div class="b-sprint-task-work-area">
+                <div class="b-sprint-task-work-area__col-1">
 
-                </timer>
-            </div>
-        </div>
-        <div>
-            <div>
-                {{vm.currentPhrase.text}}
-            </div>
-            <div>
-                {{vm.currentTranslation.text}}
-            </div>
-            <div>
-                <button class="btn btn-default"
-                        ng-click="vm.onIsNotCorrectButtonClicked()">
-                    НЕ верно
-                </button>
-                <button class="btn btn-default"
-                        ng-click="vm.onIsCorrectButtonClicked()">
-                    Верно
-                </button>
+                </div>
+                <div class="b-sprint-task-work-area__col-2">
+                    <div class="b-sprint-task-score">
+                        <span class="b-sprint-task-score__text">{{vm.score}}</span>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="b-sprint-task-work-area__phrase">
+                                {{vm.currentPhrase.text}}
+                            </div>
+                            <div class="b-sprint-task-work-area__translation">
+                                {{vm.currentTranslation.text}}
+                            </div>
+                            <div class="b-sprint-task-work-area__buttons-area">
+                                <hr />
+                                <div class="b-sprint-task-work-area-buttons">
+                                    <button class="btn btn-danger b-sprint-task-work-area-buttons__button"
+                                            ng-click="vm.onIsNotCorrectButtonClicked()">
+                                        НЕ верно
+                                    </button>
+                                    <button class="btn btn-success b-sprint-task-work-area-buttons__button"
+                                            ng-click="vm.onIsCorrectButtonClicked()">
+                                        Верно
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="b-sprint-task-work-area__col-3">
+                    <div class="b-sprint-task-timer-running">
+                        <timer methods="vm.runningTimerDirective"
+                               count="vm.settings.totalTimeForTask"
+                               on-elapsed="vm.onTimerDirectiveElapsed()">
+
+                        </timer>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div ng-show="vm.state === 'finished'">
-        <div>
-            Score: {{vm.score}}
-        </div>
-        <div>
-            <div ng-repeat="phrase in vm.summaryPhrases">
-                <div>{{phrase.text}}</div>
-                <div>Верно: {{phrase.correctAnswersCount}} НЕ верно: {{phrase.wrongAnswersCount}}</div>
-            </div>
-        </div>
-        <div>
+    <div ng-show="vm.state === 'finished'" class="b-sprint-task-summary">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="b-sprint-task-summary__score">
+                    Your result: {{vm.score}}
+                </div>
 
+                <div class="b-sprint-task-summary__phrases">
+                    <div ng-repeat="phrase in vm.summaryPhrases">
+                        <div class="b-row b-sprint-task-summary-phrase">
+                            <div class="b-text b-sprint-task-summary-phrase__text">
+                                {{phrase.text}}
+                            </div>
+                            <div class="b-sprint-task-summary-phrase__delta">
+                                <div class="b-highlighted-value"
+                                     ng-class="{'b-highlighted-value_red': phrase.delta() < 0, 'b-highlighted-value_green': phrase.delta() > 0,}">
+                                    <span ng-if="phrase.delta() > 0">+</span>{{phrase.delta()}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

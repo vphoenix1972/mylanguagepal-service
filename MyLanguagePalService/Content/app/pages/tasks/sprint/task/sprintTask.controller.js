@@ -78,6 +78,9 @@
                     phrases.forEach(function (phrase) {
                         phrase.correctAnswersCount = 0;
                         phrase.wrongAnswersCount = 0;
+                        phrase.delta = function () {
+                            return this.correctAnswersCount - this.wrongAnswersCount;
+                        }
                         phrase.usedCount = 0;
                     });
 
@@ -106,7 +109,9 @@
         }
 
         if (state === 'finished') {
-            self.summaryPhrases = self.phrases.filter(function (phrase) { return phrase.usedCount > 0; });;
+            self.summaryPhrases = self.phrases
+                .filter(function (phrase) { return phrase.usedCount > 0; })
+                .orderBy(function (p1, p2) { return p1.delta() - p2.delta(); });
 
             var summary = {
                 results: self.summaryPhrases.map(function (phrase) {

@@ -9,3 +9,24 @@
 .b-number-input {
     max-width: 89px;
 }
+
+.b-highlighted-value {
+    vertical-align: -1px;
+    min-width: 18px;
+    height: 21px;
+    line-height: 21px;
+    color: #fff;
+    padding: 0 7px;
+    -ms-border-radius: 21px;
+    border-radius: 21px;
+    text-align: center;
+    background-color: lightgray;
+}
+
+.b-highlighted-value_green {
+    background-color: #01AF61;
+}
+
+.b-highlighted-value_red {
+    background-color: #da5b4c;
+}
