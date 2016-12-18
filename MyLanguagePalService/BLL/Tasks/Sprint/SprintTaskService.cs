@@ -85,7 +85,7 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
             var phrases = _db.Phrases
                 .Where(p => p.LanguageId == settings.LanguageId)
                 .OrderBy(
-                    p => p.SprintTaskJournalRecords.Sum(r => (int?)(r.CorrectAnswersCount - r.WrongAnswersCount)) ?? 0
+                    p => p.SprintTaskJournalRecords.Sum(r => (int?)(r.CorrectWrongAnswersDelta)) ?? 0
                 )
                 .Take(settings.CountOfWordsUsed)
                 .ToList();
@@ -109,13 +109,24 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
             /* Logic */
             foreach (var record in summary.Results)
             {
-                _db.SprintTaskJournal.Add(new SprintTaskJournalRecordDal()
+                var delta = record.CorrectAnswersCount - record.WrongAnswersCount;
+
+                var recordDal = _db.SprintTaskJournal.FirstOrDefault(e => e.PhraseId == record.PhraseId);
+                var isNew = recordDal == null;
+                if (isNew)
                 {
-                    PhraseId = record.PhraseId,
-                    CreationTime = DateTime.UtcNow,
-                    CorrectAnswersCount = record.CorrectAnswersCount,
-                    WrongAnswersCount = record.WrongAnswersCount
-                });
+                    _db.SprintTaskJournal.Add(new SprintTaskJournalRecordDal()
+                    {
+                        PhraseId = record.PhraseId,
+                        LastRepetitonTime = DateTime.UtcNow,
+                        CorrectWrongAnswersDelta = delta
+                    });
+                }
+                else
+                {
+                    recordDal.LastRepetitonTime = DateTime.UtcNow;
+                    recordDal.CorrectWrongAnswersDelta = record.CorrectAnswersCount + delta;
+                }
             }
         }
 

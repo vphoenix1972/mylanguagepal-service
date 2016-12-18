@@ -8,11 +8,9 @@ namespace MyLanguagePalService.DAL.Models
 
         public int PhraseId { get; set; }
 
-        public DateTime CreationTime { get; set; }
+        public DateTime LastRepetitonTime { get; set; }
 
-        public int CorrectAnswersCount { get; set; }
-
-        public int WrongAnswersCount { get; set; }
+        public int CorrectWrongAnswersDelta { get; set; }
 
         public PhraseDal Phrase { get; set; }
     }
