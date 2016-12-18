@@ -20,5 +20,11 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
         /// </summary>        
         [NotNull]
         SprintTaskRunModel RunNewTask([NotNull] SprintTaskSettingModel settings);
+
+        /// <summary>
+        /// Writes statistics about finished sprint task.
+        /// </summary>
+        /// <param name="summary"></param>
+        void FinishTask([NotNull] SprintTaskFinishedSummaryModel summary);
     }
 }

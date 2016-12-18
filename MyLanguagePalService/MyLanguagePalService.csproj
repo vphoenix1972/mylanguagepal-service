@@ -243,6 +243,8 @@
     <Compile Include="BLL\Phrases\TranslationImBll.cs" />
     <Compile Include="BLL\Tasks\Sprint\SprintTaskData.cs" />
     <Compile Include="BLL\Phrases\PhraseWithTranslations.cs" />
+    <Compile Include="BLL\Tasks\Sprint\SprintTaskFinishedSummaryModel.cs" />
+    <Compile Include="BLL\Tasks\Sprint\SprintTaskJournalRecord.cs" />
     <Compile Include="BLL\Tasks\Sprint\SprintTaskRunModel.cs" />
     <Compile Include="BLL\Tasks\Sprint\SprintTaskService.cs" />
     <Compile Include="BLL\Tasks\Sprint\SprintTaskSettingModel.cs" />

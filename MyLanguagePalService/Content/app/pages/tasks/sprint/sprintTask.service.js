@@ -29,6 +29,12 @@
             });
     }
 
+    SprintTaskService.prototype.finishTask = function (summary) {
+        var self = this;
+
+        return self._connector.post('/api/tasks/sprint/finish', summary);
+    }
+
     /* Private */
 
 

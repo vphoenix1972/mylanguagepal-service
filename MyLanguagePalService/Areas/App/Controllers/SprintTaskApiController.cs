@@ -69,5 +69,29 @@ namespace MyLanguagePalService.Areas.App.Controllers
 
             return Ok(result);
         }
+
+        [Route("finish")]
+        [HttpPost]
+        public IHttpActionResult FinishTask(SprintTaskFinishedSummaryModel summary)
+        {
+            // *** Request validation ***
+            if (summary == null)
+            {
+                ModelState.AddModelError(nameof(summary), "Summary cannot be null");
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                _sprintTaskService.FinishTask(summary);
+                ServiceManager.Save();
+            }
+            catch (ValidationFailedException vfe)
+            {
+                return UnprocessableEntity(vfe);
+            }
+
+            return Ok();
+        }
     }
 }

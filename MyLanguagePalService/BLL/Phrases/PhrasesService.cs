@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using MyLanguagePalService.Core;
 using MyLanguagePalService.DAL;
@@ -201,7 +200,7 @@ namespace MyLanguagePalService.BLL.Phrases
             {
                 // User removed all translations
 
-                RemoveAllTranslations(phrase);
+                RemoveDependencies(phrase);
             }
 
             // Modify the phrase in the database
@@ -214,12 +213,17 @@ namespace MyLanguagePalService.BLL.Phrases
             if (phraseDal == null)
                 throw new ArgumentNullException(nameof(phraseDal));
 
-            RemoveAllTranslations(phraseDal);
+            RemoveDependencies(phraseDal);
 
             // Remove the phrase
             _db.Phrases.Remove(phraseDal);
 
             _db.SaveChanges();
+        }
+
+        public bool CheckIfPhraseExists(int id)
+        {
+            return _db.Phrases.Find(id) != null;
         }
 
         private IList<TranslationDal> GetTranslationsFor(PhraseDal phraseDal)
@@ -253,13 +257,16 @@ namespace MyLanguagePalService.BLL.Phrases
             return result;
         }
 
-        private void RemoveAllTranslations(PhraseDal phraseDal)
+        private void RemoveDependencies(PhraseDal phraseDal)
         {
             // Remove the translations for this phrase
             phraseDal.Translations.ToList().ForEach(t => _db.Translations.Remove(t));
 
             // Remove the translations for which this phrase is a translation
             phraseDal.PhrasesTranslatedBy.ToList().ForEach(t => _db.Translations.Remove(t));
+
+            // Remove sprint task records
+            phraseDal.SprintTaskJournalRecords.ToList().ForEach(e => _db.SprintTaskJournal.Remove(e));
         }
 
         private TranslationDal CreateTranslationDal(PhraseDal newPhraseDal, PhraseDal existingPhraseDal, TranslationImBll translationInput)

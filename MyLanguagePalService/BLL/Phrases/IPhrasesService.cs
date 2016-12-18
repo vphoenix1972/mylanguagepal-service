@@ -26,5 +26,7 @@ namespace MyLanguagePalService.BLL.Phrases
         void UpdatePhrase([NotNull] PhraseDal phrase, [NotNull] string text, [CanBeNull] IList<TranslationImBll> translations);
 
         void DeletePhrase([NotNull] PhraseDal phraseDal);
+
+        bool CheckIfPhraseExists(int id);
     }
 }

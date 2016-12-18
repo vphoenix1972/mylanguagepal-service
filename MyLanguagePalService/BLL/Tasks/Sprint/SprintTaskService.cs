@@ -52,7 +52,7 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
         public void SetSettings(SprintTaskSettingModel settings)
         {
             /* Validate */
-            ValidateSettings(settings);
+            Assert(settings);
 
             /* Save */
             var settingDal = _db.SprintTaskSettings.FirstOrDefault();
@@ -79,12 +79,12 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
         public SprintTaskRunModel RunNewTask(SprintTaskSettingModel settings)
         {
             /* Validation */
-            ValidateSettings(settings);
+            Assert(settings);
 
             /* Logic */
             var phrases = _db.Phrases
                 .Where(p => p.LanguageId == settings.LanguageId)
-                .OrderByDescending(
+                .OrderBy(
                     p => p.SprintTaskJournalRecords.Sum(r => (int?)(r.CorrectAnswersCount - r.WrongAnswersCount)) ?? 0
                 )
                 .Take(settings.CountOfWordsUsed)
@@ -101,7 +101,25 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
             return result;
         }
 
-        private void ValidateSettings(SprintTaskSettingModel settings)
+        public void FinishTask(SprintTaskFinishedSummaryModel summary)
+        {
+            /* Validation */
+            Assert(summary);
+
+            /* Logic */
+            foreach (var record in summary.Results)
+            {
+                _db.SprintTaskJournal.Add(new SprintTaskJournalRecordDal()
+                {
+                    PhraseId = record.PhraseId,
+                    CreationTime = DateTime.UtcNow,
+                    CorrectAnswersCount = record.CorrectAnswersCount,
+                    WrongAnswersCount = record.WrongAnswersCount
+                });
+            }
+        }
+
+        private void Assert(SprintTaskSettingModel settings)
         {
             if (settings == null)
                 throw new ArgumentNullException(nameof(settings));
@@ -120,6 +138,47 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
                 throw new ValidationFailedException(nameof(settings.CountOfWordsUsed),
                     $"Count of words used must be between {MinCountOfWordsUsed} and {MaxCountOfWordsUsed} words");
             }
+        }
+
+        private void Assert(SprintTaskFinishedSummaryModel summary)
+        {
+            if (summary == null)
+                throw new ArgumentNullException(nameof(summary));
+
+            if (summary.Results == null)
+                throw new ArgumentNullException(nameof(summary.Results));
+
+            for (var i = 0; i < summary.Results.Count; i++)
+            {
+                var record = summary.Results[i];
+
+                if (record == null)
+                    throw new ArgumentNullException(nameof(record));
+
+                var phraseId = record.PhraseId;
+
+                if (!_phrasesService.CheckIfPhraseExists(phraseId))
+                    throw new ValidationFailedException($"Results[{i}]", $"Phrase with id '{phraseId}' does not exists");
+
+                string message;
+                if (!ValidateAnswersCount(record.CorrectAnswersCount, out message))
+                    throw new ValidationFailedException(nameof(record.CorrectAnswersCount), message);
+                if (!ValidateAnswersCount(record.WrongAnswersCount, out message))
+                    throw new ValidationFailedException(nameof(record.WrongAnswersCount), message);
+            }
+        }
+
+        private bool ValidateAnswersCount(int answersCount, out string message)
+        {
+            message = string.Empty;
+
+            if (answersCount < 0)
+            {
+                message = "Answers count cannot be less than 0";
+                return false;
+            }
+
+            return true;
         }
     }
 }

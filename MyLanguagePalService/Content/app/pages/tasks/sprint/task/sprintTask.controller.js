@@ -16,6 +16,7 @@
         self.currentTranslation = {};
         self.score = 0;
         self.phrases = [];
+        self.summaryPhrases = [];
 
         self.doAsync(self._sprintTaskService.getSettings())
             .then(function (result) {
@@ -77,9 +78,10 @@
                     phrases.forEach(function (phrase) {
                         phrase.correctAnswersCount = 0;
                         phrase.wrongAnswersCount = 0;
+                        phrase.usedCount = 0;
                     });
 
-                    self.phrases = phrases;                    
+                    self.phrases = phrases;
 
                     self.startingTimerDirective.start();
 
@@ -104,8 +106,25 @@
         }
 
         if (state === 'finished') {
+            self.summaryPhrases = self.phrases.filter(function (phrase) { return phrase.usedCount > 0; });;
 
-            self.state = state;
+            var summary = {
+                results: self.summaryPhrases.map(function (phrase) {
+                    return {
+                        phraseId: phrase.id,
+                        correctAnswersCount: phrase.correctAnswersCount,
+                        wrongAnswersCount: phrase.wrongAnswersCount
+                    }
+                })
+            }
+
+            self.doAsync(self._sprintTaskService.finishTask(summary))
+                .then(function () {
+                    self.state = state;
+                })
+                .catch(function () {
+                    self.returnToDashboard();
+                });
 
             return;
         }
@@ -122,6 +141,8 @@
             self.currentPhrase.wrongAnswersCount++;
         }
 
+        self.currentPhrase.usedCount++;
+
         self._nextPhrase();
     }
 
@@ -129,17 +150,33 @@
         var self = this;
 
         var translationPhrase;
+        var randomIndex;
 
-        // Select current phrase
-        var phraseIndex = self._utils.getRandomInt(self.phrases.length);
-        self.currentPhrase = self.phrases[phraseIndex];
+        // Select current phrase        
+        var notUsedPhrases = self.phrases.filter(function (phrase) { return phrase.usedCount < 1; });
+        if (notUsedPhrases.length > 0) {
+            if (notUsedPhrases.length === 1) {
+                // Only one phrase left unused
+                // Use this phrase
+                self.currentPhrase = notUsedPhrases[0];
+            } else {
+                // Use unused phrases first
+                randomIndex = self._utils.getRandomInt(notUsedPhrases.length);
+                self.currentPhrase = notUsedPhrases[randomIndex];
+            }
+        } else {
+            // No unused phrases left - just select random phrase
+            randomIndex = self._utils.getRandomInt(self.phrases.length);
+            self.currentPhrase = self.phrases[randomIndex];
+        }
 
         // Select if translation will be correct
         var isTranslationCorrect = self._utils.getRandomBool();
         if (isTranslationCorrect) {
             translationPhrase = self.currentPhrase;
         } else {
-            var translationPhraseIndex = self._utils.getRandomIntExcluding(self.phrases.length, [phraseIndex]);
+            var currentPhraseIndex = self.phrases.indexOf(self.currentPhrase);
+            var translationPhraseIndex = self._utils.getRandomIntExcluding(self.phrases.length, [currentPhraseIndex]);
             translationPhrase = self.phrases[translationPhraseIndex];
         }
 
