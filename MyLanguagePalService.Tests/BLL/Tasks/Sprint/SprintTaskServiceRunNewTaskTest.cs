@@ -233,6 +233,36 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
             Assert.AreEqual(phrases[4].Id, actual.Phrases[0].Id);
         }
 
+        [TestMethod]
+        public void RunNewTask_ShouldReturnEmptyListIfNoPhrases()
+        {
+            /* Arrange */
+            var records = new List<SprintTaskJournalRecordDal>();
+            CreateSprintTaskJournalRecordsMockDbSet(records);
+
+            var phrases = new List<PhraseDal>();
+            CreatePhrasesMockDbSet(phrases);
+
+            var phrasesService = GetStub<IPhrasesService>();
+
+            var languageServiceMock = GetLanguageServiceStub();
+            var languagesService = languageServiceMock.Object;
+
+            /* Act */
+            var service = new SprintTaskService(phrasesService, languagesService, Db);
+            var settings = new SprintTaskSettingModel()
+            {
+                LanguageId = 1,
+                CountOfWordsUsed = SprintTaskService.MaxCountOfWordsUsed,
+                TotalTimeForTask = SprintTaskService.MinTotalTimeForTask
+            };
+            var actual = service.RunNewTask(settings);
+
+            /* Assert */
+            AssertSprintTaskRunModelContract(actual);
+            Assert.AreEqual(0, actual.Phrases.Count);
+        }
+
         // ReSharper disable once UnusedParameter.Local
         private void AssertSprintTaskRunModelContract(SprintTaskRunModel actual)
         {
