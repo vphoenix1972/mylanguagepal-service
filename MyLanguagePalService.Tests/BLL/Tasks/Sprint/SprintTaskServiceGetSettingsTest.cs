@@ -12,7 +12,7 @@ using MyLanguagePalService.Tests.TestsShared;
 namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 {
     [TestClass]
-    public class SprintTaskServiceGetSettingsTest
+    public class SprintTaskServiceGetSettingsTest : TestBase
     {
         [TestMethod]
         public void GetSettings_ShouldReturnSettingsIfOneSettingInDb()
@@ -33,15 +33,15 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
                 expected
             }.AsQueryable();
 
-            var mockSet = TestUtils.CreateMockDbSet(settings);
+            var mockSet = CreateMockDbSet(settings);
 
             mockContext.Setup(x => x.SprintTaskSettings)
                 .Returns(mockSet.Object);
 
             var db = mockContext.Object;
 
-            var phrasesService = TestUtils.GetStub<IPhrasesService>();
-            var languagesService = TestUtils.GetStub<ILanguagesService>();
+            var phrasesService = GetStub<IPhrasesService>();
+            var languagesService = GetStub<ILanguagesService>();
 
             /* Act */
             var service = new SprintTaskService(phrasesService, languagesService, db);
@@ -82,15 +82,15 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             }.AsQueryable();
 
-            var mockSet = TestUtils.CreateMockDbSet(settings);
+            var mockSet = CreateMockDbSet(settings);
 
             mockContext.Setup(x => x.SprintTaskSettings)
                 .Returns(mockSet.Object);
 
             var db = mockContext.Object;
 
-            var phrasesService = TestUtils.GetStub<IPhrasesService>();
-            var languagesService = TestUtils.GetStub<ILanguagesService>();
+            var phrasesService = GetStub<IPhrasesService>();
+            var languagesService = GetStub<ILanguagesService>();
 
             /* Act */
             var service = new SprintTaskService(phrasesService, languagesService, db);
@@ -119,14 +119,14 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             var settings = new List<SprintTaskSettingDal>().AsQueryable();
 
-            var mockSet = TestUtils.CreateMockDbSet(settings);
+            var mockSet = CreateMockDbSet(settings);
 
             mockContext.Setup(x => x.SprintTaskSettings)
                 .Returns(mockSet.Object);
 
             var db = mockContext.Object;
 
-            var phrasesService = TestUtils.GetStub<IPhrasesService>();
+            var phrasesService = GetStub<IPhrasesService>();
 
             var languageServiceMock = new Mock<ILanguagesService>();
             languageServiceMock.SetupAllProperties();

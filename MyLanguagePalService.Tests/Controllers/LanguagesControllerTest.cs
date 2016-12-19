@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,7 +11,7 @@ using MyLanguagePalService.Tests.TestsShared;
 namespace MyLanguagePalService.Tests.Controllers
 {
     [TestClass]
-    public class LanguagesControllerTest
+    public class LanguagesControllerTest : TestBase
     {
         [TestMethod]
         public void Index()
@@ -34,7 +33,7 @@ namespace MyLanguagePalService.Tests.Controllers
                 }
             }.AsQueryable();
 
-            var mockSet = TestUtils.CreateMockDbSet(languages);
+            var mockSet = CreateMockDbSet(languages);
 
             mockContext.Setup(x => x.Languages)
                 .Returns(mockSet.Object);

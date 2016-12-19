@@ -11,9 +11,9 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
     public class SprintTaskService : ServiceBase,
                                      ISprintTaskService
     {
-        private const int MinTotalTimeForTask = 5;
-        private const int MinCountOfWordsUsed = 1;
-        private const int MaxCountOfWordsUsed = 1000;
+        public const int MinTotalTimeForTask = 5;
+        public const int MinCountOfWordsUsed = 1;
+        public const int MaxCountOfWordsUsed = 1000;
 
         private readonly IPhrasesService _phrasesService;
         private readonly ILanguagesService _languagesService;

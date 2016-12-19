@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using MyLanguagePalService.BLL.Languages;
 using MyLanguagePalService.BLL.Phrases;
 using MyLanguagePalService.BLL.Tasks.Sprint;
-using MyLanguagePalService.Core;
 using MyLanguagePalService.DAL;
 using MyLanguagePalService.DAL.Models;
-using MyLanguagePalService.Tests.TestsShared;
 
 namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 {
     [TestClass]
-    public class SprintTaskServiceSetSettingsTest
+    public class SprintTaskServiceSetSettingsTest : SprintTaskTestBase
     {
         [TestMethod]
         public void SetSettings_ShouldAddSettingsInDatabase()
@@ -24,16 +20,16 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             var settings = new List<SprintTaskSettingDal>().AsQueryable();
 
-            var sprintTaskSettingsDbSet = TestUtils.CreateMockDbSet(settings);
+            var sprintTaskSettingsDbSet = CreateMockDbSet(settings);
 
             mockContext.Setup(x => x.SprintTaskSettings)
                 .Returns(sprintTaskSettingsDbSet.Object);
 
             var db = mockContext.Object;
 
-            var phrasesService = TestUtils.GetStub<IPhrasesService>();
+            var phrasesService = GetStub<IPhrasesService>();
 
-            var languageServiceMock = GetLanguageServiceMock();
+            var languageServiceMock = GetLanguageServiceStub();
             var languagesService = languageServiceMock.Object;
 
             /* Act */
@@ -84,16 +80,16 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
                 record2
             }.AsQueryable();
 
-            var sprintTaskSettingsDbSet = TestUtils.CreateMockDbSet(settings);
+            var sprintTaskSettingsDbSet = CreateMockDbSet(settings);
 
             mockDb.Setup(x => x.SprintTaskSettings)
                 .Returns(sprintTaskSettingsDbSet.Object);
 
             var db = mockDb.Object;
 
-            var phrasesService = TestUtils.GetStub<IPhrasesService>();
+            var phrasesService = GetStub<IPhrasesService>();
 
-            var languageServiceMock = GetLanguageServiceMock();
+            var languageServiceMock = GetLanguageServiceStub();
             var languagesService = languageServiceMock.Object;
 
             /* Act */
@@ -136,160 +132,19 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
         [TestMethod]
         public void SetSettings_ShouldCheckLanguageId()
         {
-            /* Arrange */
-            var mockDb = new Mock<IApplicationDbContext>();
-
-            var settings = new List<SprintTaskSettingDal>().AsQueryable();
-
-            var sprintTaskSettingsDbSet = TestUtils.CreateMockDbSet(settings);
-
-            mockDb.Setup(x => x.SprintTaskSettings)
-                .Returns(sprintTaskSettingsDbSet.Object);
-
-            var db = mockDb.Object;
-
-            var phrasesService = TestUtils.GetStub<IPhrasesService>();
-
-            var languageServiceMock = new Mock<ILanguagesService>();
-            languageServiceMock.Setup(m => m.CheckIfLanguageExists(It.IsAny<int>())).Returns(false); ;
-            var languagesService = languageServiceMock.Object;
-
-            /* Act */
-            var service = new SprintTaskService(phrasesService, languagesService, db);
-            var input = new SprintTaskSettingModel()
-            {
-                LanguageId = 3,
-                CountOfWordsUsed = 40,
-                TotalTimeForTask = 60
-            };
-
-            ValidationFailedException vfeCaught = null;
-            try
-            {
-                service.SetSettings(input);
-            }
-            catch (ValidationFailedException vfe)
-            {
-                vfeCaught = vfe;
-            }
-
-            /* Assert */
-            languageServiceMock.Verify(m => m.CheckIfLanguageExists(input.LanguageId), Times.Once);
-            TestUtils.AssertValidationFailedException(vfeCaught, nameof(SprintTaskSettingModel.LanguageId));
+            ShouldCheckLanguageId((service, settings) => service.SetSettings(settings));
         }
 
         [TestMethod]
         public void SetSettings_ShouldCheckTotalTimeForTask()
         {
-            /* Arrange */
-            var mockDb = new Mock<IApplicationDbContext>();
-
-            var settings = new List<SprintTaskSettingDal>().AsQueryable();
-
-            var sprintTaskSettingsDbSet = TestUtils.CreateMockDbSet(settings);
-
-            mockDb.Setup(x => x.SprintTaskSettings)
-                .Returns(sprintTaskSettingsDbSet.Object);
-
-            var db = mockDb.Object;
-
-            var phrasesService = TestUtils.GetStub<IPhrasesService>();
-
-            var languageServiceMock = GetLanguageServiceMock();
-            var languagesService = languageServiceMock.Object;
-
-            /* Act */
-            var service = new SprintTaskService(phrasesService, languagesService, db);
-            var input = new SprintTaskSettingModel()
-            {
-                LanguageId = 1,
-                CountOfWordsUsed = 40,
-                TotalTimeForTask = 1
-            };
-
-            ValidationFailedException vfeCaught = null;
-            try
-            {
-                service.SetSettings(input);
-            }
-            catch (ValidationFailedException vfe)
-            {
-                vfeCaught = vfe;
-            }
-
-            /* Assert */
-            TestUtils.AssertValidationFailedException(vfeCaught, nameof(SprintTaskSettingModel.TotalTimeForTask));
+            ShouldCheckTotalTimeForTask((service, settings) => service.SetSettings(settings));
         }
 
         [TestMethod]
         public void SetSettings_ShouldCheckCountOfWordsUsed()
         {
-            /* Arrange */
-            var mockDb = new Mock<IApplicationDbContext>();
-
-            var settings = new List<SprintTaskSettingDal>().AsQueryable();
-
-            var sprintTaskSettingsDbSet = TestUtils.CreateMockDbSet(settings);
-
-            mockDb.Setup(x => x.SprintTaskSettings)
-                .Returns(sprintTaskSettingsDbSet.Object);
-
-            var db = mockDb.Object;
-
-            var phrasesService = TestUtils.GetStub<IPhrasesService>();
-
-            var languageServiceMock = GetLanguageServiceMock();
-            var languagesService = languageServiceMock.Object;
-
-            /* Act */
-            var service = new SprintTaskService(phrasesService, languagesService, db);
-            var input = new SprintTaskSettingModel()
-            {
-                LanguageId = 1,
-                CountOfWordsUsed = 0,
-                TotalTimeForTask = 10
-            };
-
-            ValidationFailedException vfeCaught = null;
-            try
-            {
-                service.SetSettings(input);
-            }
-            catch (ValidationFailedException vfe)
-            {
-                vfeCaught = vfe;
-            }
-
-            /* Assert */
-            TestUtils.AssertValidationFailedException(vfeCaught, nameof(SprintTaskSettingModel.CountOfWordsUsed));
-
-            /* Act */
-            input = new SprintTaskSettingModel()
-            {
-                LanguageId = 1,
-                CountOfWordsUsed = 1001,
-                TotalTimeForTask = 10
-            };
-
-            vfeCaught = null;
-            try
-            {
-                service.SetSettings(input);
-            }
-            catch (ValidationFailedException vfe)
-            {
-                vfeCaught = vfe;
-            }
-
-            /* Assert */
-            TestUtils.AssertValidationFailedException(vfeCaught, nameof(SprintTaskSettingModel.CountOfWordsUsed));
-        }
-
-        private static Mock<ILanguagesService> GetLanguageServiceMock()
-        {
-            var languageServiceMock = new Mock<ILanguagesService>();
-            languageServiceMock.Setup(m => m.CheckIfLanguageExists(It.IsAny<int>())).Returns(true);
-            return languageServiceMock;
+            ShouldCheckCountOfWordsUsed((service, settings) => service.SetSettings(settings));
         }
     }
 }

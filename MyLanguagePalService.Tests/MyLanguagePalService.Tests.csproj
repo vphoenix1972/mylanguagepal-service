@@ -103,10 +103,12 @@
   <ItemGroup>
     <Compile Include="BLL\Tasks\Sprint\SprintTaskServiceGetSettingsTest.cs" />
     <Compile Include="BLL\Tasks\Sprint\SprintTaskServiceSetSettingsTest.cs" />
+    <Compile Include="BLL\Tasks\Sprint\SprintTaskTestBase.cs" />
+    <Compile Include="BLL\Tasks\Sprint\SprintTaskServiceRunNewTaskTest.cs" />
     <Compile Include="Controllers\LanguagesControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\AboutControllerTest.cs" />
-    <Compile Include="TestsShared\TestUtils.cs" />
+    <Compile Include="TestsShared\TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
