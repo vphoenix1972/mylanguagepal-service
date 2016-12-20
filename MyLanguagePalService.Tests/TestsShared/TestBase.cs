@@ -111,7 +111,7 @@ namespace MyLanguagePalService.Tests.TestsShared
         protected void AssertThatOnlyOneRecordWasMarkedAsModified<T>(Expression<Func<T, bool>> predicate)
         {
             DbMock.Verify(m => m.MarkModified(It.IsAny<T>()), Times.Once);
-            DbMock.Verify(m => m.MarkModified(It.Is<T>(predicate)), Times.Once);
+            DbMock.Verify(m => m.MarkModified(It.Is(predicate)), Times.Once);
         }
 
         protected void AssertIsValidationFailedExceptionTrown(Action fn, string fieldNameToCheck)
