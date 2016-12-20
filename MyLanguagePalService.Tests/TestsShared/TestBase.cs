@@ -6,18 +6,18 @@ using System.Linq.Expressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MyLanguagePalService.BLL.Languages;
+using MyLanguagePalService.BLL.Phrases;
 using MyLanguagePalService.Core;
 using MyLanguagePalService.DAL;
 using MyLanguagePalService.DAL.Models;
-using Expression = Castle.DynamicProxy.Generators.Emitters.SimpleAST.Expression;
 
 namespace MyLanguagePalService.Tests.TestsShared
 {
-    public class TestBase
+    public abstract class TestBase
     {
         private Mock<IApplicationDbContext> _db;
 
-        public Mock<IApplicationDbContext> DbMock
+        protected Mock<IApplicationDbContext> DbMock
         {
             get
             {
@@ -30,7 +30,7 @@ namespace MyLanguagePalService.Tests.TestsShared
             }
         }
 
-        public IApplicationDbContext Db
+        protected IApplicationDbContext Db
         {
             get
             {
@@ -43,12 +43,22 @@ namespace MyLanguagePalService.Tests.TestsShared
             }
         }
 
-        public Mock<IDbSet<PhraseDal>> CreatePhrasesMockDbSet(IList<PhraseDal> data)
+        protected Mock<IDbSet<PhraseDal>> CreatePhrasesMockDbSet(IList<PhraseDal> data)
         {
             return CreateMockDbSet(data, db => db.Phrases);
         }
 
-        public Mock<ILanguagesService> GetLanguageServiceStub()
+        protected ILanguagesService GetLanguageServiceStubObject()
+        {
+            return GetLanguageServiceStub().Object;
+        }
+
+        protected IPhrasesService GetPhrasesServiceStubObject()
+        {
+            return GetPhrasesServiceStub().Object;
+        }
+
+        protected Mock<ILanguagesService> GetLanguageServiceStub()
         {
             var languageServiceMock = new Mock<ILanguagesService>();
             languageServiceMock.SetupAllProperties();
@@ -56,14 +66,22 @@ namespace MyLanguagePalService.Tests.TestsShared
             return languageServiceMock;
         }
 
-        public Mock<IDbSet<T>> CreateMockDbSet<T>(IList<T> data, Expression<Func<IApplicationDbContext, IDbSet<T>>> expression) where T : class
+        protected Mock<IPhrasesService> GetPhrasesServiceStub()
+        {
+            var mock = new Mock<IPhrasesService>();
+            mock.SetupAllProperties();
+            mock.Setup(m => m.CheckIfPhraseExists(It.IsAny<int>())).Returns(true);
+            return mock;
+        }
+
+        protected Mock<IDbSet<T>> CreateMockDbSet<T>(IList<T> data, Expression<Func<IApplicationDbContext, IDbSet<T>>> expression) where T : class
         {
             var mockSet = CreateMockDbSet(data.AsQueryable());
             DbMock.Setup(expression).Returns(mockSet.Object);
             return mockSet;
         }
 
-        public Mock<IDbSet<T>> CreateMockDbSet<T>(IQueryable<T> querable) where T : class
+        protected Mock<IDbSet<T>> CreateMockDbSet<T>(IQueryable<T> querable) where T : class
         {
             var mockSet = new Mock<IDbSet<T>>();
             mockSet.As<IQueryable<T>>().Setup(m => m.Provider).Returns(querable.Provider);
@@ -73,18 +91,73 @@ namespace MyLanguagePalService.Tests.TestsShared
             return mockSet;
         }
 
-        public T GetStub<T>() where T : class
+        protected T GetStubObject<T>() where T : class
+        {
+            return GetStub<T>().Object;
+        }
+
+        protected Mock<T> GetStub<T>() where T : class
         {
             var mock = new Mock<T>();
             mock.SetupAllProperties();
-            return mock.Object;
+            return mock;
         }
 
-        public void AssertValidationFailedException(ValidationFailedException vfe, string fieldNameToCheck)
+        protected void AssertThatNoRecordsWasAdded<T>(Mock<IDbSet<T>> mockDbSet) where T : class
+        {
+            mockDbSet.Verify(m => m.Add(It.IsAny<T>()), Times.Never);
+        }
+
+        protected void AssertThatOnlyOneRecordWasMarkedAsModified<T>(Expression<Func<T, bool>> predicate)
+        {
+            DbMock.Verify(m => m.MarkModified(It.IsAny<T>()), Times.Once);
+            DbMock.Verify(m => m.MarkModified(It.Is<T>(predicate)), Times.Once);
+        }
+
+        protected void AssertIsValidationFailedExceptionTrown(Action fn, string fieldNameToCheck)
+        {
+            AssertIsExceptionThrown<ValidationFailedException>(fn,
+                vfe =>
+                {
+                    Assert.IsNotNull(vfe.Errors);
+                    Assert.IsTrue(vfe.Errors.Any(error => error.FieldName == fieldNameToCheck));
+                });
+        }
+
+        protected void AssertValidationFailedException(ValidationFailedException vfe, string fieldNameToCheck)
         {
             Assert.IsNotNull(vfe);
             Assert.IsNotNull(vfe.Errors);
             Assert.IsTrue(vfe.Errors.Any(error => error.FieldName == fieldNameToCheck));
+        }
+
+        protected void AssertIsArgumentNullExceptionThrown(Action fn, string expectedArgumentName = null)
+        {
+            AssertIsExceptionThrown<ArgumentNullException>(fn,
+                ex =>
+                {
+                    if (expectedArgumentName != null)
+                        Assert.AreEqual(expectedArgumentName, ex.ParamName);
+                });
+        }
+
+        protected void AssertIsExceptionThrown<T>(Action fn, Action<T> additionalAssertion = null) where T : Exception
+        {
+            T targetException = null;
+
+            try
+            {
+                fn();
+            }
+            catch (T ex)
+            {
+                targetException = ex;
+            }
+
+            Assert.IsNotNull(targetException);
+
+            if (additionalAssertion != null)
+                additionalAssertion(targetException);
         }
     }
 }

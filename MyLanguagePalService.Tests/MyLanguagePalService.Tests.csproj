@@ -101,6 +101,7 @@
     <Reference Include="System.Net.Http.WebRequest" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\Tasks\Sprint\SprintTaskServiceFinishTaskTest.cs" />
     <Compile Include="BLL\Tasks\Sprint\SprintTaskServiceGetSettingsTest.cs" />
     <Compile Include="BLL\Tasks\Sprint\SprintTaskServiceSetSettingsTest.cs" />
     <Compile Include="BLL\Tasks\Sprint\SprintTaskTestBase.cs" />

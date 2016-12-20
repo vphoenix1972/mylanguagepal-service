@@ -40,8 +40,8 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             var db = mockContext.Object;
 
-            var phrasesService = GetStub<IPhrasesService>();
-            var languagesService = GetStub<ILanguagesService>();
+            var phrasesService = GetStubObject<IPhrasesService>();
+            var languagesService = GetStubObject<ILanguagesService>();
 
             /* Act */
             var service = new SprintTaskService(phrasesService, languagesService, db);
@@ -89,8 +89,8 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             var db = mockContext.Object;
 
-            var phrasesService = GetStub<IPhrasesService>();
-            var languagesService = GetStub<ILanguagesService>();
+            var phrasesService = GetStubObject<IPhrasesService>();
+            var languagesService = GetStubObject<ILanguagesService>();
 
             /* Act */
             var service = new SprintTaskService(phrasesService, languagesService, db);
@@ -126,7 +126,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             var db = mockContext.Object;
 
-            var phrasesService = GetStub<IPhrasesService>();
+            var phrasesService = GetStubObject<IPhrasesService>();
 
             var languageServiceMock = new Mock<ILanguagesService>();
             languageServiceMock.SetupAllProperties();

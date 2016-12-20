@@ -115,17 +115,20 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
                 var isNew = recordDal == null;
                 if (isNew)
                 {
-                    _db.SprintTaskJournal.Add(new SprintTaskJournalRecordDal()
-                    {
-                        PhraseId = record.PhraseId,
-                        LastRepetitonTime = DateTime.UtcNow,
-                        CorrectWrongAnswersDelta = delta
-                    });
+                    recordDal = new SprintTaskJournalRecordDal();
+                }
+
+                recordDal.PhraseId = record.PhraseId;
+                recordDal.LastRepetitonTime = DateTime.UtcNow;
+                recordDal.CorrectWrongAnswersDelta += delta;
+
+                if (isNew)
+                {
+                    _db.SprintTaskJournal.Add(recordDal);
                 }
                 else
                 {
-                    recordDal.LastRepetitonTime = DateTime.UtcNow;
-                    recordDal.CorrectWrongAnswersDelta = record.CorrectAnswersCount + delta;
+                    _db.MarkModified(recordDal);
                 }
             }
         }
@@ -164,7 +167,7 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
                 var record = summary.Results[i];
 
                 if (record == null)
-                    throw new ArgumentNullException(nameof(record));
+                    throw new ArgumentNullException($"Results[{i}]");
 
                 var phraseId = record.PhraseId;
 
@@ -173,9 +176,9 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
 
                 string message;
                 if (!ValidateAnswersCount(record.CorrectAnswersCount, out message))
-                    throw new ValidationFailedException(nameof(record.CorrectAnswersCount), message);
+                    throw new ValidationFailedException($"Results[{i}].{nameof(record.CorrectAnswersCount)}", message);
                 if (!ValidateAnswersCount(record.WrongAnswersCount, out message))
-                    throw new ValidationFailedException(nameof(record.WrongAnswersCount), message);
+                    throw new ValidationFailedException($"Results[{i}].{nameof(record.WrongAnswersCount)}", message);
             }
         }
 

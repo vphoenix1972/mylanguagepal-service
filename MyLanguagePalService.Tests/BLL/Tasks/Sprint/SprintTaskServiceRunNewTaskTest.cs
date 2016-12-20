@@ -55,7 +55,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             CreatePhrasesMockDbSet(phrases);
 
-            var phrasesService = GetStub<IPhrasesService>();
+            var phrasesService = GetStubObject<IPhrasesService>();
 
             var languageServiceMock = GetLanguageServiceStub();
             var languagesService = languageServiceMock.Object;
@@ -107,7 +107,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             CreatePhrasesMockDbSet(phrases);
 
-            var phrasesService = GetStub<IPhrasesService>();
+            var phrasesService = GetStubObject<IPhrasesService>();
 
             var languageServiceMock = GetLanguageServiceStub();
             var languagesService = languageServiceMock.Object;
@@ -158,7 +158,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             CreatePhrasesMockDbSet(phrases);
 
-            var phrasesService = GetStub<IPhrasesService>();
+            var phrasesService = GetStubObject<IPhrasesService>();
 
             var languageServiceMock = GetLanguageServiceStub();
             var languagesService = languageServiceMock.Object;
@@ -209,7 +209,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             CreatePhrasesMockDbSet(phrases);
 
-            var phrasesService = GetStub<IPhrasesService>();
+            var phrasesService = GetStubObject<IPhrasesService>();
 
             var languageServiceMock = GetLanguageServiceStub();
             var languagesService = languageServiceMock.Object;
@@ -243,7 +243,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
             var phrases = new List<PhraseDal>();
             CreatePhrasesMockDbSet(phrases);
 
-            var phrasesService = GetStub<IPhrasesService>();
+            var phrasesService = GetStubObject<IPhrasesService>();
 
             var languageServiceMock = GetLanguageServiceStub();
             var languagesService = languageServiceMock.Object;
