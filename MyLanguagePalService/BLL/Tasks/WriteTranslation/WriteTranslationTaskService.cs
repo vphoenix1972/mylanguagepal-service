@@ -13,6 +13,7 @@ namespace MyLanguagePalService.BLL.Tasks.WriteTranslation
     {
         public const int MinCountOfWordsUsed = 1;
         public const int MaxCountOfWordsUsed = 1000;
+        public const int DefaultCountOfWordsUsed = 30;
 
         private readonly IPhrasesService _phrasesService;
         private readonly ILanguagesService _languagesService;
@@ -34,7 +35,7 @@ namespace MyLanguagePalService.BLL.Tasks.WriteTranslation
                 return new WriteTranslationTaskSettingModel()
                 {
                     LanguageId = _languagesService.GetDefaultLanguage().Id,
-                    CountOfWordsUsed = 30
+                    CountOfWordsUsed = DefaultCountOfWordsUsed
                 };
             }
 
