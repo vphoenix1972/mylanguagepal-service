@@ -1,21 +1,25 @@
-﻿(function() {
+﻿(function () {
     'use strict';
 
-    function LanguageSelectionDirectiveController($element, $scope) {
+    function LanguageSelectionDirectiveController($element, $q, languagesService) {
         var self = this;
 
         self._$element = $element;
-        self._$scope = $scope;
-
-        /* Init */
-
-        
-
-        // Bind $destroy event
-        self._$scope.$on('$destroy', self.onDestroy);
+        self._$q = $q;
+        self._languagesService = languagesService;
     }
 
-    LanguageSelectionDirectiveController.prototype.onDestroy = function() {
+    LanguageSelectionDirectiveController.prototype.$onInit = function () {
+        var self = this;
+
+        self.languages = [];
+
+        self._$q.when(self._languagesService.getLanguages()).then(function (result) {
+            self.languages = result.data;
+        });
+    }
+
+    LanguageSelectionDirectiveController.prototype.$onDestroy = function () {
 
     }
 
@@ -23,15 +27,14 @@
     /* Private */
 
 
-    LanguageSelectionDirectiveController.$inject = ['$element', '$scope'];
+    LanguageSelectionDirectiveController.$inject = ['$element', '$q', 'languagesService'];
 
     angular
         .module('app')
-        .directive('languageSelection', function() {
+        .directive('languageSelection', function () {
             return {
                 restrict: 'E',
                 scope: {
-                    languages: '<',
                     selectedLanguageId: '='
                 },
                 controller: LanguageSelectionDirectiveController,
@@ -47,8 +50,8 @@
     angular
         .module('app')
         .run([
-            '$http', '$templateCache', function($http, $templateCache) {
-                $http.get('/Content/app/pages/shared/directives/languageSelection/languageSelection.tpl.html').then(function(response) {
+            '$http', '$templateCache', function ($http, $templateCache) {
+                $http.get('/Content/app/pages/shared/directives/languageSelection/languageSelection.tpl.html').then(function (response) {
                     $templateCache.put('/Content/app/pages/shared/directives/languageSelection/languageSelection.tpl.html', response.data);
                 });
             }

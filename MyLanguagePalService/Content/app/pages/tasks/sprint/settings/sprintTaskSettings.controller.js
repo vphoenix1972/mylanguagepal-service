@@ -10,11 +10,7 @@
         self._languagesService = languagesService;
 
         /* Init */
-        self.doAsync(self._languagesService.getLanguages())
-            .then(function (result) {
-                self.languages = result.data;
-                return self.doAsync(self._sprintTaskService.getSettings());
-            })
+        self.doAsync(self._sprintTaskService.getSettings())
             .then(function (result) {
                 self.isLoading = false;
                 self.settings = result;
