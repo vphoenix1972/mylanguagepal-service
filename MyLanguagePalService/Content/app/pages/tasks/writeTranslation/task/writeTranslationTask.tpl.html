@@ -1,9 +1,16 @@
 ﻿<div class="b-page b-task" ng-hide="vm.isLoading">
-    <write-answer-quiz methods="vm.writeAnswerQuizDirective"
-                       on-quiz-finished="vm.onQuizFinished(questions)">
+    <div ng-if="!vm.isFinished">
+        <write-answer-quiz methods="vm.writeAnswerQuizDirective"
+                           on-quiz-finished="vm.onQuizFinished(questions)">
 
-    </write-answer-quiz>
-    <task-summary ng-if="vm.isFinished">
-        
-    </task-summary>
+        </write-answer-quiz>
+    </div>
+
+    <div ng-if="vm.isFinished">
+        <div>
+            <task-summary>
+
+            </task-summary>
+        </div>
+    </div>
 </div>

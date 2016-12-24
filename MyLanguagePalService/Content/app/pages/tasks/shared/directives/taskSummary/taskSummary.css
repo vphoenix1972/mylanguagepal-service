@@ -1,4 +1,8 @@
-﻿.b-task-summary__score {
+﻿.b-task-summary__header {
+    margin-bottom: 25px;
+}
+
+.b-task-summary__score {
     font-size: 34px;
     font-weight: 300;
     line-height: 48px;

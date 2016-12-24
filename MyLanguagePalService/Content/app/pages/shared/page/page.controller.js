@@ -1,11 +1,12 @@
 ﻿PageController = (function () {
-    function PageController($q, $location, $scope, $routeParams, utils, errorReportingService, progressBarService) {
+    function PageController($q, $location, $scope, $routeParams, $route, utils, errorReportingService, progressBarService) {
         var self = this;
 
         self.$q = $q;
         self.$location = $location;
         self.$scope = $scope;
         self.$routeParams = $routeParams;
+        self.$route = $route;
         self.utils = utils;
         self.errorReportingService = errorReportingService;
         self.progressBarService = progressBarService;
@@ -141,7 +142,18 @@
         self.$location.path('/dashboard');
     }
 
-    PageController.$inject = ['$q', '$location', '$scope', '$routeParams', 'utils', 'errorReportingService', 'progressBarService'];
+    PageController.prototype.gotoUrlForce = function (url) {
+        var self = this;
+
+        if (self.$location.url() === url) {
+            self.$route.reload();
+            return;
+        }
+
+        self.$location.path(url);
+    }
+
+    PageController.$inject = ['$q', '$location', '$scope', '$routeParams', '$route', 'utils', 'errorReportingService', 'progressBarService'];
 
     return PageController;
 })();

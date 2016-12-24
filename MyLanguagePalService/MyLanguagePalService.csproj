@@ -333,6 +333,12 @@
     <Content Include="Content\app\pages\phrases\index\phrasesIndex.controller.js" />
     <Content Include="Content\app\pages\phrases\index\phrasesIndex.tpl.html" />
     <Content Include="Content\app\pages\phrases\phrases.routes.js" />
+    <Content Include="Content\app\pages\shared\directives\buttonReturnToDashboard\buttonReturnToDashboard.css" />
+    <Content Include="Content\app\pages\shared\directives\buttonReturnToDashboard\buttonReturnToDashboard.directive.js" />
+    <Content Include="Content\app\pages\shared\directives\buttonReturnToDashboard\buttonReturnToDashboard.tpl.html" />
+    <Content Include="Content\app\pages\shared\directives\buttonRunTask\buttonRunTask.css" />
+    <Content Include="Content\app\pages\shared\directives\buttonRunTask\buttonRunTask.directive.js" />
+    <Content Include="Content\app\pages\shared\directives\buttonRunTask\buttonRunTask.tpl.html" />
     <Content Include="Content\app\pages\shared\directives\languageFlag\languageFlag.directive.js" />
     <Content Include="Content\app\pages\shared\directives\languageFlag\languageFlag.tpl.html" />
     <Content Include="Content\app\pages\shared\directives\languageSelection\languageSelection.css" />

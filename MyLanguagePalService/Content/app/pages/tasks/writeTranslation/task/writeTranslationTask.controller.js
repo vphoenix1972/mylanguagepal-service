@@ -91,6 +91,12 @@
         self.doAsync(self._taskService.finishTask(summaryData));
     }
 
+    WriteTranslationTaskController.prototype.onRunTaskAgainButtonClicked = function () {
+        var self = this;
+
+        self.gotoUrlForce(self._taskService.taskUrl());
+    }
+
     /* Private */
 
 

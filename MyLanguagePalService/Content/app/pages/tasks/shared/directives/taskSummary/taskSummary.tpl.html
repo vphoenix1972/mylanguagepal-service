@@ -1,4 +1,17 @@
-﻿<div class="b-sprint-task-summary">
+﻿<div class="b-task-summary">
+    <div class="b-row b-task-summary__header">
+        <div class="b-col-6">
+            <button-return-to-dashboard></button-return-to-dashboard>
+        </div>
+        <div class="b-col-6">
+            <div class="pull-right">
+                <button-run-task text="Run task again"
+                                 ng-click="vm.onRunTaskAgainButtonClicked()">
+                </button-run-task>
+            </div>
+        </div>
+    </div>
+
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="b-task-summary__score">

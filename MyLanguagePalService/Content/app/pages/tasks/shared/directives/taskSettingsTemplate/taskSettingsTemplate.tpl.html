@@ -13,7 +13,7 @@
     </div>
     <div class="panel-body">
         <ng-transclude></ng-transclude>
-        
+
     </div>
 </div>
 
@@ -27,11 +27,9 @@
     </div>
     <div class="b-col-6">
         <div class="pull-right">
-            <button type="button"
-                    class="btn btn-danger"
-                    ng-click="vm.onSaveAndRunButtonClicked()">
-                <span class="glyphicon glyphicon-play b-margin-right-5"></span>Run task
-            </button>
+            <button-run-task text="Run task"
+                             ng-click="vm.onSaveAndRunButtonClicked()">
+            </button-run-task>
         </div>
     </div>
 </div>

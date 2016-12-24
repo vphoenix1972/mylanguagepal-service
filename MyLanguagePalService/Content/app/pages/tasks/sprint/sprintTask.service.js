@@ -7,6 +7,10 @@
         self._connector = connector;
     }
 
+    SprintTaskService.prototype.taskUrl = function () {
+        return '/tasks/sprint/task';
+    }
+
     SprintTaskService.prototype.getSettings = function () {
         var self = this;
         return self._connector.get('/api/tasks/sprint/settings')

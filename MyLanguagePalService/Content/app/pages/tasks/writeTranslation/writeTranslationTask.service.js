@@ -1,10 +1,14 @@
-﻿(function() {
+﻿(function () {
     'use strict';
 
     function WriteTranslationTaskService(connector) {
         var self = this;
 
         self._connector = connector;
+    }
+
+    WriteTranslationTaskService.prototype.taskUrl = function () {
+        return '/tasks/writeTranslation/task';
     }
 
     WriteTranslationTaskService.prototype.getSettings = function () {

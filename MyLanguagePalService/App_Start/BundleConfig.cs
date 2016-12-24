@@ -50,6 +50,8 @@ namespace MyLanguagePalService
                 "~/Content/app/pages/shared/directives/textInput/textInput.directive.css",
                 "~/Content/app/pages/shared/directives/languageSelection/languageSelection.directive.css",
                 "~/Content/app/pages/shared/directives/timer/timer.css",
+                "~/Content/app/pages/shared/directives/buttonReturnToDashboard/buttonReturnToDashboard.css",
+                "~/Content/app/pages/shared/directives/buttonRunTask/buttonRunTask.css",
 
                 // Phrases
                 "~/Content/app/pages/phrases/edit/phrasesEdit.css",
@@ -121,6 +123,8 @@ namespace MyLanguagePalService
                 "~/Content/app/pages/shared/directives/languageSelection/languageSelection.directive.js",
                 "~/Content/app/pages/shared/directives/timer/timer.controller.js",
                 "~/Content/app/pages/shared/directives/timer/timer.directive.js",
+                "~/Content/app/pages/shared/directives/buttonReturnToDashboard/buttonReturnToDashboard.directive.js",
+                "~/Content/app/pages/shared/directives/buttonRunTask/buttonRunTask.directive.js",
 
                 // About
                 "~/Content/app/pages/about/about.routes.js",
