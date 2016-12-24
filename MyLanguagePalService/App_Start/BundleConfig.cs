@@ -100,6 +100,7 @@ namespace MyLanguagePalService
                 "~/Content/app/core/stringExtensions.js",
                 "~/Content/app/core/directives/convertToNumber.directive.js",
                 "~/Content/app/core/directives/directiveWithMethods.js",
+                "~/Content/app/core/directives/jsEnter.js",
 
                 /* Pages */
                 "~/Content/app/app.module.js",

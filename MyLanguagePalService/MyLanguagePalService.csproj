@@ -306,6 +306,7 @@
     <Content Include="Content\app\core\core.module.js" />
     <Content Include="Content\app\core\directives\convertToNumber.directive.js" />
     <Content Include="Content\app\core\directives\directiveWithMethods.js" />
+    <Content Include="Content\app\core\directives\jsEnter.js" />
     <Content Include="Content\app\core\resharper.js" />
     <Content Include="Content\app\core\stringExtensions.js" />
     <Content Include="Content\app\pages\about\about.routes.js" />

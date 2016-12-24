@@ -1,9 +1,18 @@
-﻿<div ng-if="vm.isQuizStarted">
-    <div>{{vm.currentQuestion.text}}</div>
-    <div>
-        <input type="text" ng-model="vm.currentQuestion.answerText" />
+﻿<div ng-if="vm.isQuizStarted" class="panel panel-default b-task-write-answer-quiz">
+    <div class="b-task-write-answer-quiz__question-text">
+        {{vm.currentQuestion.text}}
     </div>
-    <div>
-        <button type="button" ng-click="vm.nextQuestion()">Next</button>
+    <div class="b-task-write-answer-quiz__answer-area">
+        <input type="text"
+               class="form-control b-task-write-answer-quiz__text-input"
+               js-enter="vm.nextQuestion()"
+               ng-model="vm.currentQuestion.answerText" />
+    </div>
+    <div class="b-task-write-answer-quiz__button-area">
+        <button type="button"
+                class="btn btn-primary"
+                ng-click="vm.nextQuestion()">
+            Next
+        </button>
     </div>
 </div>

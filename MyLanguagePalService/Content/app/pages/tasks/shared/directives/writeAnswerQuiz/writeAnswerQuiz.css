@@ -1,1 +1,23 @@
-﻿
+﻿.b-task-write-answer-quiz {
+    width: 400px;
+    margin: auto;
+    text-align: center;
+}
+
+.b-task-write-answer-quiz__question-text {
+    margin: 15px 0;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.b-task-write-answer-quiz__answer-area {
+    margin: 15px 0;
+}
+
+.b-task-write-answer-quiz__text-input {
+    margin: auto;
+}
+
+.b-task-write-answer-quiz__button-area {
+    margin: 15px 0;
+}
