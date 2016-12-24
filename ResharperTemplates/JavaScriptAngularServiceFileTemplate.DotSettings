@@ -1,0 +1,38 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=35C381F3E9742C44AEFD5F2057D8DEBF/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=35C381F3E9742C44AEFD5F2057D8DEBF/Description/@EntryValue">ngservice</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=35C381F3E9742C44AEFD5F2057D8DEBF/Text/@EntryValue">(function () {&#xD;
+    'use strict';&#xD;
+&#xD;
+    function $serviceName$() {&#xD;
+        var self = this;&#xD;
+&#xD;
+		$END$&#xD;
+    }&#xD;
+&#xD;
+    /* Private */&#xD;
+&#xD;
+&#xD;
+    $serviceName$.$inject = [];&#xD;
+&#xD;
+    angular&#xD;
+        .module('$module$')&#xD;
+		.service('$serviceNameInModule$', $serviceName$);&#xD;
+&#xD;
+})();</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=35C381F3E9742C44AEFD5F2057D8DEBF/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=35C381F3E9742C44AEFD5F2057D8DEBF/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=35C381F3E9742C44AEFD5F2057D8DEBF/CustomProperties/=FileName/@EntryIndexedValue">serviceName.service</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=35C381F3E9742C44AEFD5F2057D8DEBF/CustomProperties/=Extension/@EntryIndexedValue">js</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=35C381F3E9742C44AEFD5F2057D8DEBF/CustomProperties/=ValidateFileName/@EntryIndexedValue">False</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=35C381F3E9742C44AEFD5F2057D8DEBF/Applicability/=File/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=35C381F3E9742C44AEFD5F2057D8DEBF/Scope/=139FF4CE89E7094686FDA7BF5FFBBE92/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=35C381F3E9742C44AEFD5F2057D8DEBF/Scope/=139FF4CE89E7094686FDA7BF5FFBBE92/Type/@EntryValue">Everywhere</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=35C381F3E9742C44AEFD5F2057D8DEBF/Field/=serviceName/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=35C381F3E9742C44AEFD5F2057D8DEBF/Field/=serviceName/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=35C381F3E9742C44AEFD5F2057D8DEBF/Field/=module/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=35C381F3E9742C44AEFD5F2057D8DEBF/Field/=module/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=35C381F3E9742C44AEFD5F2057D8DEBF/Field/=serviceNameInModule/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=35C381F3E9742C44AEFD5F2057D8DEBF/Field/=serviceNameInModule/Expression/@EntryValue">decapitalize(serviceName)</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=35C381F3E9742C44AEFD5F2057D8DEBF/Field/=serviceNameInModule/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=35C381F3E9742C44AEFD5F2057D8DEBF/Field/=serviceNameInModule/Order/@EntryValue">2</s:Int64></wpf:ResourceDictionary>

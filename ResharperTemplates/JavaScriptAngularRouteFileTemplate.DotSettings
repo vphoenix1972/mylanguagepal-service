@@ -1,0 +1,34 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/Description/@EntryValue">ngroute</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/Text/@EntryValue">(function () {&#xD;
+    'use strict';&#xD;
+&#xD;
+    angular&#xD;
+        .module('$module$')&#xD;
+        .config(function ($routeProvider) {&#xD;
+            $routeProvider&#xD;
+            .when('$route$', {&#xD;
+                templateUrl: '$templateUrl$',&#xD;
+                controller: '$controllerNameInAngular$ as vm'&#xD;
+            });&#xD;
+        });&#xD;
+})();</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/CustomProperties/=FileName/@EntryIndexedValue">route.routes</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/CustomProperties/=Extension/@EntryIndexedValue">js</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/CustomProperties/=ValidateFileName/@EntryIndexedValue">False</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/Applicability/=File/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/Scope/=139FF4CE89E7094686FDA7BF5FFBBE92/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/Scope/=139FF4CE89E7094686FDA7BF5FFBBE92/Type/@EntryValue">Everywhere</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/Scope/=FA92D0521C5B5842913DF0B0AFC36A28/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/Scope/=FA92D0521C5B5842913DF0B0AFC36A28/Type/@EntryValue">InAnyProject</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/Field/=module/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/Field/=module/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/Field/=route/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/Field/=route/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/Field/=templateUrl/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/Field/=templateUrl/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/Field/=controllerNameInAngular/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C61F3F6AB36D8049BA912B9DD6E5F3D1/Field/=controllerNameInAngular/Order/@EntryValue">3</s:Int64></wpf:ResourceDictionary>

@@ -10,6 +10,8 @@
         self._languagesService = languagesService;
 
         /* Init */
+        self.title = 'Sprint task settings';
+
         self.doAsync(self._sprintTaskService.getSettings())
             .then(function (result) {
                 self.isLoading = false;

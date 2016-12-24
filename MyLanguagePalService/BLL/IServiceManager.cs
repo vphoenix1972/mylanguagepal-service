@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using MyLanguagePalService.BLL.Languages;
 using MyLanguagePalService.BLL.Phrases;
 using MyLanguagePalService.BLL.Tasks.Sprint;
+using MyLanguagePalService.BLL.Tasks.WriteTranslation;
 
 namespace MyLanguagePalService.BLL
 {
@@ -16,6 +17,10 @@ namespace MyLanguagePalService.BLL
 
         [NotNull]
         ISprintTaskService SprintTaskService { get; }
+
+
+        [NotNull]
+        IWriteTranslationTaskService WriteTranslationTaskService { get; }
 
         void Save();
     }

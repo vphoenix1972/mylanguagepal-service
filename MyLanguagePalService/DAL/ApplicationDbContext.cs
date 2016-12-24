@@ -19,6 +19,10 @@ namespace MyLanguagePalService.DAL
 
         public IDbSet<SprintTaskJournalRecordDal> SprintTaskJournal { get; set; }
 
+        public IDbSet<WriteTranslationTaskSettingDal> WriteTranslationTaskSettings { get; set; }
+
+        public IDbSet<WriteTranslationTaskJournalRecordDal> WriteTranslationTaskJournal { get; set; }
+
         public void MarkModified(object entity)
         {
             Entry(entity).State = EntityState.Modified;
@@ -65,6 +69,16 @@ namespace MyLanguagePalService.DAL
             modelBuilder.Entity<SprintTaskJournalRecordDal>()
                 .HasKey(e => e.Id);
 
+            // Write translation task settings
+            modelBuilder.Entity<WriteTranslationTaskSettingDal>().ToTable("WriteTranslationTaskSettings");
+            modelBuilder.Entity<WriteTranslationTaskSettingDal>()
+                .HasKey(e => e.Id);
+
+            // Write translation task journal
+            modelBuilder.Entity<WriteTranslationTaskJournalRecordDal>().ToTable("WriteTranslationTaskJournal");
+            modelBuilder.Entity<WriteTranslationTaskJournalRecordDal>()
+                .HasKey(e => e.Id);
+
             /* Configure relationships */
 
             // Pharses <-> Languages
@@ -93,6 +107,18 @@ namespace MyLanguagePalService.DAL
             // Sprint task journal <-> Phrases
             modelBuilder.Entity<PhraseDal>()
                 .HasMany(e => e.SprintTaskJournalRecords)
+                .WithRequired(e => e.Phrase)
+                .HasForeignKey(e => e.PhraseId);
+
+            // Write translation task settings <-> Languages
+            modelBuilder.Entity<LanguageDal>()
+                .HasMany(l => l.WriteTranslationTaskSettings)
+                .WithRequired(s => s.Language)
+                .HasForeignKey(s => s.LanguageId);
+
+            // Write translation task journal <-> Phrases
+            modelBuilder.Entity<PhraseDal>()
+                .HasMany(e => e.WriteTranslationTaskJournalRecords)
                 .WithRequired(e => e.Phrase)
                 .HasForeignKey(e => e.PhraseId);
         }

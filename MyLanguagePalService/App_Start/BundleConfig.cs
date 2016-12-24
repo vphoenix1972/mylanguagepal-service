@@ -60,11 +60,16 @@ namespace MyLanguagePalService
 
                 // Tasks
 
+                // Tasks shared
+                "~/Content/app/pages/tasks/shared/directives/taskSettingsTemplate.directive.js",
+
                 // Sprint task
                 "~/Content/app/pages/tasks/sprint/settings/sprintTaskSettings.css",
-                "~/Content/app/pages/tasks/sprint/task/sprintTask.css"
+                "~/Content/app/pages/tasks/sprint/task/sprintTask.css",
 
-                ));
+                // Write translation task
+                "~/Content/app/pages/tasks/writeTranslation/settings/writeTranslationTaskSettings.css"
+            ));
 
             bundles.Add(new ScriptBundle("~/app/app-js").Include(
                 /* Deps */
@@ -136,12 +141,20 @@ namespace MyLanguagePalService
 
                 // Tasks
 
+                // Tasks shared
+                "~/Content/app/pages/tasks/shared/directives/taskSettingsTemplate/taskSettingsTemplate.directive.js",
+
                 // Sprint task
                 "~/Content/app/pages/tasks/sprint/sprintTask.service.js",
                 "~/Content/app/pages/tasks/sprint/sprintTask.routes.js",
                 "~/Content/app/pages/tasks/sprint/settings/sprintTaskSettings.controller.js",
-                "~/Content/app/pages/tasks/sprint/task/sprintTask.controller.js"
-                ));
+                "~/Content/app/pages/tasks/sprint/task/sprintTask.controller.js",
+
+                // Write translation task
+                "~/Content/app/pages/tasks/writeTranslation/writeTranslationTask.service.js",
+                "~/Content/app/pages/tasks/writeTranslation/writeTranslationTask.routes.js",
+                "~/Content/app/pages/tasks/writeTranslation/settings/writeTranslationTaskSettings.controller.js"
+            ));
 
             // *** Other bundles ***
             bundles.Add(new StyleBundle("~/other/other-css").Include(

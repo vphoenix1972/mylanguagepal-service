@@ -1,0 +1,88 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Description/@EntryValue">ngdirective</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/CustomProperties/=FileName/@EntryIndexedValue">directiveName</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/CustomProperties/=Extension/@EntryIndexedValue">css</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/CustomProperties/=ValidateFileName/@EntryIndexedValue">False</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Applicability/=File/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Scope/=139FF4CE89E7094686FDA7BF5FFBBE92/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Scope/=139FF4CE89E7094686FDA7BF5FFBBE92/Type/@EntryValue">Everywhere</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Field/=directiveName/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Field/=directiveName/Order/@EntryValue">0</s:Int64>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Field/=directiveName/InitialSection/@EntryValue">22DF6C002FBC0D4CABCB35CA8763500B</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Field/=module/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Field/=module/Order/@EntryValue">1</s:Int64>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Field/=module/InitialSection/@EntryValue">22DF6C002FBC0D4CABCB35CA8763500B</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Field/=templateUrl/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Field/=templateUrl/Order/@EntryValue">2</s:Int64>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Field/=templateUrl/InitialSection/@EntryValue">22DF6C002FBC0D4CABCB35CA8763500B</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Field/=directiveController/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Field/=directiveController/Expression/@EntryValue">capitalize(directiveName)</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Field/=directiveController/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Field/=directiveController/Order/@EntryValue">3</s:Int64>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Field/=directiveController/InitialSection/@EntryValue">22DF6C002FBC0D4CABCB35CA8763500B</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Section/=22DF6C002FBC0D4CABCB35CA8763500B/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Section/=22DF6C002FBC0D4CABCB35CA8763500B/LocationSelectorName/@EntryValue">manual</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Section/=22DF6C002FBC0D4CABCB35CA8763500B/LocationSelectorConfig/@EntryValue">&lt;RelativeConfig File="$NAME$.directive.js" /&gt;</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Section/=22DF6C002FBC0D4CABCB35CA8763500B/Order/@EntryValue">0</s:Int64>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Section/=22DF6C002FBC0D4CABCB35CA8763500B/SectionPlain/Text/@EntryValue">(function () {&#xD;
+    'use strict';&#xD;
+&#xD;
+    function $directiveController$DirectiveController($element, $attributes, $parse, $scope) {&#xD;
+        var self = this;&#xD;
+&#xD;
+        self._$element = $element;&#xD;
+        self._$scope = $scope;		&#xD;
+    }&#xD;
+&#xD;
+    $directiveController$DirectiveController.prototype.$onInit = function () {&#xD;
+       $END$&#xD;
+    }&#xD;
+&#xD;
+    $directiveController$DirectiveController.prototype.$postLink = function () {&#xD;
+        &#xD;
+    }&#xD;
+&#xD;
+    $directiveController$DirectiveController.prototype.$onDestroy = function () {&#xD;
+        &#xD;
+    }&#xD;
+&#xD;
+&#xD;
+    /* Private */&#xD;
+&#xD;
+&#xD;
+&#xD;
+    $directiveController$DirectiveController.$inject = ['$element', '$attrs', '$parse', '$scope'];&#xD;
+&#xD;
+    angular&#xD;
+        .module('$module$')&#xD;
+        .directive('$directiveName$', function () {&#xD;
+            return {&#xD;
+                restrict: 'E',&#xD;
+                scope: {&#xD;
+                },&#xD;
+                controller: $directiveController$DirectiveController,&#xD;
+                controllerAs: 'vm',&#xD;
+                bindToController: true,&#xD;
+                templateUrl: '$templateUrl$'&#xD;
+            }&#xD;
+        });&#xD;
+&#xD;
+    // Hack&#xD;
+    // Try to preload the directive template to prevent blinking of the directive&#xD;
+    // during the first load of page&#xD;
+    angular&#xD;
+        .module('$module$')&#xD;
+        .run(['$http', '$templateCache', function ($http, $templateCache) {&#xD;
+            $http.get('$templateUrl$').then(function (response) {&#xD;
+                $templateCache.put('$templateUrl$', response.data);&#xD;
+            });&#xD;
+        }]);&#xD;
+})();&#xD;
+</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Section/=BDA362D3841ABD47815891222B435972/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Section/=BDA362D3841ABD47815891222B435972/LocationSelectorName/@EntryValue">manual</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Section/=BDA362D3841ABD47815891222B435972/LocationSelectorConfig/@EntryValue">&lt;RelativeConfig File="$NAME$.tpl.html" /&gt;</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=70ABE1526A78D344BE85C75BBCAD2748/Section/=BDA362D3841ABD47815891222B435972/Order/@EntryValue">1</s:Int64></wpf:ResourceDictionary>

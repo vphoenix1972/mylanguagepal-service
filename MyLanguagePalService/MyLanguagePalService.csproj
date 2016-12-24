@@ -217,6 +217,7 @@
     <Compile Include="Areas\App\Controllers\PhrasesApiController.cs" />
     <Compile Include="Areas\App\Controllers\SprintTaskApiController.cs" />
     <Compile Include="Areas\App\Controllers\TranslationsApiController.cs" />
+    <Compile Include="Areas\App\Controllers\WriteTranslationTaskApiController.cs" />
     <Compile Include="Areas\App\Models\Controller\LanguagesApi\LanguagesApiAm.cs" />
     <Compile Include="Areas\App\Models\Controller\LanguagesApi\LanguagesApiCreateIm.cs" />
     <Compile Include="Areas\App\Models\Controller\PhrasesApi\PhrasesApiCreateIm.cs" />
@@ -241,7 +242,6 @@
     <Compile Include="BLL\ServiceBase.cs" />
     <Compile Include="BLL\Tasks\Sprint\ISprintTaskService.cs" />
     <Compile Include="BLL\Phrases\TranslationImBll.cs" />
-    <Compile Include="BLL\Tasks\Sprint\SprintTaskData.cs" />
     <Compile Include="BLL\Phrases\PhraseWithTranslations.cs" />
     <Compile Include="BLL\Tasks\Sprint\SprintTaskFinishedSummaryModel.cs" />
     <Compile Include="BLL\Tasks\Sprint\SprintTaskJournalRecord.cs" />
@@ -249,6 +249,12 @@
     <Compile Include="BLL\Tasks\Sprint\SprintTaskService.cs" />
     <Compile Include="BLL\Tasks\Sprint\SprintTaskSettingModel.cs" />
     <Compile Include="BLL\ServiceManager.cs" />
+    <Compile Include="BLL\Tasks\WriteTranslation\IWriteTranslationTaskService.cs" />
+    <Compile Include="BLL\Tasks\WriteTranslation\WriteTranslationTaskFinishedSummaryModel.cs" />
+    <Compile Include="BLL\Tasks\WriteTranslation\WriteTranslationTaskJournalRecord.cs" />
+    <Compile Include="BLL\Tasks\WriteTranslation\WriteTranslationTaskRunModel.cs" />
+    <Compile Include="BLL\Tasks\WriteTranslation\WriteTranslationTaskService.cs" />
+    <Compile Include="BLL\Tasks\WriteTranslation\WriteTranslationTaskSettingModel.cs" />
     <Compile Include="Core\EnumerableExtensions.cs" />
     <Compile Include="Core\ValidateAntiForgeryTokenAttribute .cs" />
     <Compile Include="Core\ValidationError.cs" />
@@ -262,7 +268,9 @@
     <Compile Include="BLL\Phrases\IPhrasesService.cs" />
     <Compile Include="DAL\Models\LanguageDal.cs" />
     <Compile Include="DAL\Models\PhraseDal.cs" />
+    <Compile Include="DAL\Models\WriteTranslationTaskJournalRecordDal.cs" />
     <Compile Include="DAL\Models\SprintTaskJournalRecordDal.cs" />
+    <Compile Include="DAL\Models\WriteTranslationTaskSettingDal.cs" />
     <Compile Include="DAL\Models\SprintTaskSettingDal.cs" />
     <Compile Include="DAL\Models\TranslationDal.cs" />
     <Compile Include="Global.asax.cs">
@@ -354,6 +362,9 @@
     <Content Include="Content\app\core\promiseQueue.js" />
     <Content Include="Content\app\core\rest.js" />
     <Content Include="Content\app\core\utils.service.js" />
+    <Content Include="Content\app\pages\tasks\shared\directives\taskSettingsTemplate\taskSettingsTemplate.css" />
+    <Content Include="Content\app\pages\tasks\shared\directives\taskSettingsTemplate\taskSettingsTemplate.directive.js" />
+    <Content Include="Content\app\pages\tasks\shared\directives\taskSettingsTemplate\taskSettingsTemplate.tpl.html" />
     <Content Include="Content\app\pages\tasks\sprint\settings\sprintTaskSettings.controller.js" />
     <Content Include="Content\app\pages\tasks\sprint\settings\sprintTaskSettings.css" />
     <Content Include="Content\app\pages\tasks\sprint\sprintTask.routes.js" />
@@ -362,6 +373,11 @@
     <Content Include="Content\app\pages\tasks\sprint\task\sprintTask.controller.js" />
     <Content Include="Content\app\pages\tasks\sprint\task\sprintTask.css" />
     <Content Include="Content\app\pages\tasks\sprint\task\sprintTask.tpl.html" />
+    <Content Include="Content\app\pages\tasks\writeTranslation\settings\writeTranslationTaskSettings.controller.js" />
+    <Content Include="Content\app\pages\tasks\writeTranslation\settings\writeTranslationTaskSettings.css" />
+    <Content Include="Content\app\pages\tasks\writeTranslation\settings\writeTranslationTaskSettings.tpl.html" />
+    <Content Include="Content\app\pages\tasks\writeTranslation\writeTranslationTask.service.js" />
+    <Content Include="Content\app\pages\tasks\writeTranslation\writeTranslationTask.routes.js" />
     <Content Include="Content\deps\angular\angular-animate.js" />
     <Content Include="Content\deps\angular\angular-route.js" />
     <Content Include="Content\deps\angular\angular-touch.js" />
@@ -956,7 +972,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\App\Models\Controller\SprintTaskApi\" />
     <Folder Include="Areas\App\Views\Shared\" />
     <Folder Include="Areas\Other\Models\" />
     <Folder Include="Areas\Other\Views\Shared\" />

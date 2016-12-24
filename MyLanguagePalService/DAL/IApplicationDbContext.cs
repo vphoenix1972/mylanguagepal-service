@@ -16,6 +16,10 @@ namespace MyLanguagePalService.DAL
 
         IDbSet<SprintTaskJournalRecordDal> SprintTaskJournal { get; set; }
 
+        IDbSet<WriteTranslationTaskSettingDal> WriteTranslationTaskSettings { get; set; }
+
+        IDbSet<WriteTranslationTaskJournalRecordDal> WriteTranslationTaskJournal { get; set; }
+
         int SaveChanges();
 
         void MarkModified(object entity);

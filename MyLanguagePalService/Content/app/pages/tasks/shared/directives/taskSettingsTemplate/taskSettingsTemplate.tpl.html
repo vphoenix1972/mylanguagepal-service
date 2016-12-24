@@ -1,0 +1,37 @@
+﻿<div class="b-row b-margin-top-25">
+    <button type="button"
+            class="btn btn-default"
+            ng-click="vm.onReturnToDashboardButtonClicked()">
+        <span class="glyphicon glyphicon-home b-margin-right-5"></span>Return to dashboard
+    </button>
+</div>
+
+
+<div class="panel panel-primary b-margin-top-25">
+    <div class="panel-heading b-task-settings__heading">
+        {{::vm.title}}
+    </div>
+    <div class="panel-body">
+        <ng-transclude></ng-transclude>
+        
+    </div>
+</div>
+
+<div class="b-row b-margin-top-25">
+    <div class="b-col-6">
+        <button type="button"
+                class="btn btn-primary"
+                ng-click="vm.onSaveAndReturnToDashboardButtonClicked()">
+            <span class="glyphicon glyphicon-floppy-disk b-margin-right-5"></span>Save settings and return to dashboard
+        </button>
+    </div>
+    <div class="b-col-6">
+        <div class="pull-right">
+            <button type="button"
+                    class="btn btn-danger"
+                    ng-click="vm.onSaveAndRunButtonClicked()">
+                <span class="glyphicon glyphicon-play b-margin-right-5"></span>Run task
+            </button>
+        </div>
+    </div>
+</div>
