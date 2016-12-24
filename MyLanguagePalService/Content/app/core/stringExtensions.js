@@ -50,4 +50,24 @@
             return self.substring(start, end);
         }
     }
+
+    if (!String.prototype.splitAndTrim) {
+        String.prototype.splitAndTrim = function (separator, skipEmptyParts, limit) {
+            /// <summary>
+            /// Splits and trims the string using separator and skips empty parts if nesessary.
+            /// </summary>
+
+            var self = this;
+
+            if (skipEmptyParts == null)
+                skipEmptyParts = true;
+
+            var result = self.split(separator, limit).map(function (part) { return part.trim(); });
+
+            if (skipEmptyParts)
+                result = result.filter(function (str) { return str.length > 0; });
+
+            return result;
+        }
+    }
 })();

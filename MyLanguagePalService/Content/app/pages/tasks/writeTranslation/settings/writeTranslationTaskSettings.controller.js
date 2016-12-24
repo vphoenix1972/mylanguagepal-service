@@ -42,7 +42,7 @@
         var self = this;
 
         self._save().then(function () {
-            self.$location.path('/tasks/_writeTranslation/task');
+            self.$location.path('/tasks/writeTranslation/task');
         });
     }
 

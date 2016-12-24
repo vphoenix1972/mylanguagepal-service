@@ -305,6 +305,7 @@
     <Content Include="Content\app\core\arrayExtensions.js" />
     <Content Include="Content\app\core\core.module.js" />
     <Content Include="Content\app\core\directives\convertToNumber.directive.js" />
+    <Content Include="Content\app\core\directives\directiveWithMethods.js" />
     <Content Include="Content\app\core\resharper.js" />
     <Content Include="Content\app\core\stringExtensions.js" />
     <Content Include="Content\app\pages\about\about.routes.js" />
@@ -365,6 +366,13 @@
     <Content Include="Content\app\pages\tasks\shared\directives\taskSettingsTemplate\taskSettingsTemplate.css" />
     <Content Include="Content\app\pages\tasks\shared\directives\taskSettingsTemplate\taskSettingsTemplate.directive.js" />
     <Content Include="Content\app\pages\tasks\shared\directives\taskSettingsTemplate\taskSettingsTemplate.tpl.html" />
+    <Content Include="Content\app\pages\tasks\shared\directives\taskSummary\taskSummary.css" />
+    <Content Include="Content\app\pages\tasks\shared\directives\taskSummary\taskSummary.directive.js" />
+    <Content Include="Content\app\pages\tasks\shared\directives\taskSummary\taskSummary.tpl.html" />
+    <Content Include="Content\app\pages\tasks\shared\directives\writeAnswerQuiz\writeAnswerQuiz.css" />
+    <Content Include="Content\app\pages\tasks\shared\directives\writeAnswerQuiz\writeAnswerQuiz.directive.js" />
+    <Content Include="Content\app\pages\tasks\shared\directives\writeAnswerQuiz\writeAnswerQuiz.tpl.html" />
+    <Content Include="Content\app\pages\tasks\shared\tasksShared.css" />
     <Content Include="Content\app\pages\tasks\sprint\settings\sprintTaskSettings.controller.js" />
     <Content Include="Content\app\pages\tasks\sprint\settings\sprintTaskSettings.css" />
     <Content Include="Content\app\pages\tasks\sprint\sprintTask.routes.js" />
@@ -376,6 +384,9 @@
     <Content Include="Content\app\pages\tasks\writeTranslation\settings\writeTranslationTaskSettings.controller.js" />
     <Content Include="Content\app\pages\tasks\writeTranslation\settings\writeTranslationTaskSettings.css" />
     <Content Include="Content\app\pages\tasks\writeTranslation\settings\writeTranslationTaskSettings.tpl.html" />
+    <Content Include="Content\app\pages\tasks\writeTranslation\task\writeTranslationTask.controller.js" />
+    <Content Include="Content\app\pages\tasks\writeTranslation\task\writeTranslationTask.css" />
+    <Content Include="Content\app\pages\tasks\writeTranslation\task\writeTranslationTask.tpl.html" />
     <Content Include="Content\app\pages\tasks\writeTranslation\writeTranslationTask.service.js" />
     <Content Include="Content\app\pages\tasks\writeTranslation\writeTranslationTask.routes.js" />
     <Content Include="Content\deps\angular\angular-animate.js" />

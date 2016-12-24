@@ -81,7 +81,7 @@ namespace MyLanguagePalService.BLL.Tasks.WriteTranslation
             var phrases = _db.Phrases
                 .Where(p => p.LanguageId == settings.LanguageId)
                 .OrderBy(
-                    p => p.SprintTaskJournalRecords.Sum(r => (int?)(r.CorrectWrongAnswersDelta)) ?? 0
+                    p => p.WriteTranslationTaskJournalRecords.Sum(r => (int?)(r.CorrectWrongAnswersDelta)) ?? 0
                 )
                 .Take(settings.CountOfWordsUsed)
                 .ToList();

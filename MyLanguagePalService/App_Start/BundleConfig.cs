@@ -61,14 +61,18 @@ namespace MyLanguagePalService
                 // Tasks
 
                 // Tasks shared
-                "~/Content/app/pages/tasks/shared/directives/taskSettingsTemplate.directive.js",
+                "~/Content/app/pages/tasks/shared/tasksShared.css",
+                "~/Content/app/pages/tasks/shared/directives/taskSettingsTemplate/taskSettingsTemplate.css",
+                "~/Content/app/pages/tasks/shared/directives/writeAnswerQuiz/writeAnswerQuiz.css",
+                "~/Content/app/pages/tasks/shared/directives/taskSummary/taskSummary.css",
 
                 // Sprint task
                 "~/Content/app/pages/tasks/sprint/settings/sprintTaskSettings.css",
                 "~/Content/app/pages/tasks/sprint/task/sprintTask.css",
 
                 // Write translation task
-                "~/Content/app/pages/tasks/writeTranslation/settings/writeTranslationTaskSettings.css"
+                "~/Content/app/pages/tasks/writeTranslation/settings/writeTranslationTaskSettings.css",
+                "~/Content/app/pages/tasks/writeTranslation/task/writeTranslationTask.css"
             ));
 
             bundles.Add(new ScriptBundle("~/app/app-js").Include(
@@ -95,6 +99,7 @@ namespace MyLanguagePalService
                 "~/Content/app/core/arrayExtensions.js",
                 "~/Content/app/core/stringExtensions.js",
                 "~/Content/app/core/directives/convertToNumber.directive.js",
+                "~/Content/app/core/directives/directiveWithMethods.js",
 
                 /* Pages */
                 "~/Content/app/app.module.js",
@@ -143,6 +148,8 @@ namespace MyLanguagePalService
 
                 // Tasks shared
                 "~/Content/app/pages/tasks/shared/directives/taskSettingsTemplate/taskSettingsTemplate.directive.js",
+                "~/Content/app/pages/tasks/shared/directives/writeAnswerQuiz/writeAnswerQuiz.directive.js",
+                "~/Content/app/pages/tasks/shared/directives/taskSummary/taskSummary.directive.js",
 
                 // Sprint task
                 "~/Content/app/pages/tasks/sprint/sprintTask.service.js",
@@ -153,7 +160,8 @@ namespace MyLanguagePalService
                 // Write translation task
                 "~/Content/app/pages/tasks/writeTranslation/writeTranslationTask.service.js",
                 "~/Content/app/pages/tasks/writeTranslation/writeTranslationTask.routes.js",
-                "~/Content/app/pages/tasks/writeTranslation/settings/writeTranslationTaskSettings.controller.js"
+                "~/Content/app/pages/tasks/writeTranslation/settings/writeTranslationTaskSettings.controller.js",
+                "~/Content/app/pages/tasks/writeTranslation/task/writeTranslationTask.controller.js"
             ));
 
             // *** Other bundles ***

@@ -125,7 +125,7 @@
 
             return res;
         };
-    }
+    }    
 
     Array.prototype.merge = function (newArray, options) {
         /// <summary>

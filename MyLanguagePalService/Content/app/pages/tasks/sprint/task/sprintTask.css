@@ -1,8 +1,4 @@
-﻿.b-sprint-task {
-    padding: 25px;
-}
-
-.b-sprint-task-timer-starting {
+﻿.b-sprint-task-timer-starting {
     width: 25px;
     font-size: 26px;
     color: #3B9839;
@@ -91,16 +87,16 @@
 .b-sprint-task-summary-phrase {
     padding-right: 10px;
     padding-left: 5px;
-    margin: 5px 0;    
+    margin: 5px 0;
 }
 
-.b-sprint-task-summary-phrase:hover {
-    background-color: lightgray;
-}
+    .b-sprint-task-summary-phrase:hover {
+        background-color: lightgray;
+    }
 
 .b-sprint-task-summary-phrase__text {
     float: left;
-    padding: 0 10px;    
+    padding: 0 10px;
     width: calc(100% - 30px);
 }
 
@@ -112,14 +108,14 @@
 
 @media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
     .b-sprint-task-work-area {
-        width: 290px;        
-    }    
+        width: 290px;
+    }
 
     .b-sprint-task-work-area__col-1 {
         width: 0;
     }
 
-    .b-sprint-task-work-area__col-2 {        
+    .b-sprint-task-work-area__col-2 {
         width: 260px;
     }
 
