@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 using MyLanguagePal.Core.Framework;
 using MyLanguagePalService.BLL.Languages;
 using MyLanguagePalService.BLL.Phrases;
@@ -13,31 +12,46 @@ using MyLanguagePalService.DAL.Models;
 namespace MyLanguagePalService.BLL.Tasks.Quiz
 {
     public abstract class QuizTaskServiceBase<TSettings, TRunModel, TAnswers, TSummary> : TaskServiceBase<TSettings, TRunModel, TAnswers, TSummary>
-        where TSettings : class, new() where TAnswers : class
+        where TSettings : QuizTaskSettings, new()
+        where TRunModel : QuizTaskRunModel, new()
+        where TAnswers : QuizTaskAnswersModel
+        where TSummary : QuizTaskSummary, new()
     {
-        protected QuizTaskServiceBase([NotNull] IFramework framework, IPhrasesService phrasesService, ILanguagesService languagesService, IApplicationDbContext db, int taskId, string name) :
-            base(phrasesService, languagesService, db, taskId, name)
-        {
-            if (framework == null)
-                throw new ArgumentNullException(nameof(framework));
+        public const int MinCountOfWordsUsed = 1;
+        public const int MaxCountOfWordsUsed = 1000;
+        public const int DefaultCountOfWordsUsed = 30;
 
-            Framework = framework;
+        protected QuizTaskServiceBase(IFramework framework, IPhrasesService phrasesService, ILanguagesService languagesService, IApplicationDbContext db) :
+            base(framework, phrasesService, languagesService, db)
+        {
+
         }
 
-        [NotNull]
-        protected IFramework Framework { get; set; }
-
-        protected QuizTaskSettings DefaultSettings(int defaultCountOfWordsUsed)
+        protected override void Assert(TSettings settings)
         {
-            return new QuizTaskSettings()
+            if (settings == null)
+                throw new ArgumentNullException(nameof(settings));
+
+            if (!LanguagesService.CheckIfLanguageExists(settings.LanguageId))
+                throw new ValidationFailedException(nameof(settings.LanguageId), GetLanguageNotExistString(settings.LanguageId));
+
+            if (settings.CountOfWordsUsed < MinCountOfWordsUsed || settings.CountOfWordsUsed > MaxCountOfWordsUsed)
             {
-                LanguageId = LanguagesService.GetDefaultLanguage().Id,
-                CountOfWordsUsed = defaultCountOfWordsUsed
-            };
+                throw new ValidationFailedException(nameof(settings.CountOfWordsUsed),
+                    $"Count of words used must be between {MinCountOfWordsUsed} and {MaxCountOfWordsUsed} words");
+            }
         }
 
-        protected IList<PhraseDal> GetPhrasesToRepeat(IList<PhraseDal> phrases, IList<KnowledgeLevelDal> levels, QuizTaskSettings settings)
+        protected override TRunModel RunNewTaskImpl(TSettings settings)
         {
+            Assert(settings);
+
+            /* Logic */
+            var phrases = Db.Phrases
+                .Where(p => p.LanguageId == settings.LanguageId)
+                .ToList();
+            var levels = GetTaskKnowledgeLevels();
+
             var currentDate = Framework.UtcNow;
 
             var phrasesToRepeat = new List<PhraseDal>();
@@ -66,11 +80,21 @@ namespace MyLanguagePalService.BLL.Tasks.Quiz
                 }
             }
 
-            return phrasesToRepeat;
+            var result = new TRunModel()
+            {
+                Phrases = phrasesToRepeat.Select(p => new Phrase(p)).ToList()
+            };
+
+            return result;
         }
 
-        protected void UpdateKnowledgeLevels(IList<QuizTaskResult<Phrase>> taskResults)
+        protected override TSummary FinishTaskImpl(TSettings settings, TAnswers result)
         {
+            /* Validation */
+            Assert(settings);
+
+            var taskResults = CheckAnswers(settings, result);
+
             foreach (var answer in taskResults)
             {
                 Db.AddOrUpdate(
@@ -109,7 +133,23 @@ namespace MyLanguagePalService.BLL.Tasks.Quiz
                     }
                 );
             }
+
+            return new TSummary()
+            {
+                Results = taskResults
+            };
         }
+
+        protected override TSettings DefaultSettings()
+        {
+            return new TSettings()
+            {
+                LanguageId = LanguagesService.GetDefaultLanguage().Id,
+                CountOfWordsUsed = DefaultCountOfWordsUsed
+            };
+        }
+
+        protected abstract IList<QuizTaskResult<Phrase>> CheckAnswers(TSettings settings, TAnswers result);
 
         protected void Assert(QuizTaskSettings settings, int minCountOfWordsUsed, int maxCountOfWordsUsed)
         {

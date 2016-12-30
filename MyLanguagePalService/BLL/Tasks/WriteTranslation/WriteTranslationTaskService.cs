@@ -13,51 +13,24 @@ namespace MyLanguagePalService.BLL.Tasks.WriteTranslation
     {
         public const int WriteTranslationTaskId = 1;
         public const string WriteTranslationTaskName = "writeTranslation";
-        public const int MinCountOfWordsUsed = 1;
-        public const int MaxCountOfWordsUsed = 1000;
-        public const int DefaultCountOfWordsUsed = 30;
 
         public WriteTranslationTaskService(IFramework framework,
             IPhrasesService phrasesService, ILanguagesService languagesService, IApplicationDbContext db) :
-            base(framework, phrasesService, languagesService, db, WriteTranslationTaskId, WriteTranslationTaskName)
+            base(framework, phrasesService, languagesService, db)
         {
         }
 
-        protected override QuizTaskSettings SetSettingsImpl(QuizTaskSettings settings)
+        public override string Name => WriteTranslationTaskName;
+
+        protected override int TaskId => WriteTranslationTaskId;
+
+        protected override IList<QuizTaskResult<Phrase>> CheckAnswers(QuizTaskSettings settings, QuizTaskAnswersModel result)
         {
-            Assert(settings);
-
-            return base.SetSettingsImpl(settings);
-        }
-
-        protected override QuizTaskRunModel RunNewTaskImpl(QuizTaskSettings settings)
-        {
-            Assert(settings);
-
-            /* Logic */
-            var phrases = Db.Phrases
-                .Where(p => p.LanguageId == settings.LanguageId)
-                .ToList();
-            var levels = GetTaskKnowledgeLevels();
-
-            var phrasesToRepeat = GetPhrasesToRepeat(phrases, levels, settings);
-
-            var result = new QuizTaskRunModel()
-            {
-                Phrases = phrasesToRepeat.Select(p => new Phrase(p)).ToList()
-            };
-
-            return result;
-        }
-
-        protected override QuizTaskSummary FinishTaskImpl(QuizTaskSettings settings, QuizTaskAnswersModel result)
-        {
-            /* Validation */
-            Assert(settings);
             Assert(result);
 
             /* Check answers */
             var taskResults = new List<QuizTaskResult<Phrase>>();
+
             for (var i = 0; i < result.Answers.Count; i++)
             {
                 var answer = result.Answers[i];
@@ -86,22 +59,7 @@ namespace MyLanguagePalService.BLL.Tasks.WriteTranslation
                 });
             }
 
-            UpdateKnowledgeLevels(taskResults);
-
-            return new QuizTaskSummary()
-            {
-                Results = taskResults
-            };
-        }
-
-        protected override QuizTaskSettings DefaultSettings()
-        {
-            return DefaultSettings(DefaultCountOfWordsUsed);
-        }
-
-        private void Assert(QuizTaskSettings settings)
-        {
-            Assert(settings, MinCountOfWordsUsed, MaxCountOfWordsUsed);
+            return taskResults;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using JetBrains.Annotations;
+using MyLanguagePal.Core.Framework;
 using MyLanguagePalService.BLL.Languages;
 using MyLanguagePalService.BLL.Phrases;
 using MyLanguagePalService.Core.Extensions;
@@ -17,27 +18,33 @@ namespace MyLanguagePalService.BLL.Tasks
                                                                                       ITaskService
         where TSettings : class, new() where TAnswers : class
     {
-        protected TaskServiceBase([NotNull] IPhrasesService phrasesService,
+        protected TaskServiceBase([NotNull] IFramework framework,
+            [NotNull] IPhrasesService phrasesService,
             [NotNull] ILanguagesService languagesService,
-            [NotNull] IApplicationDbContext db,
-            int taskId,
-            [NotNull] string name)
+            [NotNull] IApplicationDbContext db)
         {
+            if (framework == null)
+                throw new ArgumentNullException(nameof(framework));
             if (phrasesService == null)
                 throw new ArgumentNullException(nameof(phrasesService));
             if (languagesService == null)
                 throw new ArgumentNullException(nameof(languagesService));
             if (db == null)
                 throw new ArgumentNullException(nameof(db));
-            if (name == null)
-                throw new ArgumentNullException(nameof(name));
 
+
+            Framework = framework;
             PhrasesService = phrasesService;
             LanguagesService = languagesService;
             Db = db;
-            TaskId = taskId;
-            Name = name;
         }
+
+        public abstract string Name { get; }
+
+        protected abstract int TaskId { get; }
+
+        [NotNull]
+        protected IFramework Framework { get; set; }
 
         [NotNull]
         protected IPhrasesService PhrasesService { get; set; }
@@ -47,10 +54,6 @@ namespace MyLanguagePalService.BLL.Tasks
 
         [NotNull]
         protected IApplicationDbContext Db { get; set; }
-
-        protected int TaskId { get; set; }
-
-        public string Name { get; protected set; }
 
         public object GetSettings()
         {
@@ -63,7 +66,19 @@ namespace MyLanguagePalService.BLL.Tasks
             if (typedSettings == null)
                 throw new ArgumentException(nameof(settings));
 
-            return SetSettingsImpl(typedSettings);
+            Assert(typedSettings);
+
+            Db.AddOrUpdate(
+                dbSetGetter: context => context.TaskSettings,
+                searcher: set => set.FirstOrDefault(dal => dal.TaskId == TaskId),
+                setter: dal =>
+                {
+                    dal.TaskId = TaskId;
+                    dal.SettingsJson = JsonConvert.SerializeObject(typedSettings);
+                }
+            );
+
+            return typedSettings;
         }
 
         public object RunNewTask(object settings)
@@ -71,6 +86,8 @@ namespace MyLanguagePalService.BLL.Tasks
             var typedSettings = settings.FromJObjectTo<TSettings>();
             if (typedSettings == null)
                 throw new ArgumentException(nameof(settings));
+
+            Assert(typedSettings);
 
             return RunNewTaskImpl(typedSettings);
         }
@@ -97,20 +114,8 @@ namespace MyLanguagePalService.BLL.Tasks
             return JsonConvert.DeserializeObject<TSettings>(settingsDal.SettingsJson);
         }
 
-        protected virtual TSettings SetSettingsImpl(TSettings settings)
-        {
-            Db.AddOrUpdate(
-                dbSetGetter: context => context.TaskSettings,
-                searcher: set => set.FirstOrDefault(dal => dal.TaskId == TaskId),
-                setter: dal =>
-                {
-                    dal.TaskId = TaskId;
-                    dal.SettingsJson = JsonConvert.SerializeObject(settings);
-                }
-            );
 
-            return settings;
-        }
+        protected abstract void Assert(TSettings settings);
 
         protected abstract TRunModel RunNewTaskImpl(TSettings settings);
 
