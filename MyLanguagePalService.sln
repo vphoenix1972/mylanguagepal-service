@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLanguagePalService", "MyL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLanguagePalService.Tests", "MyLanguagePalService.Tests\MyLanguagePalService.Tests.csproj", "{18444471-A743-480C-A5E0-374903A70141}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLanguagePal.Core", "MyLanguagePal.Core\MyLanguagePal.Core.csproj", "{5170DA0F-7BA4-49FE-9D0D-B82180B36466}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{18444471-A743-480C-A5E0-374903A70141}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{18444471-A743-480C-A5E0-374903A70141}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18444471-A743-480C-A5E0-374903A70141}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5170DA0F-7BA4-49FE-9D0D-B82180B36466}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5170DA0F-7BA4-49FE-9D0D-B82180B36466}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5170DA0F-7BA4-49FE-9D0D-B82180B36466}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5170DA0F-7BA4-49FE-9D0D-B82180B36466}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

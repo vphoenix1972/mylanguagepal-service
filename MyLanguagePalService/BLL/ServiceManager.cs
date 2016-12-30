@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
+using MyLanguagePal.Core.Framework;
 using MyLanguagePalService.BLL.Languages;
 using MyLanguagePalService.BLL.Phrases;
 using MyLanguagePalService.BLL.Tasks;
-using MyLanguagePalService.BLL.Tasks.Quiz;
 using MyLanguagePalService.BLL.Tasks.Sprint;
 using MyLanguagePalService.BLL.Tasks.WriteTranslation;
 using MyLanguagePalService.DAL;
@@ -15,8 +16,13 @@ namespace MyLanguagePalService.BLL
         private bool _disposed;
         private readonly IApplicationDbContext _db;
 
-        public ServiceManager(IApplicationDbContext db)
+        public ServiceManager(IApplicationDbContext db, [NotNull] IFramework framework)
         {
+            if (db == null)
+                throw new ArgumentNullException(nameof(db));
+            if (framework == null)
+                throw new ArgumentNullException(nameof(framework));
+
             _db = db;
 
             LanguagesService = new LanguagesService(_db);
@@ -25,7 +31,7 @@ namespace MyLanguagePalService.BLL
 
             Tasks = new List<ITaskService>()
             {
-                new WriteTranslationTaskService(PhrasesService, LanguagesService, _db, 1, "writeTranslation")
+                new WriteTranslationTaskService(framework, PhrasesService, LanguagesService, _db)
         };
         }
 

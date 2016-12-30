@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using JetBrains.Annotations;
@@ -116,5 +117,10 @@ namespace MyLanguagePalService.BLL.Tasks
         protected abstract TSummary FinishTaskImpl(TSettings settings, TAnswers answers);
 
         protected abstract TSettings DefaultSettings();
+
+        protected IList<KnowledgeLevelDal> GetTaskKnowledgeLevels()
+        {
+            return Db.KnowledgeLevels.Where(l => l.TaskId == TaskId).ToList();
+        }
     }
 }

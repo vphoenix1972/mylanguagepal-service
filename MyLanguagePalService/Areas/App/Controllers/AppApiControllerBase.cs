@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using JetBrains.Annotations;
+using MyLanguagePal.Core.Framework;
 using MyLanguagePalService.BLL;
 using MyLanguagePalService.Core;
 using MyLanguagePalService.DAL;
@@ -11,7 +12,8 @@ namespace MyLanguagePalService.Areas.App.Controllers
         protected AppApiControllerBase()
         {
             var db = new ApplicationDbContext();
-            ServiceManager = new ServiceManager(db);
+            var framework = new Framework();
+            ServiceManager = new ServiceManager(db, framework);
         }
 
         [NotNull]
