@@ -6,12 +6,13 @@
 
         var self = this;
 
+        self._taskName = 'writeTranslation';
         self._taskService = writeTranslationTaskService;
 
         /* Init */
         self.title = 'Write translation task settings';
 
-        self.doAsync(self._taskService.getSettings())
+        self.doAsync(self._taskService.getSettings(self._taskName))
             .then(function (result) {
                 self.isLoading = false;
                 self.settings = result;
@@ -42,7 +43,7 @@
         var self = this;
 
         self._save().then(function () {
-            self.$location.path(self._taskService.taskUrl());
+            self.$location.path(self._taskService.getTaskProperties(self._taskName).urls.task);
         });
     }
 
@@ -51,7 +52,7 @@
     WriteTranslationTaskController.prototype._save = function () {
         var self = this;
 
-        return self.doAsync(self._taskService.setSettings(self.settings))
+        return self.doAsync(self._taskService.setSettings(self._taskName, self.settings))
             .then(function (result) {
                 if (self.validationFailed(result))
                     return self.$q.reject();
@@ -60,7 +61,7 @@
             });
     }
 
-    WriteTranslationTaskController.$inject = ['$injector', '$scope', 'writeTranslationTaskService'];
+    WriteTranslationTaskController.$inject = ['$injector', '$scope', 'tasksService'];
 
     angular
         .module('app')

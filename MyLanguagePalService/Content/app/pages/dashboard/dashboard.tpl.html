@@ -1,19 +1,14 @@
 ﻿<h1>Dashboard</h1>
 
-<div class="btn-group">
-    <a href="#tasks/sprint/task" class="btn btn-default">
-        Sprint task
-    </a>
-    <a href="#tasks/sprint/settings" class="btn btn-default">
-        <span class="glyphicon glyphicon-cog"></span>
-    </a>
-</div>
-
-<div class="btn-group">
-    <a href="#tasks/writeTranslation/task" class="btn btn-default">
-        Write translation task
-    </a>
-    <a href="#tasks/writeTranslation/settings" class="btn btn-default">
-        <span class="glyphicon glyphicon-cog"></span>
-    </a>
+<div>
+    <div ng-repeat="task in vm.tasks"
+         class="btn-group b-dashboard__task">
+        <a href="#{{task.urls.task}}" class="btn btn-default">
+            <span ng-if="task.name === 'writeTranslation'">Write translation</span>
+            <span ng-if="task.name === 'sprint'">Sprint</span>
+        </a>
+        <a href="#{{task.urls.settings}}" class="btn btn-default">
+            <span class="glyphicon glyphicon-cog"></span>
+        </a>
+    </div>
 </div>

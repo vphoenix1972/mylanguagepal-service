@@ -10,8 +10,6 @@ namespace MyLanguagePalService.DAL.Models
 
         public virtual ICollection<PhraseDal> Phrases { get; set; }
 
-        public virtual ICollection<SprintTaskSettingDal> SprintTaskSettings { get; set; }
-
-        public virtual ICollection<WriteTranslationTaskSettingDal> WriteTranslationTaskSettings { get; set; }
+        public virtual ICollection<SprintTaskSettingDal> SprintTaskSettings { get; set; }        
     }
 }

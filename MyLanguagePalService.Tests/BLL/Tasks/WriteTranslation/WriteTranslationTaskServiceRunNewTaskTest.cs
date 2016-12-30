@@ -57,7 +57,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.WriteTranslation
 
             /* Act */
             var service = new WriteTranslationTaskService(phrasesService, languagesService, Db);
-            var settings = new WriteTranslationTaskSettingModel()
+            var settings = new WriteTranslationTaskSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = WriteTranslationTaskService.MaxCountOfWordsUsed
@@ -108,7 +108,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.WriteTranslation
 
             /* Act */
             var service = new WriteTranslationTaskService(phrasesService, languagesService, Db);
-            var settings = new WriteTranslationTaskSettingModel()
+            var settings = new WriteTranslationTaskSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = WriteTranslationTaskService.MaxCountOfWordsUsed
@@ -158,7 +158,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.WriteTranslation
 
             /* Act */
             var service = new WriteTranslationTaskService(phrasesService, languagesService, Db);
-            var settings = new WriteTranslationTaskSettingModel()
+            var settings = new WriteTranslationTaskSettings()
             {
                 LanguageId = 2,
                 CountOfWordsUsed = WriteTranslationTaskService.MaxCountOfWordsUsed
@@ -208,7 +208,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.WriteTranslation
 
             /* Act */
             var service = new WriteTranslationTaskService(phrasesService, languagesService, Db);
-            var settings = new WriteTranslationTaskSettingModel()
+            var settings = new WriteTranslationTaskSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = 3
@@ -241,7 +241,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.WriteTranslation
 
             /* Act */
             var service = new WriteTranslationTaskService(phrasesService, languagesService, Db);
-            var settings = new WriteTranslationTaskSettingModel()
+            var settings = new WriteTranslationTaskSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = WriteTranslationTaskService.MaxCountOfWordsUsed

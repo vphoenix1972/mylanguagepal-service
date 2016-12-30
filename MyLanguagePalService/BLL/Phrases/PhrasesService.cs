@@ -267,9 +267,6 @@ namespace MyLanguagePalService.BLL.Phrases
 
             // Remove sprint task records
             phraseDal.SprintTaskJournalRecords.ToList().ForEach(e => _db.SprintTaskJournal.Remove(e));
-
-            // Remove write translation task records
-            phraseDal.WriteTranslationTaskJournalRecords.ToList().ForEach(e => _db.WriteTranslationTaskJournal.Remove(e));
         }
 
         private TranslationDal CreateTranslationDal(PhraseDal newPhraseDal, PhraseDal existingPhraseDal, TranslationImBll translationInput)

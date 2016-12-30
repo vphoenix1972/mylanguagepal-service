@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using MyLanguagePalService.BLL.Languages;
 using MyLanguagePalService.BLL.Phrases;
+using MyLanguagePalService.BLL.Tasks;
+using MyLanguagePalService.BLL.Tasks.Quiz;
 using MyLanguagePalService.BLL.Tasks.Sprint;
 using MyLanguagePalService.BLL.Tasks.WriteTranslation;
 using MyLanguagePalService.DAL;
@@ -19,7 +22,11 @@ namespace MyLanguagePalService.BLL
             LanguagesService = new LanguagesService(_db);
             PhrasesService = new PhrasesService(_db);
             SprintTaskService = new SprintTaskService(PhrasesService, LanguagesService, _db);
-            WriteTranslationTaskService = new WriteTranslationTaskService(PhrasesService, LanguagesService, _db);
+
+            Tasks = new List<ITaskService>()
+            {
+                new WriteTranslationTaskService(PhrasesService, LanguagesService, _db, 1, "writeTranslation")
+        };
         }
 
         public ILanguagesService LanguagesService { get; set; }
@@ -28,7 +35,7 @@ namespace MyLanguagePalService.BLL
 
         public ISprintTaskService SprintTaskService { get; set; }
 
-        public IWriteTranslationTaskService WriteTranslationTaskService { get; set; }
+        public IList<ITaskService> Tasks { get; }
 
         public void Save()
         {

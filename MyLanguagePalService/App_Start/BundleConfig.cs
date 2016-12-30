@@ -151,6 +151,9 @@ namespace MyLanguagePalService
 
                 // Tasks
 
+                "~/Content/app/pages/tasks/tasks.service.js",
+                "~/Content/app/pages/tasks/tasks.routes.js",
+
                 // Tasks shared
                 "~/Content/app/pages/tasks/shared/directives/taskSettingsTemplate/taskSettingsTemplate.directive.js",
                 "~/Content/app/pages/tasks/shared/directives/writeAnswerQuiz/writeAnswerQuiz.directive.js",
@@ -163,8 +166,7 @@ namespace MyLanguagePalService
                 "~/Content/app/pages/tasks/sprint/task/sprintTask.controller.js",
 
                 // Write translation task
-                "~/Content/app/pages/tasks/writeTranslation/writeTranslationTask.service.js",
-                "~/Content/app/pages/tasks/writeTranslation/writeTranslationTask.routes.js",
+                "~/Content/app/pages/tasks/writeTranslation/writeTranslationTask.service.js",                
                 "~/Content/app/pages/tasks/writeTranslation/settings/writeTranslationTaskSettings.controller.js",
                 "~/Content/app/pages/tasks/writeTranslation/task/writeTranslationTask.controller.js"
             ));

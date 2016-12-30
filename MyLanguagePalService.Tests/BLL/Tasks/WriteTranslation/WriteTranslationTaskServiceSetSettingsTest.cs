@@ -36,7 +36,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.WriteTranslation
 
             /* Act */
             var service = new WriteTranslationTaskService(phrasesService, languagesService, db);
-            var input = new WriteTranslationTaskSettingModel()
+            var input = new WriteTranslationTaskSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = 3
@@ -92,7 +92,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.WriteTranslation
 
             /* Act */
             var service = new WriteTranslationTaskService(phrasesService, languagesService, db);
-            var input = new WriteTranslationTaskSettingModel()
+            var input = new WriteTranslationTaskSettings()
             {
                 LanguageId = 2,
                 CountOfWordsUsed = 40

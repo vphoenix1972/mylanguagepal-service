@@ -16,7 +16,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.WriteTranslation
 {
     public abstract class WriteTranslationTaskTestBase : TestBase
     {
-        public void ShouldCheckLanguageId(Action<WriteTranslationTaskService, WriteTranslationTaskSettingModel> method)
+        public void ShouldCheckLanguageId(Action<WriteTranslationTaskService, WriteTranslationTaskSettings> method)
         {
             /* Arrange */
             var mockDb = new Mock<IApplicationDbContext>();
@@ -38,7 +38,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.WriteTranslation
 
             /* Act */
             var service = new WriteTranslationTaskService(phrasesService, languagesService, db);
-            var input = new WriteTranslationTaskSettingModel()
+            var input = new WriteTranslationTaskSettings()
             {
                 LanguageId = 3,
                 CountOfWordsUsed = 40
@@ -56,11 +56,11 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.WriteTranslation
 
             /* Assert */
             languageServiceMock.Verify(m => m.CheckIfLanguageExists(input.LanguageId), Times.Once);
-            AssertValidationFailedException(vfeCaught, nameof(WriteTranslationTaskSettingModel.LanguageId));
+            AssertValidationFailedException(vfeCaught, nameof(WriteTranslationTaskSettings.LanguageId));
         }
 
 
-        public void ShouldCheckCountOfWordsUsed(Action<WriteTranslationTaskService, WriteTranslationTaskSettingModel> method)
+        public void ShouldCheckCountOfWordsUsed(Action<WriteTranslationTaskService, WriteTranslationTaskSettings> method)
         {
             /* Arrange */
             var mockDb = new Mock<IApplicationDbContext>();
@@ -81,7 +81,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.WriteTranslation
 
             /* Act */
             var service = new WriteTranslationTaskService(phrasesService, languagesService, db);
-            var input = new WriteTranslationTaskSettingModel()
+            var input = new WriteTranslationTaskSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = SprintTaskService.MinCountOfWordsUsed - 1
@@ -98,10 +98,10 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.WriteTranslation
             }
 
             /* Assert */
-            AssertValidationFailedException(vfeCaught, nameof(WriteTranslationTaskSettingModel.CountOfWordsUsed));
+            AssertValidationFailedException(vfeCaught, nameof(WriteTranslationTaskSettings.CountOfWordsUsed));
 
             /* Act */
-            input = new WriteTranslationTaskSettingModel()
+            input = new WriteTranslationTaskSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = WriteTranslationTaskService.MaxCountOfWordsUsed + 1
@@ -118,7 +118,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.WriteTranslation
             }
 
             /* Assert */
-            AssertValidationFailedException(vfeCaught, nameof(WriteTranslationTaskSettingModel.CountOfWordsUsed));
+            AssertValidationFailedException(vfeCaught, nameof(WriteTranslationTaskSettings.CountOfWordsUsed));
         }
 
         public Mock<IDbSet<WriteTranslationTaskJournalRecordDal>> CreateWriteTranslationTaskJournalRecordsMockDbSet(IList<WriteTranslationTaskJournalRecordDal> data)
