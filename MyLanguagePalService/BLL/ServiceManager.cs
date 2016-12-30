@@ -27,19 +27,17 @@ namespace MyLanguagePalService.BLL
 
             LanguagesService = new LanguagesService(_db);
             PhrasesService = new PhrasesService(_db);
-            SprintTaskService = new SprintTaskService(PhrasesService, LanguagesService, _db);
 
             Tasks = new List<ITaskService>()
             {
-                new WriteTranslationTaskService(framework, PhrasesService, LanguagesService, _db)
-        };
+                new WriteTranslationTaskService(framework, PhrasesService, LanguagesService, _db),
+                new SprintTaskService(framework, PhrasesService, LanguagesService, _db)
+            };
         }
 
         public ILanguagesService LanguagesService { get; set; }
 
         public IPhrasesService PhrasesService { get; }
-
-        public ISprintTaskService SprintTaskService { get; set; }
 
         public IList<ITaskService> Tasks { get; }
 

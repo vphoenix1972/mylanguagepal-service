@@ -15,10 +15,6 @@ namespace MyLanguagePalService.DAL
 
         public IDbSet<TranslationDal> Translations { get; set; }
 
-        public IDbSet<SprintTaskSettingDal> SprintTaskSettings { get; set; }
-
-        public IDbSet<SprintTaskJournalRecordDal> SprintTaskJournal { get; set; }
-
         public IDbSet<TaskSettingsDal> TaskSettings { get; set; }
 
         public IDbSet<KnowledgeLevelDal> KnowledgeLevels { get; set; }
@@ -59,20 +55,10 @@ namespace MyLanguagePalService.DAL
             modelBuilder.Entity<TranslationDal>()
                 .HasKey(e => e.Id);
 
-            // Sprint task settings
-            modelBuilder.Entity<SprintTaskSettingDal>().ToTable("SprintTaskSettings");
-            modelBuilder.Entity<SprintTaskSettingDal>()
-                .HasKey(e => e.Id);
-
-            // Sprint task journal
-            modelBuilder.Entity<SprintTaskJournalRecordDal>().ToTable("SprintTaskJournal");
-            modelBuilder.Entity<SprintTaskJournalRecordDal>()
-                .HasKey(e => e.Id);
-
             // Task settings
             modelBuilder.Entity<TaskSettingsDal>().ToTable("TaskSettings");
             modelBuilder.Entity<TaskSettingsDal>()
-                .HasKey(e => e.TaskId);
+                .HasKey(e => e.Id);
 
             // Knowledge levels
             modelBuilder.Entity<KnowledgeLevelDal>().ToTable("KnowledgeLevels");
@@ -97,18 +83,6 @@ namespace MyLanguagePalService.DAL
                 .HasMany(p => p.PhrasesTranslatedBy)
                 .WithRequired(t => t.TranslationPhrase)
                 .HasForeignKey(t => t.TranslationPhraseId);
-
-            // Sprint task settings <-> Languages
-            modelBuilder.Entity<LanguageDal>()
-                .HasMany(l => l.SprintTaskSettings)
-                .WithRequired(s => s.Language)
-                .HasForeignKey(s => s.LanguageId);
-
-            // Sprint task journal <-> Phrases
-            modelBuilder.Entity<PhraseDal>()
-                .HasMany(e => e.SprintTaskJournalRecords)
-                .WithRequired(e => e.Phrase)
-                .HasForeignKey(e => e.PhraseId);
 
             // Knowledge levels <-> Phrases
             modelBuilder.Entity<PhraseDal>()

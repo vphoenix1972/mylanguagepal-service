@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using JetBrains.Annotations;
 using MyLanguagePal.Core.Framework;

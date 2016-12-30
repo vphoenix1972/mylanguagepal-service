@@ -34,7 +34,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             /* Act */
             var service = new SprintTaskService(phrasesService, languagesService, db);
-            var input = new SprintTaskSettingModel()
+            var input = new SprintTaskSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = 3,
@@ -94,7 +94,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             /* Act */
             var service = new SprintTaskService(phrasesService, languagesService, db);
-            var input = new SprintTaskSettingModel()
+            var input = new SprintTaskSettings()
             {
                 LanguageId = 2,
                 CountOfWordsUsed = 40,

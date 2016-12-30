@@ -14,7 +14,7 @@ namespace MyLanguagePalService.BLL.Tasks.Quiz
     public abstract class QuizTaskServiceBase<TSettings, TRunModel, TAnswers, TSummary> : TaskServiceBase<TSettings, TRunModel, TAnswers, TSummary>
         where TSettings : QuizTaskSettings, new()
         where TRunModel : QuizTaskRunModel, new()
-        where TAnswers : QuizTaskAnswersModel
+        where TAnswers : class
         where TSummary : QuizTaskSummary, new()
     {
         public const int MinCountOfWordsUsed = 1;
@@ -68,7 +68,7 @@ namespace MyLanguagePalService.BLL.Tasks.Quiz
                 }
                 else
                 {
-                    if (knowledgeLevel.CurrentLevel <= (currentDate - knowledgeLevel.LastRepetitonTime).Days)
+                    if (knowledgeLevel.CurrentLevel <= (currentDate - knowledgeLevel.LastRepetitonTime).TotalHours)
                     {
                         // It is time to repeat the phrase
                         phrasesToRepeat.Add(phrase);
@@ -82,7 +82,7 @@ namespace MyLanguagePalService.BLL.Tasks.Quiz
 
             var result = new TRunModel()
             {
-                Phrases = phrasesToRepeat.Select(p => new Phrase(p)).ToList()
+                Phrases = phrasesToRepeat.Select(p => new PhraseWithTranslations(p)).ToList()
             };
 
             return result;
@@ -116,11 +116,12 @@ namespace MyLanguagePalService.BLL.Tasks.Quiz
                             }
                             else
                             {
-                                l.CurrentLevel = 1;
+                                l.CurrentLevel = 24;
                             }
 
-                            if (l.CurrentLevel > 30)
-                                l.CurrentLevel = 30; // MAX                            
+                            var maxHours = 24 * 30; // 30 days
+                            if (l.CurrentLevel > maxHours)
+                                l.CurrentLevel = maxHours; // MAX                            
 
                         }
                         else
@@ -150,21 +151,6 @@ namespace MyLanguagePalService.BLL.Tasks.Quiz
         }
 
         protected abstract IList<QuizTaskResult<Phrase>> CheckAnswers(TSettings settings, TAnswers result);
-
-        protected void Assert(QuizTaskSettings settings, int minCountOfWordsUsed, int maxCountOfWordsUsed)
-        {
-            if (settings == null)
-                throw new ArgumentNullException(nameof(settings));
-
-            if (!LanguagesService.CheckIfLanguageExists(settings.LanguageId))
-                throw new ValidationFailedException(nameof(settings.LanguageId), GetLanguageNotExistString(settings.LanguageId));
-
-            if (settings.CountOfWordsUsed < minCountOfWordsUsed || settings.CountOfWordsUsed > maxCountOfWordsUsed)
-            {
-                throw new ValidationFailedException(nameof(settings.CountOfWordsUsed),
-                    $"Count of words used must be between {minCountOfWordsUsed} and {maxCountOfWordsUsed} words");
-            }
-        }
 
         protected void Assert(QuizTaskAnswersModel result)
         {

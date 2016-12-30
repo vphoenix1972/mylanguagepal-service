@@ -1,13 +1,16 @@
 ﻿(function () {
     'use strict';
 
-    function SprintTaskController($injector, $scope, utils, sprintTaskService) {
+    function SprintTaskController($injector, $scope, utils, tasksService) {
         $injector.invoke(PageController, this, { $scope: $scope });
 
         var self = this;
 
         self._utils = utils;
-        self._sprintTaskService = sprintTaskService;
+
+        self._tasksService = tasksService;
+
+        self._taskName = 'sprint';
 
         /* Init */
         self.startingTimerDirective = {};
@@ -16,9 +19,9 @@
         self.currentTranslation = {};
         self.score = 0;
         self.phrases = [];
-        self.summaryPhrases = [];
+        self.summary = {};
 
-        self.doAsync(self._sprintTaskService.getSettings())
+        self.doAsync(self._tasksService.getSettings(self._taskName))
             .then(function (result) {
                 self.settings = result;
 
@@ -59,13 +62,19 @@
         self._recordAnswer(true);
     }
 
+    SprintTaskController.prototype.onRunTaskAgainButtonClicked = function () {
+        var self = this;
+
+        self.gotoUrlForce('/' + self._tasksService.getTaskProperties(self._taskName).urls.task);
+    }
+
     /* Private */
 
     SprintTaskController.prototype._gotoState = function (state) {
         var self = this;
 
         if (state === 'starting') {
-            self.doAsync(self._sprintTaskService.runNewTask(self.settings))
+            self.doAsync(self._tasksService.runTask(self._taskName, self.settings))
                 .then(function (result) {
                     var phrases = result.phrases;
 
@@ -109,27 +118,26 @@
         }
 
         if (state === 'finished') {
-            self.summaryPhrases = self.phrases
+            // Send only used phrases
+            var results = self.phrases
                 .filter(function (phrase) { return phrase.usedCount > 0; })
-                .orderBy(function (p1, p2) { return p1.delta() - p2.delta(); });
-
-            var summary = {
-                results: self.summaryPhrases.map(function (phrase) {
+                .orderBy(function (p1, p2) { return p1.delta() - p2.delta(); })
+                .map(function (phrase) {
                     return {
                         phraseId: phrase.id,
-                        correctAnswersCount: phrase.correctAnswersCount,
-                        wrongAnswersCount: phrase.wrongAnswersCount
+                        delta: phrase.delta()
                     }
-                })
-            }
-
-            self.doAsync(self._sprintTaskService.finishTask(summary))
-                .then(function () {
-                    self.state = state;
-                })
-                .catch(function () {
-                    self.returnToDashboard();
                 });
+
+            self.doAsync(self._tasksService.finishTask(self._taskName, {
+                settings: self.settings,
+                answersModel: results
+            })).then(function (summary) {
+                self.summary = summary;
+                self.state = state;
+            }).catch(function () {
+                self.returnToDashboard();
+            });
 
             return;
         }
@@ -194,7 +202,7 @@
     }
 
 
-    SprintTaskController.$inject = ['$injector', '$scope', 'utils', 'sprintTaskService'];
+    SprintTaskController.$inject = ['$injector', '$scope', 'utils', 'tasksService'];
 
     angular
         .module('app')

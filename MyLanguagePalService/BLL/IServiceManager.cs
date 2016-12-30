@@ -17,9 +17,6 @@ namespace MyLanguagePalService.BLL
         [NotNull]
         IPhrasesService PhrasesService { get; }
 
-        [NotNull]
-        ISprintTaskService SprintTaskService { get; }
-
         IList<ITaskService> Tasks { get; }
 
         void Save();

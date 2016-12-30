@@ -1,19 +1,19 @@
 ﻿(function () {
     'use strict';
 
-    function WriteTranslationTaskController($injector, $scope, taskService) {
+    function WriteTranslationTaskController($injector, $scope, tasksService) {
         $injector.invoke(PageController, this, { $scope: $scope });
 
         var self = this;
 
-        self._taskService = taskService;
+        self._tasksService = tasksService;
 
         self._taskName = 'writeTranslation';
 
         /* Init */
         self.title = 'Write translation task settings';
 
-        self.doAsync(self._taskService.getSettings(self._taskName))
+        self.doAsync(self._tasksService.getSettings(self._taskName))
             .then(function (result) {
                 self.isLoading = false;
                 self.settings = result;
@@ -44,7 +44,7 @@
         var self = this;
 
         self._save().then(function () {
-            self.$location.path(self._taskService.getTaskProperties(self._taskName).urls.task);
+            self.$location.path(self._tasksService.getTaskProperties(self._taskName).urls.task);
         });
     }
 
@@ -53,7 +53,7 @@
     WriteTranslationTaskController.prototype._save = function () {
         var self = this;
 
-        return self.doAsync(self._taskService.setSettings(self._taskName, self.settings))
+        return self.doAsync(self._tasksService.setSettings(self._taskName, self.settings))
             .then(function (result) {
                 if (self.validationFailed(result))
                     return self.$q.reject();

@@ -215,7 +215,6 @@
     <Compile Include="Areas\App\Controllers\MainController.cs" />
     <Compile Include="Areas\App\Controllers\LanguagesApiController.cs" />
     <Compile Include="Areas\App\Controllers\PhrasesApiController.cs" />
-    <Compile Include="Areas\App\Controllers\SprintTaskApiController.cs" />
     <Compile Include="Areas\App\Controllers\TasksApiController.cs" />
     <Compile Include="Areas\App\Controllers\TranslationsApiController.cs" />
     <Compile Include="Areas\App\Models\Controller\LanguagesApi\LanguagesApiAm.cs" />
@@ -248,14 +247,11 @@
     <Compile Include="BLL\Tasks\Quiz\QuizTaskAnswersModel.cs" />
     <Compile Include="BLL\Tasks\Quiz\QuizTaskSettings.cs" />
     <Compile Include="BLL\Tasks\Quiz\QuizTaskSummary.cs" />
-    <Compile Include="BLL\Tasks\Sprint\ISprintTaskService.cs" />
     <Compile Include="BLL\Phrases\TranslationImBll.cs" />
     <Compile Include="BLL\Phrases\PhraseWithTranslations.cs" />
-    <Compile Include="BLL\Tasks\Sprint\SprintTaskFinishedSummaryModel.cs" />
-    <Compile Include="BLL\Tasks\Sprint\SprintTaskJournalRecord.cs" />
-    <Compile Include="BLL\Tasks\Sprint\SprintTaskRunModel.cs" />
+    <Compile Include="BLL\Tasks\Sprint\SprintTaskAnswer.cs" />
     <Compile Include="BLL\Tasks\Sprint\SprintTaskService.cs" />
-    <Compile Include="BLL\Tasks\Sprint\SprintTaskSettingModel.cs" />
+    <Compile Include="BLL\Tasks\Sprint\SprintTaskSettings.cs" />
     <Compile Include="BLL\ServiceManager.cs" />
     <Compile Include="BLL\Tasks\TaskServiceBase.cs" />
     <Compile Include="BLL\Tasks\Quiz\QuizTaskRunModel.cs" />
@@ -392,8 +388,6 @@
     <Content Include="Content\app\pages\tasks\shared\tasksShared.css" />
     <Content Include="Content\app\pages\tasks\sprint\settings\sprintTaskSettings.controller.js" />
     <Content Include="Content\app\pages\tasks\sprint\settings\sprintTaskSettings.css" />
-    <Content Include="Content\app\pages\tasks\sprint\sprintTask.routes.js" />
-    <Content Include="Content\app\pages\tasks\sprint\sprintTask.service.js" />
     <Content Include="Content\app\pages\tasks\sprint\settings\sprintTaskSettings.tpl.html" />
     <Content Include="Content\app\pages\tasks\sprint\task\sprintTask.controller.js" />
     <Content Include="Content\app\pages\tasks\sprint\task\sprintTask.css" />

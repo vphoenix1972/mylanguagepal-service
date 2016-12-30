@@ -62,7 +62,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             /* Act */
             var service = new SprintTaskService(phrasesService, languagesService, Db);
-            var settings = new SprintTaskSettingModel()
+            var settings = new SprintTaskSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = SprintTaskService.MaxCountOfWordsUsed,
@@ -114,7 +114,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             /* Act */
             var service = new SprintTaskService(phrasesService, languagesService, Db);
-            var settings = new SprintTaskSettingModel()
+            var settings = new SprintTaskSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = SprintTaskService.MaxCountOfWordsUsed,
@@ -165,7 +165,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             /* Act */
             var service = new SprintTaskService(phrasesService, languagesService, Db);
-            var settings = new SprintTaskSettingModel()
+            var settings = new SprintTaskSettings()
             {
                 LanguageId = 2,
                 CountOfWordsUsed = SprintTaskService.MaxCountOfWordsUsed,
@@ -216,7 +216,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             /* Act */
             var service = new SprintTaskService(phrasesService, languagesService, Db);
-            var settings = new SprintTaskSettingModel()
+            var settings = new SprintTaskSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = 3,
@@ -250,7 +250,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             /* Act */
             var service = new SprintTaskService(phrasesService, languagesService, Db);
-            var settings = new SprintTaskSettingModel()
+            var settings = new SprintTaskSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = SprintTaskService.MaxCountOfWordsUsed,

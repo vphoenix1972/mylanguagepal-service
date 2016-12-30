@@ -23,6 +23,7 @@ namespace MyLanguagePalService.BLL.Phrases
 
         }
 
+        [CanBeNull]
         public IList<Translation> Translations { get; set; }
     }
 }

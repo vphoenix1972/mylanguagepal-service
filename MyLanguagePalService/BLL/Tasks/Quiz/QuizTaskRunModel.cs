@@ -7,6 +7,6 @@ namespace MyLanguagePalService.BLL.Tasks.Quiz
     public class QuizTaskRunModel
     {
         [NotNull]
-        public IList<Phrase> Phrases { get; set; } = new List<Phrase>();
+        public IList<PhraseWithTranslations> Phrases { get; set; } = new List<PhraseWithTranslations>();
     }
 }

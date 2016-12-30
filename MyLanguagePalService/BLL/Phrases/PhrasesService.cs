@@ -265,9 +265,6 @@ namespace MyLanguagePalService.BLL.Phrases
             // Remove the translations for which this phrase is a translation
             phraseDal.PhrasesTranslatedBy.ToList().ForEach(t => _db.Translations.Remove(t));
 
-            // Remove sprint task records
-            phraseDal.SprintTaskJournalRecords.ToList().ForEach(e => _db.SprintTaskJournal.Remove(e));
-
             // Remove tasks knowledge levels
             phraseDal.KnowledgeLevels.ToList().ForEach(l => _db.KnowledgeLevels.Remove(l));
         }

@@ -1,18 +1,19 @@
 ﻿(function () {
     'use strict';
 
-    function SprintTaskSettingsController($injector, $scope, sprintTaskService, languagesService) {
+    function SprintTaskSettingsController($injector, $scope, tasksService) {
         $injector.invoke(PageController, this, { $scope: $scope });
 
         var self = this;
 
-        self._taskService = sprintTaskService;
-        self._languagesService = languagesService;
+        self._tasksService = tasksService;
+
+        self._taskName = 'sprint';
 
         /* Init */
         self.title = 'Sprint task settings';
 
-        self.doAsync(self._taskService.getSettings())
+        self.doAsync(self._tasksService.getSettings(self._taskName))
             .then(function (result) {
                 self.isLoading = false;
                 self.settings = result;
@@ -43,7 +44,7 @@
         var self = this;
 
         self._save().then(function () {
-            self.$location.path(self._taskService.taskUrl());
+            self.$location.path(self._tasksService.getTaskProperties(self._taskName).urls.task);
         });
     }
 
@@ -52,7 +53,7 @@
     SprintTaskSettingsController.prototype._save = function () {
         var self = this;
 
-        return self.doAsync(self._taskService.setSettings(self.settings))
+        return self.doAsync(self._tasksService.setSettings(self._taskName, self.settings))
             .then(function (result) {
                 if (self.validationFailed(result))
                     return self.$q.reject();
@@ -61,7 +62,7 @@
             });
     }
 
-    SprintTaskSettingsController.$inject = ['$injector', '$scope', 'sprintTaskService', 'languagesService'];
+    SprintTaskSettingsController.$inject = ['$injector', '$scope', 'tasksService'];
 
     angular
         .module('app')

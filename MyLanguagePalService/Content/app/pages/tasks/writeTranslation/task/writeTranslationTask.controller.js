@@ -1,13 +1,13 @@
 ﻿(function () {
     'use strict';
 
-    function WriteTranslationTaskController($injector, $scope, utils, taskService) {
+    function WriteTranslationTaskController($injector, $scope, utils, tasksService) {
         $injector.invoke(PageController, this, { $scope: $scope });
 
         var self = this;
 
         self._utils = utils;
-        self._taskService = taskService;
+        self._tasksService = tasksService;
 
         self._taskName = 'writeTranslation';
 
@@ -15,11 +15,11 @@
         self.writeAnswerQuizDirective = {};
         self.isFinished = false;
 
-        self.doAsync(self._taskService.getSettings(self._taskName))
+        self.doAsync(self._tasksService.getSettings(self._taskName))
            .then(function (result) {
                self.settings = result;
 
-               return self.doAsync(self._taskService.runTask(self._taskName, self.settings))
+               return self.doAsync(self._tasksService.runTask(self._taskName, self.settings))
                    .then(function (result) {
                        self.phrases = result.phrases;
 
@@ -62,7 +62,7 @@
     WriteTranslationTaskController.prototype.onRunTaskAgainButtonClicked = function () {
         var self = this;
 
-        self.gotoUrlForce('/' + self._taskService.getTaskProperties(self._taskName).urls.task);
+        self.gotoUrlForce('/' + self._tasksService.getTaskProperties(self._taskName).urls.task);
     }
 
     /* Private */

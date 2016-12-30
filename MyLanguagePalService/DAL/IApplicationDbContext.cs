@@ -12,10 +12,6 @@ namespace MyLanguagePalService.DAL
 
         IDbSet<TranslationDal> Translations { get; set; }
 
-        IDbSet<SprintTaskSettingDal> SprintTaskSettings { get; set; }
-
-        IDbSet<SprintTaskJournalRecordDal> SprintTaskJournal { get; set; }
-
         IDbSet<TaskSettingsDal> TaskSettings { get; set; }
 
         IDbSet<KnowledgeLevelDal> KnowledgeLevels { get; set; }

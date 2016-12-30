@@ -17,8 +17,14 @@ namespace MyLanguagePalService.Core.Extensions
             where T : class
         {
             var jobj = obj as JObject;
+            if (jobj != null)
+                return jobj.ToObject<T>();
 
-            return jobj?.ToObject<T>();
+            var jarr = obj as JArray;
+            if (jarr != null)
+                return jarr.ToObject<T>();
+
+            return null;
         }
 
         public static string GetClassName(this object obj)

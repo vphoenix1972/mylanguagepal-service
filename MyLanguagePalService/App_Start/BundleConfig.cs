@@ -160,8 +160,6 @@ namespace MyLanguagePalService
                 "~/Content/app/pages/tasks/shared/directives/taskSummary/taskSummary.directive.js",
 
                 // Sprint task
-                "~/Content/app/pages/tasks/sprint/sprintTask.service.js",
-                "~/Content/app/pages/tasks/sprint/sprintTask.routes.js",
                 "~/Content/app/pages/tasks/sprint/settings/sprintTaskSettings.controller.js",
                 "~/Content/app/pages/tasks/sprint/task/sprintTask.controller.js",
 

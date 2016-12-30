@@ -15,7 +15,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 {
     public abstract class SprintTaskTestBase : TestBase
     {
-        public void ShouldCheckLanguageId(Action<SprintTaskService, SprintTaskSettingModel> method)
+        public void ShouldCheckLanguageId(Action<SprintTaskService, SprintTaskSettings> method)
         {
             /* Arrange */
             var mockDb = new Mock<IApplicationDbContext>();
@@ -37,7 +37,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             /* Act */
             var service = new SprintTaskService(phrasesService, languagesService, db);
-            var input = new SprintTaskSettingModel()
+            var input = new SprintTaskSettings()
             {
                 LanguageId = 3,
                 CountOfWordsUsed = 40,
@@ -56,10 +56,10 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             /* Assert */
             languageServiceMock.Verify(m => m.CheckIfLanguageExists(input.LanguageId), Times.Once);
-            AssertValidationFailedException(vfeCaught, nameof(SprintTaskSettingModel.LanguageId));
+            AssertValidationFailedException(vfeCaught, nameof(SprintTaskSettings.LanguageId));
         }
 
-        public void ShouldCheckTotalTimeForTask(Action<SprintTaskService, SprintTaskSettingModel> method)
+        public void ShouldCheckTotalTimeForTask(Action<SprintTaskService, SprintTaskSettings> method)
         {
             /* Arrange */
             var mockDb = new Mock<IApplicationDbContext>();
@@ -80,7 +80,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             /* Act */
             var service = new SprintTaskService(phrasesService, languagesService, db);
-            var input = new SprintTaskSettingModel()
+            var input = new SprintTaskSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = 40,
@@ -98,10 +98,10 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
             }
 
             /* Assert */
-            AssertValidationFailedException(vfeCaught, nameof(SprintTaskSettingModel.TotalTimeForTask));
+            AssertValidationFailedException(vfeCaught, nameof(SprintTaskSettings.TotalTimeForTask));
         }
 
-        public void ShouldCheckCountOfWordsUsed(Action<SprintTaskService, SprintTaskSettingModel> method)
+        public void ShouldCheckCountOfWordsUsed(Action<SprintTaskService, SprintTaskSettings> method)
         {
             /* Arrange */
             var mockDb = new Mock<IApplicationDbContext>();
@@ -122,7 +122,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
 
             /* Act */
             var service = new SprintTaskService(phrasesService, languagesService, db);
-            var input = new SprintTaskSettingModel()
+            var input = new SprintTaskSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = SprintTaskService.MinCountOfWordsUsed - 1,
@@ -140,10 +140,10 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
             }
 
             /* Assert */
-            AssertValidationFailedException(vfeCaught, nameof(SprintTaskSettingModel.CountOfWordsUsed));
+            AssertValidationFailedException(vfeCaught, nameof(SprintTaskSettings.CountOfWordsUsed));
 
             /* Act */
-            input = new SprintTaskSettingModel()
+            input = new SprintTaskSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = SprintTaskService.MaxCountOfWordsUsed + 1,
@@ -161,7 +161,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
             }
 
             /* Assert */
-            AssertValidationFailedException(vfeCaught, nameof(SprintTaskSettingModel.CountOfWordsUsed));
+            AssertValidationFailedException(vfeCaught, nameof(SprintTaskSettings.CountOfWordsUsed));
         }
 
         public Mock<IDbSet<SprintTaskJournalRecordDal>> CreateSprintTaskJournalRecordsMockDbSet(IList<SprintTaskJournalRecordDal> data)

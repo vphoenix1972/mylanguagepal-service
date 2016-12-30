@@ -27,10 +27,10 @@
 .b-task-summary-phrase__text {
     float: left;
     padding: 0 10px;
-    width: calc(100% - 30px);
+    width: calc(100% - 50px);
 }
 
 .b-task-summary-phrase__delta {
     float: left;
-    width: 30px;
+    width: 50px;
 }

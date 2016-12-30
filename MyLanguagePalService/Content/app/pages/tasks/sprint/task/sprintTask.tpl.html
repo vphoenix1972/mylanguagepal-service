@@ -57,28 +57,8 @@
     </div>
 
     <div ng-show="vm.state === 'finished'" class="b-sprint-task-summary">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="b-sprint-task-summary__score">
-                    Your result: {{vm.score}}
-                </div>
+        <task-summary>
 
-                <div class="b-sprint-task-summary__phrases">
-                    <div ng-repeat="phrase in vm.summaryPhrases">
-                        <div class="b-row b-sprint-task-summary-phrase">
-                            <div class="b-text b-sprint-task-summary-phrase__text">
-                                {{phrase.text}}
-                            </div>
-                            <div class="b-sprint-task-summary-phrase__delta">
-                                <div class="b-highlighted-value"
-                                     ng-class="{'b-highlighted-value_red': phrase.delta() < 0, 'b-highlighted-value_green': phrase.delta() > 0,}">
-                                    <span ng-if="phrase.delta() > 0">+</span>{{phrase.delta()}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </task-summary>        
     </div>
 </div>
