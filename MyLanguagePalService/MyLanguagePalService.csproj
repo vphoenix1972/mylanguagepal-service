@@ -223,6 +223,7 @@
     <Compile Include="Areas\App\Models\Controller\PhrasesApi\PhrasesApiCreateIm.cs" />
     <Compile Include="Areas\App\Models\Controller\PhrasesApi\PhrasesApiDetailsAm.cs" />
     <Compile Include="Areas\App\Models\Controller\PhrasesApi\PhrasesApiGetAllAm.cs" />
+    <Compile Include="Areas\App\Models\Controller\TasksApi\FinishTaskModel.cs" />
     <Compile Include="Areas\App\Models\Controller\TranslationsApi\TranslationAm.cs" />
     <Compile Include="Areas\App\Models\Controller\PhrasesApi\TranslationIm.cs" />
     <Compile Include="Areas\Other\OtherAreaRegistration.cs" />
@@ -241,10 +242,12 @@
     <Compile Include="BLL\Phrases\Translation.cs" />
     <Compile Include="BLL\ServiceBase.cs" />
     <Compile Include="BLL\Tasks\ITaskService.cs" />
+    <Compile Include="BLL\Tasks\Quiz\QuizTaskAnswer.cs" />
+    <Compile Include="BLL\Tasks\Quiz\QuizTaskResult.cs" />
     <Compile Include="BLL\Tasks\Quiz\QuizTaskServiceBase.cs" />
-    <Compile Include="BLL\Tasks\WriteTranslation\WriteTranslationTaskAnswersModel.cs" />
+    <Compile Include="BLL\Tasks\Quiz\QuizTaskAnswersModel.cs" />
     <Compile Include="BLL\Tasks\Quiz\QuizTaskSettings.cs" />
-    <Compile Include="BLL\Tasks\WriteTranslation\WriteTranslationTaskSummary.cs" />
+    <Compile Include="BLL\Tasks\Quiz\QuizTaskSummary.cs" />
     <Compile Include="BLL\Tasks\Sprint\ISprintTaskService.cs" />
     <Compile Include="BLL\Phrases\TranslationImBll.cs" />
     <Compile Include="BLL\Phrases\PhraseWithTranslations.cs" />
@@ -255,12 +258,10 @@
     <Compile Include="BLL\Tasks\Sprint\SprintTaskSettingModel.cs" />
     <Compile Include="BLL\ServiceManager.cs" />
     <Compile Include="BLL\Tasks\TaskServiceBase.cs" />
-    <Compile Include="BLL\Tasks\WriteTranslation\WriteTranslationTaskFinishedSummaryModel.cs" />
-    <Compile Include="BLL\Tasks\WriteTranslation\WriteTranslationTaskJournalRecord.cs" />
-    <Compile Include="BLL\Tasks\WriteTranslation\WriteTranslationTaskRunModel.cs" />
+    <Compile Include="BLL\Tasks\Quiz\QuizTaskRunModel.cs" />
     <Compile Include="BLL\Tasks\WriteTranslation\WriteTranslationTaskService.cs" />
-    <Compile Include="BLL\Tasks\WriteTranslation\WriteTranslationTaskSettings.cs" />
     <Compile Include="Core\Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Core\Extensions\ListExtensions.cs" />
     <Compile Include="Core\Extensions\ObjectExtensions.cs" />
     <Compile Include="Core\ValidateAntiForgeryTokenAttribute .cs" />
     <Compile Include="Core\ValidationError.cs" />
@@ -273,6 +274,7 @@
     <Compile Include="BLL\Phrases\TranslationModelBbl.cs" />
     <Compile Include="DAL\IApplicationDbContext.cs" />
     <Compile Include="BLL\Phrases\IPhrasesService.cs" />
+    <Compile Include="DAL\Models\KnowledgeLevelDal.cs" />
     <Compile Include="DAL\Models\LanguageDal.cs" />
     <Compile Include="DAL\Models\PhraseDal.cs" />
     <Compile Include="DAL\Models\TaskSettingsDal.cs" />
@@ -402,7 +404,6 @@
     <Content Include="Content\app\pages\tasks\writeTranslation\task\writeTranslationTask.controller.js" />
     <Content Include="Content\app\pages\tasks\writeTranslation\task\writeTranslationTask.css" />
     <Content Include="Content\app\pages\tasks\writeTranslation\task\writeTranslationTask.tpl.html" />
-    <Content Include="Content\app\pages\tasks\writeTranslation\writeTranslationTask.service.js" />
     <Content Include="Content\deps\angular\angular-animate.js" />
     <Content Include="Content\deps\angular\angular-route.js" />
     <Content Include="Content\deps\angular\angular-touch.js" />

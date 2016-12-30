@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using MyLanguagePalService.BLL.Languages;
 using MyLanguagePalService.BLL.Phrases;
 using MyLanguagePalService.Core;
+using MyLanguagePalService.Core.Extensions;
 using MyLanguagePalService.DAL;
 
 namespace MyLanguagePalService.BLL.Tasks.Quiz
@@ -36,6 +38,15 @@ namespace MyLanguagePalService.BLL.Tasks.Quiz
                 throw new ValidationFailedException(nameof(settings.CountOfWordsUsed),
                     $"Count of words used must be between {minCountOfWordsUsed} and {maxCountOfWordsUsed} words");
             }
+        }
+
+        protected void Assert(QuizTaskAnswersModel result)
+        {
+            if (result == null)
+                throw new ArgumentNullException(nameof(result));
+
+            if (result.Answers == null)
+                throw new ArgumentNullException(nameof(result.Answers));
         }
     }
 }

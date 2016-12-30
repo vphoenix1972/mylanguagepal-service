@@ -15,6 +15,6 @@ namespace MyLanguagePalService.BLL.Tasks
         [NotNull]
         object RunNewTask([NotNull] object settings);
 
-        object FinishTask([NotNull] object answers);
+        object FinishTask([NotNull] object settings, [NotNull] object answers);
     }
 }

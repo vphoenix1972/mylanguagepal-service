@@ -9,24 +9,24 @@
         self._utils = utils;
         self._taskService = taskService;
 
+        self._taskName = 'writeTranslation';
+
         /* Init */
         self.writeAnswerQuizDirective = {};
         self.isFinished = false;
 
-        self.doAsync(self._taskService.getSettings())
+        self.doAsync(self._taskService.getSettings(self._taskName))
            .then(function (result) {
                self.settings = result;
 
-               return self.doAsync(self._taskService.runNewTask(self.settings))
+               return self.doAsync(self._taskService.runTask(self._taskName, self.settings))
                    .then(function (result) {
                        self.phrases = result.phrases;
 
                        self.isLoading = false;
 
                        self.phrases.forEach(function (phrase) {
-                           phrase.correctAnswersCount = 0;
-                           phrase.wrongAnswersCount = 0;
-                           phrase.delta = 0;
+                           phrase.answers = [];
                        });
 
                        self.writeAnswerQuizDirective.startQuiz(self.phrases.map(function (phrase) {
@@ -45,62 +45,30 @@
     WriteTranslationTaskController.prototype = Object.create(PageController.prototype);
     WriteTranslationTaskController.prototype.constructor = WriteTranslationTaskController;
 
-    WriteTranslationTaskController.prototype.onQuizFinished = function (questions) {
+    WriteTranslationTaskController.prototype.onQuizFinished = function (answers) {
         var self = this;
 
-        // Check answers
-        var score = 0;
-        questions.forEach(function (question) {
-            var phrase = self.phrases.find(function (p) { return p.id === question.phraseId; });
-
-            if (question.answers.length < 1) {
-                phrase.wrongAnswersCount++;
-            } else {
-                question.answers.forEach(function (answer) {
-                    var isCorrect = phrase.translations.any(function (translation) { return translation.phrase.text === answer; });
-                    if (isCorrect) {
-                        phrase.correctAnswersCount++;
-                    } else {
-                        phrase.wrongAnswersCount++;
-                    }
-                });
+        self.doAsync(self._taskService.finishTask(self._taskName, {
+            settings: self.settings,
+            answersModel: {
+                answers: answers
             }
-
-            phrase.delta = phrase.correctAnswersCount - phrase.wrongAnswersCount;
-            score += phrase.delta;
+        })).then(function (summary) {
+            self.isFinished = true;
+            self.summary = summary;
         });
-
-        // Show summary
-        self.isFinished = true;
-        self.summary = {
-            score: score,
-            phrases: self.phrases
-        }
-
-        // Send answers to server
-        var summaryData = {
-            results: self.summary.phrases.map(function (phrase) {
-                return {
-                    phraseId: phrase.id,
-                    correctAnswersCount: phrase.correctAnswersCount,
-                    wrongAnswersCount: phrase.wrongAnswersCount
-                }
-            })
-        }
-
-        self.doAsync(self._taskService.finishTask(summaryData));
     }
 
     WriteTranslationTaskController.prototype.onRunTaskAgainButtonClicked = function () {
         var self = this;
 
-        self.gotoUrlForce(self._taskService.taskUrl());
+        self.gotoUrlForce('/' + self._taskService.getTaskProperties(self._taskName).urls.task);
     }
 
     /* Private */
 
 
-    WriteTranslationTaskController.$inject = ['$injector', '$scope', 'utils', 'writeTranslationTaskService'];
+    WriteTranslationTaskController.$inject = ['$injector', '$scope', 'utils', 'tasksService'];
 
     angular
         .module('app')

@@ -1,13 +1,14 @@
 ﻿(function () {
     'use strict';
 
-    function WriteTranslationTaskController($injector, $scope, writeTranslationTaskService) {
+    function WriteTranslationTaskController($injector, $scope, taskService) {
         $injector.invoke(PageController, this, { $scope: $scope });
 
         var self = this;
 
+        self._taskService = taskService;
+
         self._taskName = 'writeTranslation';
-        self._taskService = writeTranslationTaskService;
 
         /* Init */
         self.title = 'Write translation task settings';

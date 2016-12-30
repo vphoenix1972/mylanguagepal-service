@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using MyLanguagePalService.BLL.Languages;
@@ -6,11 +7,12 @@ using MyLanguagePalService.BLL.Phrases;
 using MyLanguagePalService.BLL.Tasks.Quiz;
 using MyLanguagePalService.Core;
 using MyLanguagePalService.DAL;
+using MyLanguagePalService.DAL.Extensions;
 using MyLanguagePalService.DAL.Models;
 
 namespace MyLanguagePalService.BLL.Tasks.WriteTranslation
 {
-    public sealed class WriteTranslationTaskService : QuizTaskServiceBase<QuizTaskSettings, WriteTranslationTaskRunModel, WriteTranslationTaskAnswersModel, WriteTranslationTaskSummary>
+    public sealed class WriteTranslationTaskService : QuizTaskServiceBase<QuizTaskSettings, QuizTaskRunModel, QuizTaskAnswersModel, QuizTaskSummary>
     {
         public const int MinCountOfWordsUsed = 1;
         public const int MaxCountOfWordsUsed = 1000;
@@ -23,24 +25,159 @@ namespace MyLanguagePalService.BLL.Tasks.WriteTranslation
 
         protected override QuizTaskSettings SetSettingsImpl(QuizTaskSettings settings)
         {
-            Assert(settings, MinCountOfWordsUsed, MaxCountOfWordsUsed);
+            Assert(settings);
 
             return base.SetSettingsImpl(settings);
         }
 
-        protected override WriteTranslationTaskRunModel RunNewTaskImpl(QuizTaskSettings settings)
+        protected override QuizTaskRunModel RunNewTaskImpl(QuizTaskSettings settings)
         {
-            throw new NotImplementedException();
+            Assert(settings);
+
+            /* Logic */
+            var currentDate = DateTime.UtcNow;
+
+            var phrases = Db.Phrases
+                .Where(p => p.LanguageId == settings.LanguageId)
+                .ToList();
+
+            var phrasesToRepeat = new List<PhraseDal>();
+            foreach (var phrase in phrases)
+            {
+                var knowledgeLevel = phrase.KnowledgeLevels.SingleOrDefault(l => l.TaskId == TaskId);
+                if (knowledgeLevel == null)
+                {
+                    // Phrase has been used in task yet
+                    phrasesToRepeat.Add(phrase);
+                    if (phrasesToRepeat.Count >= settings.CountOfWordsUsed)
+                        break; // Limit reached
+                }
+                else
+                {
+                    if (knowledgeLevel.CurrentLevel <= (currentDate - knowledgeLevel.LastRepetitonTime).Days)
+                    {
+                        // It is time to repeat the phrase
+                        phrasesToRepeat.Add(phrase);
+                        if (phrasesToRepeat.Count >= settings.CountOfWordsUsed)
+                            break; // Limit reached
+                    }
+
+                    // Skip phrase - knowledge level is ok
+                }
+            }
+
+            var result = new QuizTaskRunModel()
+            {
+                Phrases = phrasesToRepeat.Select(p => new Phrase(p)).ToList()
+            };
+
+            return result;
         }
 
-        protected override WriteTranslationTaskSummary FinishTaskImpl(WriteTranslationTaskAnswersModel answers)
+        protected override QuizTaskSummary FinishTaskImpl(QuizTaskSettings settings, QuizTaskAnswersModel result)
         {
-            throw new System.NotImplementedException();
+            /* Validation */
+            Assert(settings);
+            Assert(result);
+
+            /* Check answers */
+            var checkedAnswers = new List<QuizTaskResult<Phrase>>();
+            for (var i = 0; i < result.Answers.Count; i++)
+            {
+                var answer = result.Answers[i];
+                if (answer == null)
+                    throw new ArgumentNullException($"{result.Answers}[{i}]");
+
+                var phrase = PhrasesService.GetPhrase(answer.PhraseId);
+                if (phrase == null)
+                    throw new ArgumentException($"Phrase in {result.Answers}[{i}] does not exist");
+
+                if (phrase.LanguageId != settings.LanguageId)
+                    throw new ArgumentException($"Phrase in {result.Answers}[{i}] has different language from language in settings.");
+
+                var isCorrect = answer.Answers.Count > 0;
+                foreach (var input in answer.Answers)
+                {
+                    isCorrect &= PhrasesService.GetTranslations(phrase).Any(ts => ts.Phrase.Text == input);
+                    if (!isCorrect)
+                        break;
+                }
+
+                checkedAnswers.Add(new QuizTaskResult<Phrase>()
+                {
+                    Entity = new Phrase(phrase),
+                    IsCorrect = isCorrect
+                });
+            }
+
+            /* Update knowledge levels */
+            foreach (var answer in checkedAnswers)
+            {
+                Db.AddOrUpdate(
+                    dbSetGetter: db => db.KnowledgeLevels,
+                    searcher: dbSet => dbSet.FirstOrDefault(l => l.TaskId == TaskId && l.PhraseId == answer.Entity.Id),
+                    setter: l =>
+                    {
+                        l.PhraseId = answer.Entity.Id;
+                        l.TaskId = TaskId;
+                        l.LastRepetitonTime = DateTime.UtcNow;
+
+                        var previousLevel = l.CurrentLevel;
+
+                        if (answer.IsCorrect)
+                        {
+                            if (l.CurrentLevel >= 1)
+                            {
+                                l.CurrentLevel *= 2 + GetCoef(l.PreviousLevel);
+                            }
+                            else
+                            {
+                                l.CurrentLevel = 1;
+                            }
+
+                            if (l.CurrentLevel > 30)
+                                l.CurrentLevel = 30; // MAX                            
+
+                        }
+                        else
+                        {
+                            l.PreviousLevel = l.CurrentLevel;
+                            l.CurrentLevel = 0;
+                        }
+
+                        answer.Improvement = l.CurrentLevel - previousLevel;
+                    }
+                );
+            }
+
+            return new QuizTaskSummary()
+            {
+                Results = checkedAnswers
+            };
+        }
+
+        private int GetCoef(int? previousLevel)
+        {
+            if (!previousLevel.HasValue)
+                return 0;
+
+            if (previousLevel.Value < 4)
+                return 0;
+
+            if (previousLevel.Value >= 4)
+                return 1;
+
+            return 2;
         }
 
         protected override QuizTaskSettings DefaultSettings()
         {
             return DefaultSettings(DefaultCountOfWordsUsed);
+        }
+
+        private void Assert(QuizTaskSettings settings)
+        {
+            Assert(settings, MinCountOfWordsUsed, MaxCountOfWordsUsed);
         }
     }
 

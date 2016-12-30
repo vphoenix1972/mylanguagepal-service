@@ -19,15 +19,15 @@
             </div>
 
             <div class="b-task-summary__phrases">
-                <div ng-repeat="phrase in vm.summary.phrases">
+                <div ng-repeat="result in vm.summary.results">
                     <div class="b-row b-task-summary-phrase">
                         <div class="b-text b-task-summary-phrase__text">
-                            {{phrase.text}}
+                            {{result.entity.text}}
                         </div>
                         <div class="b-task-summary-phrase__delta">
                             <div class="b-highlighted-value"
-                                 ng-class="{'b-highlighted-value_red': phrase.delta < 0, 'b-highlighted-value_green': phrase.delta > 0,}">
-                                <span ng-if="phrase.delta > 0">+</span>{{phrase.delta}}
+                                 ng-class="{'b-highlighted-value_red': !result.isCorrect, 'b-highlighted-value_green': result.isCorrect,}">
+                                <span ng-if="result.improvement > 0">+</span>{{result.improvement}}
                             </div>
                         </div>
                     </div>

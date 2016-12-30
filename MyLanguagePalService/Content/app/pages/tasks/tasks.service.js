@@ -52,6 +52,24 @@
         return self._connector.postAndHandle422('/api/tasks/' + taskName + '/settings', settings);
     }
 
+    TasksService.prototype.runTask = function (taskName, settings) {
+        var self = this;
+
+        return self._connector.post('/api/tasks/' + taskName + '/run', settings)
+            .then(function (result) {
+                return result.data;
+            });
+    }
+
+    TasksService.prototype.finishTask = function (taskName, model) {
+        var self = this;
+
+        return self._connector.post('/api/tasks/' + taskName + '/finish', model)
+            .then(function (result) {
+                return result.data;
+            });
+    }
+
     /* Private */
 
     TasksService.$inject = ['connectorService'];

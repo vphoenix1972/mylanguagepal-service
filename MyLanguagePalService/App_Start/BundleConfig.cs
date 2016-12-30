@@ -166,7 +166,6 @@ namespace MyLanguagePalService
                 "~/Content/app/pages/tasks/sprint/task/sprintTask.controller.js",
 
                 // Write translation task
-                "~/Content/app/pages/tasks/writeTranslation/writeTranslationTask.service.js",                
                 "~/Content/app/pages/tasks/writeTranslation/settings/writeTranslationTaskSettings.controller.js",
                 "~/Content/app/pages/tasks/writeTranslation/task/writeTranslationTask.controller.js"
             ));

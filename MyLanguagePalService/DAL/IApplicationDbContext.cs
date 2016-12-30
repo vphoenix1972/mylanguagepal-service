@@ -18,6 +18,8 @@ namespace MyLanguagePalService.DAL
 
         IDbSet<TaskSettingsDal> TaskSettings { get; set; }
 
+        IDbSet<KnowledgeLevelDal> KnowledgeLevels { get; set; }
+
         int SaveChanges();
 
         void MarkModified(object entity);

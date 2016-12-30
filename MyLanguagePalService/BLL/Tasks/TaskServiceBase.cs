@@ -57,7 +57,7 @@ namespace MyLanguagePalService.BLL.Tasks
         }
 
         public object SetSettings(object settings)
-        {     
+        {
             var typedSettings = settings.FromJObjectTo<TSettings>();
             if (typedSettings == null)
                 throw new ArgumentException(nameof(settings));
@@ -67,20 +67,24 @@ namespace MyLanguagePalService.BLL.Tasks
 
         public object RunNewTask(object settings)
         {
-            var typedSettings = settings as TSettings;
+            var typedSettings = settings.FromJObjectTo<TSettings>();
             if (typedSettings == null)
                 throw new ArgumentException(nameof(settings));
 
             return RunNewTaskImpl(typedSettings);
         }
 
-        public object FinishTask(object answers)
+        public object FinishTask(object settings, object answers)
         {
-            var typedAnswers = answers as TAnswers;
+            var typedSettings = settings.FromJObjectTo<TSettings>();
+            if (typedSettings == null)
+                throw new ArgumentException(nameof(settings));
+
+            var typedAnswers = answers.FromJObjectTo<TAnswers>();
             if (typedAnswers == null)
                 throw new ArgumentException(nameof(answers));
 
-            return FinishTaskImpl(typedAnswers);
+            return FinishTaskImpl(typedSettings, typedAnswers);
         }
 
         protected virtual TSettings GetSettingsImpl()
@@ -109,7 +113,7 @@ namespace MyLanguagePalService.BLL.Tasks
 
         protected abstract TRunModel RunNewTaskImpl(TSettings settings);
 
-        protected abstract TSummary FinishTaskImpl(TAnswers answers);
+        protected abstract TSummary FinishTaskImpl(TSettings settings, TAnswers answers);
 
         protected abstract TSettings DefaultSettings();
     }

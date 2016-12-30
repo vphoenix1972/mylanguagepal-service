@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyLanguagePalService.BLL.Phrases;
+using MyLanguagePalService.BLL.Tasks.Quiz;
 using MyLanguagePalService.BLL.Tasks.WriteTranslation;
 using MyLanguagePalService.DAL.Models;
 using MyLanguagePalService.Tests.BLL.Tasks.WriteTranslation;
@@ -254,7 +255,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.WriteTranslation
         }
 
         // ReSharper disable once UnusedParameter.Local
-        private void AssertWriteTranslationTaskRunModelContract(WriteTranslationTaskRunModel actual)
+        private void AssertWriteTranslationTaskRunModelContract(QuizTaskRunModel actual)
         {
             Assert.IsNotNull(actual);
             Assert.IsNotNull(actual.Phrases);

@@ -21,6 +21,8 @@ namespace MyLanguagePalService.DAL
 
         public IDbSet<TaskSettingsDal> TaskSettings { get; set; }
 
+        public IDbSet<KnowledgeLevelDal> KnowledgeLevels { get; set; }
+
         public void MarkModified(object entity)
         {
             Entry(entity).State = EntityState.Modified;
@@ -72,6 +74,11 @@ namespace MyLanguagePalService.DAL
             modelBuilder.Entity<TaskSettingsDal>()
                 .HasKey(e => e.TaskId);
 
+            // Knowledge levels
+            modelBuilder.Entity<KnowledgeLevelDal>().ToTable("KnowledgeLevels");
+            modelBuilder.Entity<KnowledgeLevelDal>()
+                .HasKey(e => e.Id);
+
             /* Configure relationships */
 
             // Pharses <-> Languages
@@ -100,6 +107,12 @@ namespace MyLanguagePalService.DAL
             // Sprint task journal <-> Phrases
             modelBuilder.Entity<PhraseDal>()
                 .HasMany(e => e.SprintTaskJournalRecords)
+                .WithRequired(e => e.Phrase)
+                .HasForeignKey(e => e.PhraseId);
+
+            // Knowledge levels <-> Phrases
+            modelBuilder.Entity<PhraseDal>()
+                .HasMany(e => e.KnowledgeLevels)
                 .WithRequired(e => e.Phrase)
                 .HasForeignKey(e => e.PhraseId);
         }
