@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using MyLanguagePal.Core.Framework;
 using MyLanguagePalService.BLL.Languages;
 using MyLanguagePalService.BLL.Phrases;
 using MyLanguagePalService.Core;
@@ -23,25 +24,16 @@ namespace MyLanguagePalService.Tests.TestsShared
             {
                 if (_db == null)
                 {
-                    _db = new Mock<IApplicationDbContext>();
+                    // Create db stub
+                    _db = GetStub<IApplicationDbContext>();
+                    CreateMockDbSet(new List<TaskSettingsDal>(), db => db.TaskSettings);
                 }
 
                 return _db;
             }
         }
 
-        protected IApplicationDbContext Db
-        {
-            get
-            {
-                if (_db == null)
-                {
-                    _db = new Mock<IApplicationDbContext>();
-                }
-
-                return _db.Object;
-            }
-        }
+        protected IApplicationDbContext Db => DbMock.Object;
 
         protected Mock<IDbSet<PhraseDal>> CreatePhrasesMockDbSet(IList<PhraseDal> data)
         {
@@ -63,6 +55,12 @@ namespace MyLanguagePalService.Tests.TestsShared
             var languageServiceMock = new Mock<ILanguagesService>();
             languageServiceMock.SetupAllProperties();
             languageServiceMock.Setup(m => m.CheckIfLanguageExists(It.IsAny<int>())).Returns(true);
+            languageServiceMock.Setup(m => m.GetDefaultLanguage())
+                .Returns(new Language()
+                {
+                    Id = 1,
+                    Name = "English"
+                });
             return languageServiceMock;
         }
 
@@ -71,6 +69,13 @@ namespace MyLanguagePalService.Tests.TestsShared
             var mock = new Mock<IPhrasesService>();
             mock.SetupAllProperties();
             mock.Setup(m => m.CheckIfPhraseExists(It.IsAny<int>())).Returns(true);
+            return mock;
+        }
+
+        protected Mock<IFramework> GetFrameworkStub()
+        {
+            var mock = new Mock<IFramework>();
+            mock.SetupAllProperties();
             return mock;
         }
 

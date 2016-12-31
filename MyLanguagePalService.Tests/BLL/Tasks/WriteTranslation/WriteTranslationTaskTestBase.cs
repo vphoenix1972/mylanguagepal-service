@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Moq;
+using MyLanguagePal.Core.Framework;
 using MyLanguagePalService.BLL.Languages;
 using MyLanguagePalService.BLL.Phrases;
 using MyLanguagePalService.BLL.Tasks.Sprint;
@@ -14,116 +15,129 @@ using MyLanguagePalService.Tests.TestsShared;
 
 namespace MyLanguagePalService.Tests.BLL.Tasks.WriteTranslation
 {
-    public abstract class WriteTranslationTaskTestBase : TestBase
+    public abstract class WriteTranslationTaskTestBase : TaskTestBase
     {
-        public void ShouldCheckLanguageId(Action<WriteTranslationTaskService, WriteTranslationTaskSettings> method)
+        public WriteTranslationTaskService CreateService(IFramework framework = null,
+            IPhrasesService phrasesService = null,
+            ILanguagesService languagesService = null)
         {
-            /* Arrange */
-            var mockDb = new Mock<IApplicationDbContext>();
+            if (framework == null)
+                framework = GetFrameworkStub().Object;
+            if (phrasesService == null)
+                phrasesService = GetPhrasesServiceStub().Object;
+            if (languagesService == null)
+                languagesService = GetLanguageServiceStub().Object;
 
-            var settings = new List<WriteTranslationTaskSettingDal>().AsQueryable();
-
-            var mockDbSet = CreateMockDbSet(settings);
-
-            mockDb.Setup(x => x.WriteTranslationTaskSettings)
-                .Returns(mockDbSet.Object);
-
-            var db = mockDb.Object;
-
-            var phrasesService = GetStubObject<IPhrasesService>();
-
-            var languageServiceMock = new Mock<ILanguagesService>();
-            languageServiceMock.Setup(m => m.CheckIfLanguageExists(It.IsAny<int>())).Returns(false);
-            var languagesService = languageServiceMock.Object;
-
-            /* Act */
-            var service = new WriteTranslationTaskService(phrasesService, languagesService, db);
-            var input = new WriteTranslationTaskSettings()
-            {
-                LanguageId = 3,
-                CountOfWordsUsed = 40
-            };
-
-            ValidationFailedException vfeCaught = null;
-            try
-            {
-                method(service, input);
-            }
-            catch (ValidationFailedException vfe)
-            {
-                vfeCaught = vfe;
-            }
-
-            /* Assert */
-            languageServiceMock.Verify(m => m.CheckIfLanguageExists(input.LanguageId), Times.Once);
-            AssertValidationFailedException(vfeCaught, nameof(WriteTranslationTaskSettings.LanguageId));
+            return new WriteTranslationTaskService(framework, phrasesService, languagesService, Db);
         }
+        //public void ShouldCheckLanguageId(Action<WriteTranslationTaskService, WriteTranslationTaskSettings> method)
+        //{
+        //    /* Arrange */
+        //    var mockDb = new Mock<IApplicationDbContext>();
+
+        //    var settings = new List<WriteTranslationTaskSettingDal>().AsQueryable();
+
+        //    var mockDbSet = CreateMockDbSet(settings);
+
+        //    mockDb.Setup(x => x.WriteTranslationTaskSettings)
+        //        .Returns(mockDbSet.Object);
+
+        //    var db = mockDb.Object;
+
+        //    var phrasesService = GetStubObject<IPhrasesService>();
+
+        //    var languageServiceMock = new Mock<ILanguagesService>();
+        //    languageServiceMock.Setup(m => m.CheckIfLanguageExists(It.IsAny<int>())).Returns(false);
+        //    var languagesService = languageServiceMock.Object;
+
+        //    /* Act */
+        //    var service = new WriteTranslationTaskService(phrasesService, languagesService, db);
+        //    var input = new WriteTranslationTaskSettings()
+        //    {
+        //        LanguageId = 3,
+        //        CountOfWordsUsed = 40
+        //    };
+
+        //    ValidationFailedException vfeCaught = null;
+        //    try
+        //    {
+        //        method(service, input);
+        //    }
+        //    catch (ValidationFailedException vfe)
+        //    {
+        //        vfeCaught = vfe;
+        //    }
+
+        //    /* Assert */
+        //    languageServiceMock.Verify(m => m.CheckIfLanguageExists(input.LanguageId), Times.Once);
+        //    AssertValidationFailedException(vfeCaught, nameof(WriteTranslationTaskSettings.LanguageId));
+        //}
 
 
-        public void ShouldCheckCountOfWordsUsed(Action<WriteTranslationTaskService, WriteTranslationTaskSettings> method)
-        {
-            /* Arrange */
-            var mockDb = new Mock<IApplicationDbContext>();
+        //public void ShouldCheckCountOfWordsUsed(Action<WriteTranslationTaskService, WriteTranslationTaskSettings> method)
+        //{
+        //    /* Arrange */
+        //    var mockDb = new Mock<IApplicationDbContext>();
 
-            var settings = new List<WriteTranslationTaskSettingDal>().AsQueryable();
+        //    var settings = new List<WriteTranslationTaskSettingDal>().AsQueryable();
 
-            var mockDbSet = CreateMockDbSet(settings);
+        //    var mockDbSet = CreateMockDbSet(settings);
 
-            mockDb.Setup(x => x.WriteTranslationTaskSettings)
-                .Returns(mockDbSet.Object);
+        //    mockDb.Setup(x => x.WriteTranslationTaskSettings)
+        //        .Returns(mockDbSet.Object);
 
-            var db = mockDb.Object;
+        //    var db = mockDb.Object;
 
-            var phrasesService = GetStubObject<IPhrasesService>();
+        //    var phrasesService = GetStubObject<IPhrasesService>();
 
-            var languageServiceMock = GetLanguageServiceStub();
-            var languagesService = languageServiceMock.Object;
+        //    var languageServiceMock = GetLanguageServiceStub();
+        //    var languagesService = languageServiceMock.Object;
 
-            /* Act */
-            var service = new WriteTranslationTaskService(phrasesService, languagesService, db);
-            var input = new WriteTranslationTaskSettings()
-            {
-                LanguageId = 1,
-                CountOfWordsUsed = SprintTaskService.MinCountOfWordsUsed - 1
-            };
+        //    /* Act */
+        //    var service = new WriteTranslationTaskService(phrasesService, languagesService, db);
+        //    var input = new WriteTranslationTaskSettings()
+        //    {
+        //        LanguageId = 1,
+        //        CountOfWordsUsed = SprintTaskService.MinCountOfWordsUsed - 1
+        //    };
 
-            ValidationFailedException vfeCaught = null;
-            try
-            {
-                method(service, input);
-            }
-            catch (ValidationFailedException vfe)
-            {
-                vfeCaught = vfe;
-            }
+        //    ValidationFailedException vfeCaught = null;
+        //    try
+        //    {
+        //        method(service, input);
+        //    }
+        //    catch (ValidationFailedException vfe)
+        //    {
+        //        vfeCaught = vfe;
+        //    }
 
-            /* Assert */
-            AssertValidationFailedException(vfeCaught, nameof(WriteTranslationTaskSettings.CountOfWordsUsed));
+        //    /* Assert */
+        //    AssertValidationFailedException(vfeCaught, nameof(WriteTranslationTaskSettings.CountOfWordsUsed));
 
-            /* Act */
-            input = new WriteTranslationTaskSettings()
-            {
-                LanguageId = 1,
-                CountOfWordsUsed = WriteTranslationTaskService.MaxCountOfWordsUsed + 1
-            };
+        //    /* Act */
+        //    input = new WriteTranslationTaskSettings()
+        //    {
+        //        LanguageId = 1,
+        //        CountOfWordsUsed = WriteTranslationTaskService.MaxCountOfWordsUsed + 1
+        //    };
 
-            vfeCaught = null;
-            try
-            {
-                method(service, input);
-            }
-            catch (ValidationFailedException vfe)
-            {
-                vfeCaught = vfe;
-            }
+        //    vfeCaught = null;
+        //    try
+        //    {
+        //        method(service, input);
+        //    }
+        //    catch (ValidationFailedException vfe)
+        //    {
+        //        vfeCaught = vfe;
+        //    }
 
-            /* Assert */
-            AssertValidationFailedException(vfeCaught, nameof(WriteTranslationTaskSettings.CountOfWordsUsed));
-        }
+        //    /* Assert */
+        //    AssertValidationFailedException(vfeCaught, nameof(WriteTranslationTaskSettings.CountOfWordsUsed));
+        //}
 
-        public Mock<IDbSet<WriteTranslationTaskJournalRecordDal>> CreateWriteTranslationTaskJournalRecordsMockDbSet(IList<WriteTranslationTaskJournalRecordDal> data)
-        {
-            return CreateMockDbSet(data, db => db.WriteTranslationTaskJournal);
-        }
+        //public Mock<IDbSet<WriteTranslationTaskJournalRecordDal>> CreateWriteTranslationTaskJournalRecordsMockDbSet(IList<WriteTranslationTaskJournalRecordDal> data)
+        //{
+        //    return CreateMockDbSet(data, db => db.WriteTranslationTaskJournal);
+        //}
     }
 }

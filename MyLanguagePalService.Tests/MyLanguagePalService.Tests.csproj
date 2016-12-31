@@ -106,6 +106,7 @@
     <Compile Include="BLL\Tasks\Sprint\SprintTaskServiceSetSettingsTest.cs" />
     <Compile Include="BLL\Tasks\Sprint\SprintTaskTestBase.cs" />
     <Compile Include="BLL\Tasks\Sprint\SprintTaskServiceRunNewTaskTest.cs" />
+    <Compile Include="BLL\Tasks\TaskTestBase.cs" />
     <Compile Include="BLL\Tasks\WriteTranslation\WriteTranslationTaskServiceFinishTaskTest.cs" />
     <Compile Include="BLL\Tasks\WriteTranslation\WriteTranslationTaskServiceRunNewTaskTest.cs" />
     <Compile Include="BLL\Tasks\WriteTranslation\WriteTranslationTaskTestBase.cs" />
@@ -120,6 +121,10 @@
     <Content Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyLanguagePal.Core\MyLanguagePal.Core.csproj">
+      <Project>{5170da0f-7ba4-49fe-9d0d-b82180b36466}</Project>
+      <Name>MyLanguagePal.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyLanguagePalService\MyLanguagePalService.csproj">
       <Project>{231C7716-CBA5-46F2-8159-9EC88A02D248}</Project>
       <Name>MyLanguagePalService</Name>

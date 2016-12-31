@@ -274,8 +274,6 @@
     <Compile Include="DAL\Models\LanguageDal.cs" />
     <Compile Include="DAL\Models\PhraseDal.cs" />
     <Compile Include="DAL\Models\TaskSettingsDal.cs" />
-    <Compile Include="DAL\Models\SprintTaskJournalRecordDal.cs" />
-    <Compile Include="DAL\Models\SprintTaskSettingDal.cs" />
     <Compile Include="DAL\Models\TranslationDal.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

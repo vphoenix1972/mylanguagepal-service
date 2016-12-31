@@ -1,100 +1,83 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using MyLanguagePalService.BLL.Languages;
-using MyLanguagePalService.BLL.Phrases;
-using MyLanguagePalService.BLL.Tasks.Sprint;
+using MyLanguagePalService.BLL.Tasks.Quiz;
 using MyLanguagePalService.BLL.Tasks.WriteTranslation;
-using MyLanguagePalService.DAL;
 using MyLanguagePalService.DAL.Models;
-using MyLanguagePalService.Tests.TestsShared;
+using Newtonsoft.Json;
 
 namespace MyLanguagePalService.Tests.BLL.Tasks.WriteTranslation
 {
     [TestClass]
-    public class WriteTranslationTaskServiceGetSettingsTest : TestBase
+    public class WriteTranslationTaskServiceGetSettingsTest : WriteTranslationTaskTestBase
     {
         [TestMethod]
-        public void GetSettings_ShouldReturnSettingsIfOneSettingInDb()
+        public void GetSettings_ShouldReturnSettingsFromDb()
         {
             /* Arrange */
-            var mockContext = new Mock<IApplicationDbContext>();
-
-            var expected = new WriteTranslationTaskSettingDal()
+            var settingsInDb = new List<TaskSettingsDal>()
             {
-                Id = 1,
-                LanguageId = 1,
-                CountOfWordsUsed = 3
+                new TaskSettingsDal()
+                {
+                    Id = 1,
+                    TaskId = WriteTranslationTaskService.WriteTranslationTaskId,
+                    SettingsJson = "{\"languageId\": 1, \"countOfWordsUsed\": 15}"
+                }
             };
+            var expected = JsonConvert.DeserializeObject<QuizTaskSettings>(settingsInDb[0].SettingsJson);
 
-            var settings = new List<WriteTranslationTaskSettingDal>()
-            {
-                expected
-            }.AsQueryable();
-
-            var mockSet = CreateMockDbSet(settings);
-
-            mockContext.Setup(x => x.WriteTranslationTaskSettings)
-                .Returns(mockSet.Object);
-
-            var db = mockContext.Object;
-
-            var phrasesService = GetStubObject<IPhrasesService>();
-            var languagesService = GetStubObject<ILanguagesService>();
+            CreateTaskSettingsMockDbSet(settingsInDb);
 
             /* Act */
-            var service = new WriteTranslationTaskService(phrasesService, languagesService, db);
-            var actual = service.GetSettings();
+            var service = CreateService();
+            var actualObject = service.GetSettings();
 
             /* Assert */
-            Assert.IsNotNull(actual);
+            Assert.IsNotNull(actualObject);
+            Assert.IsTrue(actualObject is QuizTaskSettings);
+
+            var actual = actualObject as QuizTaskSettings;
             Assert.AreEqual(expected.LanguageId, actual.LanguageId);
             Assert.AreEqual(expected.CountOfWordsUsed, actual.CountOfWordsUsed);
         }
 
         [TestMethod]
-        public void GetSettings_ShouldReturnFirstSettingsIfMoreThanOneRowInDb()
+        public void GetSettings_ShouldRespectTaskId()
         {
             /* Arrange */
-            var mockContext = new Mock<IApplicationDbContext>();
-
-            var expected = new WriteTranslationTaskSettingDal()
+            var settingsInDb = new List<TaskSettingsDal>()
             {
-                Id = 1,
-                LanguageId = 1,
-                CountOfWordsUsed = 3
+                new TaskSettingsDal()
+                {
+                    Id = 1,
+                    TaskId = 3,
+                    SettingsJson = "{\"languageId\": 2, \"countOfWordsUsed\": 25}"
+                },
+                new TaskSettingsDal()
+                {
+                    Id = 1,
+                    TaskId = WriteTranslationTaskService.WriteTranslationTaskId,
+                    SettingsJson = "{\"languageId\": 1, \"countOfWordsUsed\": 15}"
+                },
+                new TaskSettingsDal()
+                {
+                    Id = 1,
+                    TaskId = 4,
+                    SettingsJson = "{\"languageId\": 2, \"countOfWordsUsed\": 45}"
+                }
             };
-            var settingsRow2 = new WriteTranslationTaskSettingDal()
-            {
-                Id = 1,
-                LanguageId = 2,
-                CountOfWordsUsed = 5
-            };
+            var expected = JsonConvert.DeserializeObject<QuizTaskSettings>(settingsInDb[1].SettingsJson);
 
-            var settings = new List<WriteTranslationTaskSettingDal>()
-            {
-                expected,
-                settingsRow2
-
-            }.AsQueryable();
-
-            var mockSet = CreateMockDbSet(settings);
-
-            mockContext.Setup(x => x.WriteTranslationTaskSettings)
-                .Returns(mockSet.Object);
-
-            var db = mockContext.Object;
-
-            var phrasesService = GetStubObject<IPhrasesService>();
-            var languagesService = GetStubObject<ILanguagesService>();
+            CreateTaskSettingsMockDbSet(settingsInDb);
 
             /* Act */
-            var service = new WriteTranslationTaskService(phrasesService, languagesService, db);
-            var actual = service.GetSettings();
+            var service = CreateService();
+            var actualObject = service.GetSettings();
 
             /* Assert */
-            Assert.IsNotNull(actual);
+            Assert.IsNotNull(actualObject);
+            Assert.IsTrue(actualObject is QuizTaskSettings);
+
+            var actual = actualObject as QuizTaskSettings;
             Assert.AreEqual(expected.LanguageId, actual.LanguageId);
             Assert.AreEqual(expected.CountOfWordsUsed, actual.CountOfWordsUsed);
         }
@@ -103,44 +86,19 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.WriteTranslation
         public void GetSettings_ShouldReturnDefaultSettingsIfNoRowsInDb()
         {
             /* Arrange */
-            var expected = new WriteTranslationTaskSettingDal()
-            {
-                Id = 1,
-                LanguageId = 1,
-                CountOfWordsUsed = WriteTranslationTaskService.DefaultCountOfWordsUsed
-            };
-
-            var mockContext = new Mock<IApplicationDbContext>();
-
-            var settings = new List<WriteTranslationTaskSettingDal>().AsQueryable();
-
-            var mockSet = CreateMockDbSet(settings);
-
-            mockContext.Setup(x => x.WriteTranslationTaskSettings)
-                .Returns(mockSet.Object);
-
-            var db = mockContext.Object;
-
-            var phrasesService = GetStubObject<IPhrasesService>();
-
-            var languageServiceMock = new Mock<ILanguagesService>();
-            languageServiceMock.SetupAllProperties();
-            languageServiceMock.Setup(m => m.GetDefaultLanguage()).Returns(new Language()
-            {
-                Id = 1,
-                Name = "English"
-            });
-            var languagesService = languageServiceMock.Object;
 
 
             /* Act */
-            var service = new WriteTranslationTaskService(phrasesService, languagesService, db);
-            var actual = service.GetSettings();
+            var service = CreateService();
+            var actualObject = service.GetSettings();
 
             /* Assert */
-            Assert.IsNotNull(actual);
-            Assert.AreEqual(expected.LanguageId, actual.LanguageId);
-            Assert.AreEqual(expected.CountOfWordsUsed, actual.CountOfWordsUsed);
+            Assert.IsNotNull(actualObject);
+            Assert.IsTrue(actualObject is QuizTaskSettings);
+
+            var actual = actualObject as QuizTaskSettings;
+            Assert.AreEqual(1, actual.LanguageId);
+            Assert.AreEqual(WriteTranslationTaskService.DefaultCountOfWordsUsed, actual.CountOfWordsUsed);
         }
     }
 }
