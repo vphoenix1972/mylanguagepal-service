@@ -16,6 +16,10 @@ namespace MyLanguagePalService.Core.Extensions
         public static T FromJObjectTo<T>([CanBeNull] this object obj)
             where T : class
         {
+            var tobj = obj as T;
+            if (tobj != null)
+                return tobj;
+
             var jobj = obj as JObject;
             if (jobj != null)
                 return jobj.ToObject<T>();

@@ -79,6 +79,14 @@ namespace MyLanguagePalService.Tests.TestsShared
             return mock;
         }
 
+        protected Mock<IDbSet<TaskSettingsDal>> CreateTaskSettingsMockDbSet(IList<TaskSettingsDal> data = null)
+        {
+            if (data == null)
+                data = new List<TaskSettingsDal>();
+
+            return CreateMockDbSet(data, db => db.TaskSettings);
+        }
+
         protected Mock<IDbSet<T>> CreateMockDbSet<T>(IList<T> data, Expression<Func<IApplicationDbContext, IDbSet<T>>> expression) where T : class
         {
             var mockSet = CreateMockDbSet(data.AsQueryable());
