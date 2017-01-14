@@ -12,9 +12,9 @@ namespace MyLanguagePalService.DAL.Models
 
         public DateTime LastRepetitonTime { get; set; }
 
-        public int CurrentLevel { get; set; }
+        public double CurrentLevel { get; set; }
 
-        public int? PreviousLevel { get; set; }
+        public double? PreviousLevel { get; set; }
 
         public PhraseDal Phrase { get; set; }
     }

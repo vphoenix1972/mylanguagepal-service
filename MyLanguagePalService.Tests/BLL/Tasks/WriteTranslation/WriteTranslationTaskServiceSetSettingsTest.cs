@@ -1,12 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using MyLanguagePalService.BLL.Phrases;
 using MyLanguagePalService.BLL.Tasks.Quiz;
-using MyLanguagePalService.BLL.Tasks.Sprint;
 using MyLanguagePalService.BLL.Tasks.WriteTranslation;
-using MyLanguagePalService.DAL;
 using MyLanguagePalService.DAL.Models;
 using Newtonsoft.Json;
 
@@ -18,13 +14,13 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.WriteTranslation
         [TestMethod]
         public void SetSettings_ShouldCheckLanguageId()
         {
-            ShouldCheckLanguageId((ls) => CreateService(languagesService: ls), (service, settings) => service.SetSettings(settings));
+            ShouldCheckLanguageId((service, settings) => service.SetSettings(settings));
         }
 
         [TestMethod]
         public void SetSettings_ShouldCheckCountOfWordsUsed()
         {
-            ShouldCheckCountOfWordsUsed(() => CreateService(),
+            ShouldCheckCountOfWordsUsed(
                 (service, settings) => service.SetSettings(settings),
                 WriteTranslationTaskService.MinCountOfWordsUsed,
                 WriteTranslationTaskService.MaxCountOfWordsUsed);

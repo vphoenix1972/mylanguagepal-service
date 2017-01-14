@@ -35,9 +35,14 @@ namespace MyLanguagePalService.Tests.TestsShared
 
         protected IApplicationDbContext Db => DbMock.Object;
 
-        protected Mock<IDbSet<PhraseDal>> CreatePhrasesMockDbSet(IList<PhraseDal> data)
+        protected Mock<IDbSet<PhraseDal>> CreatePhrasesMockDbSet(IList<PhraseDal> data = null)
         {
             return CreateMockDbSet(data, db => db.Phrases);
+        }
+
+        protected Mock<IDbSet<KnowledgeLevelDal>> CreateKnowledgeLevelsMockDbSet(IList<KnowledgeLevelDal> data = null)
+        {
+            return CreateMockDbSet(data, db => db.KnowledgeLevels);
         }
 
         protected ILanguagesService GetLanguageServiceStubObject()
@@ -89,6 +94,9 @@ namespace MyLanguagePalService.Tests.TestsShared
 
         protected Mock<IDbSet<T>> CreateMockDbSet<T>(IList<T> data, Expression<Func<IApplicationDbContext, IDbSet<T>>> expression) where T : class
         {
+            if (data == null)
+                data = new List<T>();
+
             var mockSet = CreateMockDbSet(data.AsQueryable());
             DbMock.Setup(expression).Returns(mockSet.Object);
             return mockSet;
@@ -114,6 +122,53 @@ namespace MyLanguagePalService.Tests.TestsShared
             var mock = new Mock<T>();
             mock.SetupAllProperties();
             return mock;
+        }
+
+        protected IList<PhraseDal> GeneratePhrases(int count, Func<int, PhraseDal, PhraseDal> onAfterGenerationCallback = null)
+        {
+            var result = new List<PhraseDal>();
+
+            for (var i = 0; i < count; i++)
+            {
+                var phrase = new PhraseDal()
+                {
+                    Id = i + 1,
+                    LanguageId = 1,
+                    Text = $"Phrase {i + 1}"
+                };
+
+                if (onAfterGenerationCallback != null)
+                    phrase = onAfterGenerationCallback(i, phrase);
+
+                result.Add(phrase);
+            }
+
+            return result;
+        }
+
+        protected IList<KnowledgeLevelDal> GenerateKnowledgeLevels(int count, Func<int, KnowledgeLevelDal, KnowledgeLevelDal> onAfterGenerationCallback = null)
+        {
+            var result = new List<KnowledgeLevelDal>();
+
+            for (var i = 0; i < count; i++)
+            {
+                var e = new KnowledgeLevelDal()
+                {
+                    Id = i + 1,
+                    TaskId = 1,
+                    CurrentLevel = 0,
+                    LastRepetitonTime = DateTime.UtcNow,
+                    PhraseId = 1,
+                    PreviousLevel = null
+                };
+
+                if (onAfterGenerationCallback != null)
+                    e = onAfterGenerationCallback(i, e);
+
+                result.Add(e);
+            }
+
+            return result;
         }
 
         protected void AssertThatNoRecordsWasAdded<T>(Mock<IDbSet<T>> mockDbSet) where T : class
@@ -171,6 +226,46 @@ namespace MyLanguagePalService.Tests.TestsShared
 
             if (additionalAssertion != null)
                 additionalAssertion(targetException);
+        }
+
+        protected void AssertPhrasesIds<T>(IList<int> expectedIds, IList<T> phrases) where T : Phrase
+        {
+            AssertIds(expectedIds, phrases, e => e.Id);
+        }
+
+        protected void AssertIds<T>(IList<int> expectedIds, IList<T> entities, Func<T, int> getId) where T : class
+        {
+            Assert.IsNotNull(entities);
+            Assert.AreEqual(expectedIds.Count, entities.Count);
+
+            foreach (var id in expectedIds)
+            {
+                var count = entities.Count(e => getId(e) == id);
+
+                if (count < 1)
+                {
+                    Assert.Fail($"Expected id '{id}' was not found");
+                }
+
+                if (count > 1)
+                {
+                    Assert.Fail($"Id '{id}' is not unique in actual list");
+                }
+            }
+        }
+
+        protected void SetIds(IList<KnowledgeLevelDal> list)
+        {
+            SetIds(list, (id, e) => e.Id = id);
+        }
+
+        protected void SetIds<T>(IList<T> list, Action<int, T> setId)
+        {
+            for (var i = 0; i < list.Count; i++)
+            {
+                var item = list[i];
+                setId(i + 1, item);
+            }
         }
     }
 }

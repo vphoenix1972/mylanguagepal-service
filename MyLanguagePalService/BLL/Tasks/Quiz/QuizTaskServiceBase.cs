@@ -61,14 +61,14 @@ namespace MyLanguagePalService.BLL.Tasks.Quiz
                 var knowledgeLevel = levels.SingleOrDefault(l => l.PhraseId == phrase.Id);
                 if (knowledgeLevel == null)
                 {
-                    // Phrase has been used in task yet
+                    // Phrase not has been used in task yet
                     phrasesToRepeat.Add(phrase);
                     if (phrasesToRepeat.Count >= settings.CountOfWordsUsed)
                         break; // Limit reached
                 }
                 else
                 {
-                    if (knowledgeLevel.CurrentLevel <= (currentDate - knowledgeLevel.LastRepetitonTime).TotalHours)
+                    if (knowledgeLevel.CurrentLevel <= (currentDate - knowledgeLevel.LastRepetitonTime).TotalSeconds)
                     {
                         // It is time to repeat the phrase
                         phrasesToRepeat.Add(phrase);
@@ -161,7 +161,7 @@ namespace MyLanguagePalService.BLL.Tasks.Quiz
                 throw new ArgumentNullException(nameof(result.Answers));
         }
 
-        private int GetCoef(int? previousLevel)
+        private int GetCoef(double? previousLevel)
         {
             if (!previousLevel.HasValue)
                 return 0;
