@@ -5,13 +5,14 @@ using MyLanguagePal.Core.Framework;
 using MyLanguagePalService.BLL.Languages;
 using MyLanguagePalService.BLL.Phrases;
 using MyLanguagePalService.Core;
+using MyLanguagePalService.Core.Extensions;
 using MyLanguagePalService.DAL;
 using MyLanguagePalService.DAL.Extensions;
 using MyLanguagePalService.DAL.Models;
 
 namespace MyLanguagePalService.BLL.Tasks.Quiz
 {
-    public abstract class QuizTaskServiceBase<TSettings, TRunModel, TAnswers, TSummary> : TaskServiceBase<TSettings, TRunModel, TAnswers, TSummary>
+    public abstract class QuizTaskServiceBase<TSettings, TRunModel, TAnswers, TSummary> : TaskServiceBase<TSettings, TAnswers, TSummary>
         where TSettings : QuizTaskSettings, new()
         where TRunModel : QuizTaskRunModel, new()
         where TAnswers : class
@@ -27,23 +28,23 @@ namespace MyLanguagePalService.BLL.Tasks.Quiz
 
         }
 
-        protected override void Assert(TSettings settings)
+        public override object SetSettings(object settings)
         {
-            if (settings == null)
-                throw new ArgumentNullException(nameof(settings));
+            var typedSettings = settings.FromJObjectTo<TSettings>();
+            if (typedSettings == null)
+                throw new ArgumentException(nameof(settings));
 
-            if (!LanguagesService.CheckIfLanguageExists(settings.LanguageId))
-                throw new ValidationFailedException(nameof(settings.LanguageId), GetLanguageNotExistString(settings.LanguageId));
+            Assert(typedSettings);
 
-            if (settings.CountOfWordsUsed < MinCountOfWordsUsed || settings.CountOfWordsUsed > MaxCountOfWordsUsed)
-            {
-                throw new ValidationFailedException(nameof(settings.CountOfWordsUsed),
-                    $"Count of words used must be between {MinCountOfWordsUsed} and {MaxCountOfWordsUsed} words");
-            }
+            return base.SetSettings(typedSettings);
         }
 
-        protected override TRunModel RunNewTaskImpl(TSettings settings)
+        public override object RunNewTask(object runSettings)
         {
+            var settings = runSettings.FromJObjectTo<TSettings>();
+            if (settings == null)
+                throw new ArgumentException(nameof(runSettings));
+
             Assert(settings);
 
             /* Logic */
@@ -151,6 +152,21 @@ namespace MyLanguagePalService.BLL.Tasks.Quiz
         }
 
         protected abstract IList<QuizTaskResult<Phrase>> CheckAnswers(TSettings settings, TAnswers result);
+
+        protected void Assert(QuizTaskSettings settings)
+        {
+            if (settings == null)
+                throw new ArgumentNullException(nameof(settings));
+
+            if (!LanguagesService.CheckIfLanguageExists(settings.LanguageId))
+                throw new ValidationFailedException(nameof(settings.LanguageId), GetLanguageNotExistString(settings.LanguageId));
+
+            if (settings.CountOfWordsUsed < MinCountOfWordsUsed || settings.CountOfWordsUsed > MaxCountOfWordsUsed)
+            {
+                throw new ValidationFailedException(nameof(settings.CountOfWordsUsed),
+                    $"Count of words used must be between {MinCountOfWordsUsed} and {MaxCountOfWordsUsed} words");
+            }
+        }
 
         protected void Assert(QuizTaskAnswersModel result)
         {

@@ -1,152 +1,106 @@
-﻿//using System.Collections.Generic;
-//using System.Linq;
-//using Microsoft.VisualStudio.TestTools.UnitTesting;
-//using Moq;
-//using MyLanguagePalService.BLL.Languages;
-//using MyLanguagePalService.BLL.Phrases;
-//using MyLanguagePalService.BLL.Tasks.Sprint;
-//using MyLanguagePalService.DAL;
-//using MyLanguagePalService.DAL.Models;
-//using MyLanguagePalService.Tests.TestsShared;
+﻿using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MyLanguagePalService.BLL.Tasks.Sprint;
+using MyLanguagePalService.DAL.Models;
+using Newtonsoft.Json;
 
-//namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
-//{
-//    [TestClass]
-//    public class SprintTaskServiceGetSettingsTest : TestBase
-//    {
-//        [TestMethod]
-//        public void GetSettings_ShouldReturnSettingsIfOneSettingInDb()
-//        {
-//            /* Arrange */
-//            var mockContext = new Mock<IApplicationDbContext>();
+namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
+{
+    [TestClass]
+    public class SprintTaskServiceGetSettingsTest : SprintTaskTestBase
+    {
+        [TestMethod]
+        public void GetSettings_ShouldReturnSettingsFromDb()
+        {
+            /* Arrange */
+            var settingsInDb = new List<TaskSettingsDal>()
+            {
+                new TaskSettingsDal()
+                {
+                    Id = 1,
+                    TaskId = SprintTaskService.SprintTaskId,
+                    SettingsJson = "{\"languageId\": 1, \"countOfWordsUsed\": 15, \"totalTimeForTask\": 30}"
+                }
+            };
+            var expected = JsonConvert.DeserializeObject<SprintTaskSettings>(settingsInDb[0].SettingsJson);
 
-//            var expected = new SprintTaskSettingDal()
-//            {
-//                Id = 1,
-//                LanguageId = 1,
-//                CountOfWordsUsed = 3,
-//                TotalTimeForTask = 6
-//            };
+            CreateTaskSettingsMockDbSet(settingsInDb);
 
-//            var settings = new List<SprintTaskSettingDal>()
-//            {
-//                expected
-//            }.AsQueryable();
+            /* Act */
+            var service = CreateService();
+            var actualObject = service.GetSettings();
 
-//            var mockSet = CreateMockDbSet(settings);
+            /* Assert */
+            Assert.IsNotNull(actualObject);
+            Assert.IsTrue(actualObject is SprintTaskSettings);
 
-//            mockContext.Setup(x => x.SprintTaskSettings)
-//                .Returns(mockSet.Object);
+            var actual = actualObject as SprintTaskSettings;
+            Assert.AreEqual(expected.LanguageId, actual.LanguageId);
+            Assert.AreEqual(expected.CountOfWordsUsed, actual.CountOfWordsUsed);
+            Assert.AreEqual(expected.TotalTimeForTask, actual.TotalTimeForTask);
+        }
 
-//            var db = mockContext.Object;
+        [TestMethod]
+        public void GetSettings_ShouldRespectTaskId()
+        {
+            /* Arrange */
+            var settingsInDb = new List<TaskSettingsDal>()
+            {
+                new TaskSettingsDal()
+                {
+                    Id = 1,
+                    TaskId = 98,
+                    SettingsJson = "{\"languageId\": 2, \"countOfWordsUsed\": 25}"
+                },
+                new TaskSettingsDal()
+                {
+                    Id = 1,
+                    TaskId = SprintTaskService.SprintTaskId,
+                    SettingsJson = "{\"languageId\": 1, \"countOfWordsUsed\": 15, \"totalTimeForTask\": 30}"
+                },
+                new TaskSettingsDal()
+                {
+                    Id = 1,
+                    TaskId = 99,
+                    SettingsJson = "{\"languageId\": 2, \"countOfWordsUsed\": 45}"
+                }
+            };
+            var expected = JsonConvert.DeserializeObject<SprintTaskSettings>(settingsInDb[1].SettingsJson);
 
-//            var phrasesService = GetStubObject<IPhrasesService>();
-//            var languagesService = GetStubObject<ILanguagesService>();
+            CreateTaskSettingsMockDbSet(settingsInDb);
 
-//            /* Act */
-//            var service = new SprintTaskService(phrasesService, languagesService, db);
-//            var actual = service.GetSettings();
+            /* Act */
+            var service = CreateService();
+            var actualObject = service.GetSettings();
 
-//            /* Assert */
-//            Assert.IsNotNull(actual);
-//            Assert.AreEqual(expected.LanguageId, actual.LanguageId);
-//            Assert.AreEqual(expected.CountOfWordsUsed, actual.CountOfWordsUsed);
-//            Assert.AreEqual(expected.TotalTimeForTask, actual.TotalTimeForTask);
-//        }
+            /* Assert */
+            Assert.IsNotNull(actualObject);
+            Assert.IsTrue(actualObject is SprintTaskSettings);
 
-//        [TestMethod]
-//        public void GetSettings_ShouldReturnFirstSettingsIfMoreThanOneRowInDb()
-//        {
-//            /* Arrange */
-//            var mockContext = new Mock<IApplicationDbContext>();
+            var actual = actualObject as SprintTaskSettings;
+            Assert.AreEqual(expected.LanguageId, actual.LanguageId);
+            Assert.AreEqual(expected.CountOfWordsUsed, actual.CountOfWordsUsed);
+            Assert.AreEqual(expected.TotalTimeForTask, actual.TotalTimeForTask);
+        }
 
-//            var expected = new SprintTaskSettingDal()
-//            {
-//                Id = 1,
-//                LanguageId = 1,
-//                CountOfWordsUsed = 3,
-//                TotalTimeForTask = 6
-//            };
-//            var settingsRow2 = new SprintTaskSettingDal()
-//            {
-//                Id = 1,
-//                LanguageId = 2,
-//                CountOfWordsUsed = 5,
-//                TotalTimeForTask = 7
-//            };
-
-//            var settings = new List<SprintTaskSettingDal>()
-//            {
-//                expected,
-//                settingsRow2
-
-//            }.AsQueryable();
-
-//            var mockSet = CreateMockDbSet(settings);
-
-//            mockContext.Setup(x => x.SprintTaskSettings)
-//                .Returns(mockSet.Object);
-
-//            var db = mockContext.Object;
-
-//            var phrasesService = GetStubObject<IPhrasesService>();
-//            var languagesService = GetStubObject<ILanguagesService>();
-
-//            /* Act */
-//            var service = new SprintTaskService(phrasesService, languagesService, db);
-//            var actual = service.GetSettings();
-
-//            /* Assert */
-//            Assert.IsNotNull(actual);
-//            Assert.AreEqual(expected.LanguageId, actual.LanguageId);
-//            Assert.AreEqual(expected.CountOfWordsUsed, actual.CountOfWordsUsed);
-//            Assert.AreEqual(expected.TotalTimeForTask, actual.TotalTimeForTask);
-//        }
-
-//        [TestMethod]
-//        public void GetSettings_ShouldReturnDefaultSettingsIfNoRowsInDb()
-//        {
-//            /* Arrange */
-//            var expected = new SprintTaskSettingDal()
-//            {
-//                Id = 1,
-//                LanguageId = 1,
-//                CountOfWordsUsed = 30,
-//                TotalTimeForTask = 60
-//            };
-
-//            var mockContext = new Mock<IApplicationDbContext>();
-
-//            var settings = new List<SprintTaskSettingDal>().AsQueryable();
-
-//            var mockSet = CreateMockDbSet(settings);
-
-//            mockContext.Setup(x => x.SprintTaskSettings)
-//                .Returns(mockSet.Object);
-
-//            var db = mockContext.Object;
-
-//            var phrasesService = GetStubObject<IPhrasesService>();
-
-//            var languageServiceMock = new Mock<ILanguagesService>();
-//            languageServiceMock.SetupAllProperties();
-//            languageServiceMock.Setup(m => m.GetDefaultLanguage()).Returns(new Language()
-//            {
-//                Id = 1,
-//                Name = "English"
-//            });
-//            var languagesService = languageServiceMock.Object;
+        [TestMethod]
+        public void GetSettings_ShouldReturnDefaultSettingsIfNoRowsInDb()
+        {
+            /* Arrange */
 
 
-//            /* Act */
-//            var service = new SprintTaskService(phrasesService, languagesService, db);
-//            var actual = service.GetSettings();
+            /* Act */
+            var service = CreateService();
+            var actualObject = service.GetSettings();
 
-//            /* Assert */
-//            Assert.IsNotNull(actual);
-//            Assert.AreEqual(expected.LanguageId, actual.LanguageId);
-//            Assert.AreEqual(expected.CountOfWordsUsed, actual.CountOfWordsUsed);
-//            Assert.AreEqual(expected.TotalTimeForTask, actual.TotalTimeForTask);
-//        }
-//    }
-//}
+            /* Assert */
+            Assert.IsNotNull(actualObject);
+            Assert.IsTrue(actualObject is SprintTaskSettings);
+
+            var actual = actualObject as SprintTaskSettings;
+            Assert.AreEqual(1, actual.LanguageId);
+            Assert.AreEqual(SprintTaskService.DefaultCountOfWordsUsed, actual.CountOfWordsUsed);
+            Assert.AreEqual(SprintTaskService.DefaultTotalTimeForTask, actual.TotalTimeForTask);
+        }
+    }
+}

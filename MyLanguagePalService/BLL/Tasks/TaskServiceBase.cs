@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace MyLanguagePalService.BLL.Tasks
 {
-    public abstract class TaskServiceBase<TSettings, TRunModel, TAnswers, TSummary> : ServiceBase,
+    public abstract class TaskServiceBase<TSettings, TAnswers, TSummary> : ServiceBase,
                                                                                       ITaskService
         where TSettings : class, new() where TAnswers : class
     {
@@ -56,40 +56,29 @@ namespace MyLanguagePalService.BLL.Tasks
 
         public object GetSettings()
         {
-            return GetSettingsImpl();
+            var settingsDal = Db.TaskSettings.FirstOrDefault(s => s.TaskId == TaskId);
+            if (settingsDal == null)
+                return DefaultSettings();
+
+            return JsonConvert.DeserializeObject<TSettings>(settingsDal.SettingsJson);
         }
 
-        public object SetSettings(object settings)
+        public virtual object SetSettings(object settings)
         {
-            var typedSettings = settings.FromJObjectTo<TSettings>();
-            if (typedSettings == null)
-                throw new ArgumentException(nameof(settings));
-
-            Assert(typedSettings);
-
             Db.AddOrUpdate(
                 dbSetGetter: context => context.TaskSettings,
                 searcher: set => set.FirstOrDefault(dal => dal.TaskId == TaskId),
                 setter: dal =>
                 {
                     dal.TaskId = TaskId;
-                    dal.SettingsJson = JsonConvert.SerializeObject(typedSettings);
+                    dal.SettingsJson = JsonConvert.SerializeObject(settings);
                 }
             );
 
-            return typedSettings;
+            return settings;
         }
 
-        public object RunNewTask(object settings)
-        {
-            var typedSettings = settings.FromJObjectTo<TSettings>();
-            if (typedSettings == null)
-                throw new ArgumentException(nameof(settings));
-
-            Assert(typedSettings);
-
-            return RunNewTaskImpl(typedSettings);
-        }
+        public abstract object RunNewTask(object settings);
 
         public object FinishTask(object settings, object answers)
         {
@@ -103,20 +92,6 @@ namespace MyLanguagePalService.BLL.Tasks
 
             return FinishTaskImpl(typedSettings, typedAnswers);
         }
-
-        protected virtual TSettings GetSettingsImpl()
-        {
-            var settingsDal = Db.TaskSettings.FirstOrDefault(s => s.TaskId == TaskId);
-            if (settingsDal == null)
-                return DefaultSettings();
-
-            return JsonConvert.DeserializeObject<TSettings>(settingsDal.SettingsJson);
-        }
-
-
-        protected abstract void Assert(TSettings settings);
-
-        protected abstract TRunModel RunNewTaskImpl(TSettings settings);
 
         protected abstract TSummary FinishTaskImpl(TSettings settings, TAnswers answers);
 

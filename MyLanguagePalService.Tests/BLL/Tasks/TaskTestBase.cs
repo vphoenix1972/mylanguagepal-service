@@ -14,13 +14,15 @@ using MyLanguagePalService.Tests.TestsShared;
 
 namespace MyLanguagePalService.Tests.BLL.Tasks
 {
-    public abstract class TaskTestBase : TestBase
+    public abstract class TaskTestBase<TSettings> : TestBase where TSettings : QuizTaskSettings, new()
     {
+        protected int TaskId { get; set; }
+
         protected abstract ITaskService CreateService(IFramework framework = null,
             IPhrasesService phrasesService = null,
             ILanguagesService languagesService = null);        
 
-        protected void ShouldCheckLanguageId(Action<ITaskService, QuizTaskSettings> method)
+        protected void ShouldCheckLanguageId(Action<ITaskService, TSettings> method)
         {
             /* Arrange */
             var taskSettingsDbSetMock = CreateTaskSettingsMockDbSet();
@@ -31,7 +33,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
 
             /* Act */
             var service = CreateService(languagesService: languagesService);
-            var input = new QuizTaskSettings()
+            var input = new TSettings()
             {
                 LanguageId = 3,
                 CountOfWordsUsed = 40
@@ -56,14 +58,14 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
             AssertValidationFailedException(vfeCaught, nameof(QuizTaskSettings.LanguageId));
         }
 
-        protected void ShouldCheckCountOfWordsUsed(Action<ITaskService, QuizTaskSettings> method, int minCountOfWordsUsed, int maxCountOfWordsUsed)
+        protected void ShouldCheckCountOfWordsUsed(Action<ITaskService, TSettings> method, int minCountOfWordsUsed, int maxCountOfWordsUsed)
         {
             /* Arrange */
             var taskSettingsDbSetMock = CreateTaskSettingsMockDbSet();
 
             /* Act */
             var service = CreateService();
-            var input = new QuizTaskSettings()
+            var input = new TSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = minCountOfWordsUsed - 1
@@ -86,7 +88,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
             AssertValidationFailedException(vfeCaught, nameof(QuizTaskSettings.CountOfWordsUsed));
 
             /* Act */
-            input = new QuizTaskSettings()
+            input = new TSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = maxCountOfWordsUsed + 1
@@ -113,7 +115,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         {
             var languages = new List<int>() { 1 };
             var expectedPhrasesIds = new List<int>() { 1, 2, 3, 4, 5 };
-            var settings = new QuizTaskSettings()
+            var settings = new TSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = 10
@@ -143,7 +145,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         {
             var languages = new List<int>() { 1, 2 };
             var expectedPhrasesIds = new List<int>() { 2, 4, 6, 8, 10 };
-            var settings = new QuizTaskSettings()
+            var settings = new TSettings()
             {
                 LanguageId = 2,
                 CountOfWordsUsed = 10
@@ -173,7 +175,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         {
             var languages = new List<int>() { 1 };
             var expectedPhrasesIds = new List<int>() { 1, 2, 3 };
-            var settings = new QuizTaskSettings()
+            var settings = new TSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = 3
@@ -203,7 +205,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         {
             var languages = new List<int>() { 1, 2 };
             var expectedPhrasesIds = new List<int>() { 2, 4, 6 };
-            var settings = new QuizTaskSettings()
+            var settings = new TSettings()
             {
                 LanguageId = 2,
                 CountOfWordsUsed = 3
@@ -233,7 +235,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         {
             var languages = new List<int>() { 1 };
             var expectedPhrasesIds = new List<int>() { 1, 2, 3, 4, 5 };
-            var settings = new QuizTaskSettings()
+            var settings = new TSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = 10
@@ -250,7 +252,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
 
             var knowledgeLevels = GenerateKnowledgeLevels(10, (i, l) =>
             {
-                l.TaskId = (i < 5) ? WriteTranslationTaskService.WriteTranslationTaskId : 99;
+                l.TaskId = (i < 5) ? TaskId : 99;
                 l.PhraseId = (i % 5) + 1;
                 l.CurrentLevel = (i < 5) ? 24 * 60 * 60 : 4 * 24 * 60 * 60; // Repeat after 1 day
                 l.LastRepetitonTime = lastRepetitonTime;
@@ -275,7 +277,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         {
             var languages = new List<int>() { 1, 2 };
             var expectedPhrasesIds = new List<int>() { 2, 4, 6, 8, 10 };
-            var settings = new QuizTaskSettings()
+            var settings = new TSettings()
             {
                 LanguageId = 2,
                 CountOfWordsUsed = 10
@@ -292,7 +294,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
 
             var knowledgeLevels = GenerateKnowledgeLevels(20, (i, l) =>
             {
-                l.TaskId = (i < 10) ? WriteTranslationTaskService.WriteTranslationTaskId : 99;
+                l.TaskId = (i < 10) ? TaskId : 99;
                 l.PhraseId = (i % 10) + 1;
                 l.CurrentLevel = (i < 10) ?
                     i % languages.Count == 0 ? 3 * 24 * 60 * 60 : 24 * 60 * 60
@@ -319,7 +321,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         {
             var languages = new List<int>() { 1 };
             var expectedPhrasesIds = new List<int>() { 1, 2, 3 };
-            var settings = new QuizTaskSettings()
+            var settings = new TSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = 3
@@ -336,7 +338,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
 
             var knowledgeLevels = GenerateKnowledgeLevels(10, (i, l) =>
             {
-                l.TaskId = (i < 5) ? WriteTranslationTaskService.WriteTranslationTaskId : 99;
+                l.TaskId = (i < 5) ? TaskId : 99;
                 l.PhraseId = (i % 5) + 1;
                 l.CurrentLevel = (i < 5) ? 24 * 60 * 60 : 4 * 24 * 60 * 60; // Repeat after 1 day
                 l.LastRepetitonTime = lastRepetitonTime;
@@ -361,7 +363,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         {
             var languages = new List<int>() { 1, 2 };
             var expectedPhrasesIds = new List<int>() { 2, 4, 6 };
-            var settings = new QuizTaskSettings()
+            var settings = new TSettings()
             {
                 LanguageId = 2,
                 CountOfWordsUsed = 3
@@ -378,7 +380,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
 
             var knowledgeLevels = GenerateKnowledgeLevels(20, (i, l) =>
             {
-                l.TaskId = (i < 10) ? WriteTranslationTaskService.WriteTranslationTaskId : 99;
+                l.TaskId = (i < 10) ? TaskId : 99;
                 l.PhraseId = (i % 10) + 1;
                 l.CurrentLevel = (i < 10) ?
                     i % languages.Count == 0 ? 3 * 24 * 60 * 60 : 24 * 60 * 60
@@ -405,7 +407,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         {
             var languages = new List<int>() { 1 };
             var expectedPhrasesIds = new List<int>() { 1, 2, 3 };
-            var settings = new QuizTaskSettings()
+            var settings = new TSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = 10
@@ -422,8 +424,8 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
 
             var knowledgeLevels = new List<KnowledgeLevelDal>()
             {
-                new KnowledgeLevelDal() { Id = 1, TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 4, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { Id = 2, TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 5, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { Id = 1, TaskId = TaskId, PhraseId = 4, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { Id = 2, TaskId = TaskId, PhraseId = 5, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
                 new KnowledgeLevelDal() { Id = 3, TaskId = 99, PhraseId = 1, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
                 new KnowledgeLevelDal() { Id = 4, TaskId = 99, PhraseId = 2, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
                 new KnowledgeLevelDal() { Id = 5, TaskId = 99, PhraseId = 3, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
@@ -449,7 +451,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         {
             var languages = new List<int>() { 1, 2 };
             var expectedPhrasesIds = new List<int>() { 2, 4, 6 };
-            var settings = new QuizTaskSettings()
+            var settings = new TSettings()
             {
                 LanguageId = 2,
                 CountOfWordsUsed = 10
@@ -467,15 +469,15 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
             var knowledgeLevels = new List<KnowledgeLevelDal>()
             {
                 // All russian phrases are repeated
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 8, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 10, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 8, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 10, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
                 
                 // All english phrases have to be repeated for task
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 1, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 3, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 5, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 7, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 9, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 1, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 3, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 5, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 7, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 9, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
 
                 // All phrases in the other task have to be repeated
                 new KnowledgeLevelDal() { TaskId = 99, PhraseId = 1, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
@@ -509,7 +511,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         {
             var languages = new List<int>() { 1 };
             var expectedPhrasesIds = new List<int>() { 1 };
-            var settings = new QuizTaskSettings()
+            var settings = new TSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = 1
@@ -526,8 +528,8 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
 
             var knowledgeLevels = new List<KnowledgeLevelDal>()
             {
-                new KnowledgeLevelDal() { Id = 1, TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 4, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { Id = 2, TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 5, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { Id = 1, TaskId = TaskId, PhraseId = 4, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { Id = 2, TaskId = TaskId, PhraseId = 5, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
                 new KnowledgeLevelDal() { Id = 3, TaskId = 99, PhraseId = 1, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
                 new KnowledgeLevelDal() { Id = 4, TaskId = 99, PhraseId = 2, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
                 new KnowledgeLevelDal() { Id = 5, TaskId = 99, PhraseId = 3, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
@@ -553,7 +555,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         {
             var languages = new List<int>() { 1, 2 };
             var expectedPhrasesIds = new List<int>() { 2 };
-            var settings = new QuizTaskSettings()
+            var settings = new TSettings()
             {
                 LanguageId = 2,
                 CountOfWordsUsed = 1
@@ -571,15 +573,15 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
             var knowledgeLevels = new List<KnowledgeLevelDal>()
             {
                 // All russian phrases are repeated
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 8, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 10, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 8, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 10, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
                 
                 // All english phrases have to be repeated for task
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 1, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 3, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 5, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 7, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 9, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 1, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 3, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 5, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 7, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 9, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
 
                 // All phrases in the other task have to be repeated
                 new KnowledgeLevelDal() { TaskId = 99, PhraseId = 1, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
@@ -613,7 +615,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         {
             var languages = new List<int>() { 1 };
             var expectedPhrasesIds = new List<int>() { 1, 3, 4 };
-            var settings = new QuizTaskSettings()
+            var settings = new TSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = 10
@@ -630,11 +632,11 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
 
             var knowledgeLevels = new List<KnowledgeLevelDal>()
             {
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 2, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 3, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 4, CurrentLevel = 2 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 5, CurrentLevel = 5 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 2, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 3, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 4, CurrentLevel = 2 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 5, CurrentLevel = 5 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
                 new KnowledgeLevelDal() { TaskId = 99, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
                 new KnowledgeLevelDal() { TaskId = 99, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
                 new KnowledgeLevelDal() { TaskId = 99, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
@@ -660,7 +662,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         {
             var languages = new List<int>() { 1 };
             var expectedPhrasesIds = new List<int>() { 1 };
-            var settings = new QuizTaskSettings()
+            var settings = new TSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = 1
@@ -677,11 +679,11 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
 
             var knowledgeLevels = new List<KnowledgeLevelDal>()
             {
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 2, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 3, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 4, CurrentLevel = 2 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 5, CurrentLevel = 5 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 2, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 3, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 4, CurrentLevel = 2 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 5, CurrentLevel = 5 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
                 new KnowledgeLevelDal() { TaskId = 99, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
                 new KnowledgeLevelDal() { TaskId = 99, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
                 new KnowledgeLevelDal() { TaskId = 99, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
@@ -707,7 +709,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         {
             var languages = new List<int>() { 1 };
             var expectedPhrasesIds = new List<int>();
-            var settings = new QuizTaskSettings()
+            var settings = new TSettings()
             {
                 LanguageId = 1,
                 CountOfWordsUsed = 10
@@ -724,11 +726,11 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
 
             var knowledgeLevels = new List<KnowledgeLevelDal>()
             {
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 1, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 2, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 3, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 4, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = WriteTranslationTaskService.WriteTranslationTaskId, PhraseId = 5, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 1, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 2, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 3, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 4, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 5, CurrentLevel = 4 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
                 new KnowledgeLevelDal() { TaskId = 99, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
                 new KnowledgeLevelDal() { TaskId = 99, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
                 new KnowledgeLevelDal() { TaskId = 99, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },

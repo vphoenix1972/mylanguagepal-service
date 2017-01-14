@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using MyLanguagePal.Core.Framework;
 using MyLanguagePalService.BLL.Languages;
 using MyLanguagePalService.BLL.Phrases;
@@ -36,20 +35,24 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
             return result;
         }
 
-        protected override void Assert(SprintTaskSettings settings)
+        public override object SetSettings(object settings)
         {
-            base.Assert(settings);
+            var typedSettings = settings.FromJObjectTo<SprintTaskSettings>();
+            if (typedSettings == null)
+                throw new ArgumentException(nameof(settings));
 
-            if (settings.TotalTimeForTask < MinTotalTimeForTask)
+            if (typedSettings.TotalTimeForTask < MinTotalTimeForTask)
             {
-                throw new ValidationFailedException(nameof(settings.TotalTimeForTask),
+                throw new ValidationFailedException(nameof(typedSettings.TotalTimeForTask),
                     $"Total time for task cannot be less that {MinTotalTimeForTask} seconds");
             }
+
+            return base.SetSettings(typedSettings);
         }
 
-        protected override QuizTaskRunModel RunNewTaskImpl(SprintTaskSettings settings)
+        public override object RunNewTask(object settings)
         {
-            var result = base.RunNewTaskImpl(settings);
+            var result = (QuizTaskRunModel)base.RunNewTask(settings);
 
             foreach (var phrase in result.Phrases)
             {
@@ -90,7 +93,6 @@ namespace MyLanguagePalService.BLL.Tasks.Sprint
 
             return taskResults;
         }
-
 
         //public const int MinTotalTimeForTask = 5;
         //public const int MinCountOfWordsUsed = 1;
