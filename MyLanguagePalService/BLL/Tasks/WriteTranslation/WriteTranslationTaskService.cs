@@ -35,19 +35,28 @@ namespace MyLanguagePalService.BLL.Tasks.WriteTranslation
             {
                 var answer = result.Answers[i];
                 if (answer == null)
-                    throw new ArgumentNullException($"{result.Answers}[{i}]");
+                    throw new ArgumentNullException($"{nameof(result.Answers)}[{i}]");
+
+                // ReSharper disable ConditionIsAlwaysTrueOrFalse
+                // ReSharper disable HeuristicUnreachableCode
+                if (answer.Answers == null)
+                    throw new ArgumentNullException($"{nameof(result.Answers)}[{i}]{nameof(answer.Answers)}");
+                // ReSharper restore HeuristicUnreachableCode
+                // ReSharper restore ConditionIsAlwaysTrueOrFalse
 
                 var phrase = PhrasesService.GetPhrase(answer.PhraseId);
                 if (phrase == null)
-                    throw new ArgumentException($"Phrase in {result.Answers}[{i}] does not exist");
+                    throw new ArgumentException("Phrase does not exist.", $"{nameof(result.Answers)}[{i}]");
 
                 if (phrase.LanguageId != settings.LanguageId)
-                    throw new ArgumentException($"Phrase in {result.Answers}[{i}] has different language from language in settings.");
+                    throw new ArgumentException("Phrase has different language from language in settings.", $"{nameof(result.Answers)}[{i}]");
+
+                var translations = PhrasesService.GetTranslations(phrase);
 
                 var isCorrect = answer.Answers.Count > 0;
                 foreach (var input in answer.Answers)
                 {
-                    isCorrect &= PhrasesService.GetTranslations(phrase).Any(ts => ts.Phrase.Text == input);
+                    isCorrect &= translations.Any(ts => ts.Phrase.Text == input);
                     if (!isCorrect)
                         break;
                 }

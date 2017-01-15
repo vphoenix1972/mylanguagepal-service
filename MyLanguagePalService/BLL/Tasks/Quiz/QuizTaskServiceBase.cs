@@ -105,7 +105,7 @@ namespace MyLanguagePalService.BLL.Tasks.Quiz
                     {
                         l.PhraseId = answer.Entity.Id;
                         l.TaskId = TaskId;
-                        l.LastRepetitonTime = DateTime.UtcNow;
+                        l.LastRepetitonTime = Framework.UtcNow;
 
                         var previousLevel = l.CurrentLevel;
 
@@ -117,12 +117,12 @@ namespace MyLanguagePalService.BLL.Tasks.Quiz
                             }
                             else
                             {
-                                l.CurrentLevel = 24;
+                                l.CurrentLevel = CreateLevel(days: 1);
                             }
 
-                            var maxHours = 24 * 30; // 30 days
-                            if (l.CurrentLevel > maxHours)
-                                l.CurrentLevel = maxHours; // MAX                            
+                            var maxLevel = GetMaxKnowledgeLevel();
+                            if (l.CurrentLevel > maxLevel)
+                                l.CurrentLevel = maxLevel; // MAX                            
 
                         }
                         else
@@ -140,6 +140,16 @@ namespace MyLanguagePalService.BLL.Tasks.Quiz
             {
                 Results = taskResults
             };
+        }
+
+        protected virtual double GetMaxKnowledgeLevel()
+        {
+            return CreateLevel(days: 30);
+        }
+
+        protected double CreateLevel(double days)
+        {
+            return days * 24 * 60 * 60;
         }
 
         protected override TSettings DefaultSettings()
@@ -182,10 +192,13 @@ namespace MyLanguagePalService.BLL.Tasks.Quiz
             if (!previousLevel.HasValue)
                 return 0;
 
-            if (previousLevel.Value < 4)
+            var fourDaysLevel = CreateLevel(days: 4);
+            var twoWeeksLevel = CreateLevel(days: 14);
+
+            if (previousLevel.Value < fourDaysLevel)
                 return 0;
 
-            if (previousLevel.Value >= 4)
+            if (previousLevel.Value >= fourDaysLevel && previousLevel.Value < twoWeeksLevel)
                 return 1;
 
             return 2;

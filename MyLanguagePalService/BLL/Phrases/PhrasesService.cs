@@ -9,6 +9,8 @@ namespace MyLanguagePalService.BLL.Phrases
 {
     public class PhrasesService : IPhrasesService
     {
+        public const int PrevalenceMax = 40;
+
         private const int MaxPhraseLength = 100;
 
         private readonly IApplicationDbContext _db;
@@ -300,8 +302,8 @@ namespace MyLanguagePalService.BLL.Phrases
         {
             if (prevalence < 0)
                 return 0;
-            if (prevalence > 40)
-                return 40;
+            if (prevalence > PrevalenceMax)
+                return PrevalenceMax;
 
             return prevalence;
         }

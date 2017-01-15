@@ -18,9 +18,9 @@ namespace MyLanguagePalService.Tests.BLL.Tasks.Sprint
             ILanguagesService languagesService = null)
         {
             if (framework == null)
-                framework = GetFrameworkStub().Object;
+                framework = CreateFrameworkStub().Object;
             if (phrasesService == null)
-                phrasesService = GetPhrasesServiceStub().Object;
+                phrasesService = CreatePhrasesServiceStub().Object;
             if (languagesService == null)
                 languagesService = GetLanguageServiceStub().Object;
 

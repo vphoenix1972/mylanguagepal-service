@@ -20,7 +20,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
 
         protected abstract ITaskService CreateService(IFramework framework = null,
             IPhrasesService phrasesService = null,
-            ILanguagesService languagesService = null);        
+            ILanguagesService languagesService = null);
 
         protected void ShouldCheckLanguageId(Action<ITaskService, TSettings> method)
         {
@@ -110,7 +110,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
 
             AssertValidationFailedException(vfeCaught, nameof(QuizTaskSettings.CountOfWordsUsed));
         }
-        
+
         protected void RunNewTask_AllWordsAreNew_ShouldReturnWords()
         {
             var languages = new List<int>() { 1 };
@@ -140,7 +140,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 expectedPhrasesIds: expectedPhrasesIds
             );
         }
-        
+
         protected void RunNewTask_AllWordsAreNew_ShouldReturnWordsAndRespectLanguageId()
         {
             var languages = new List<int>() { 1, 2 };
@@ -170,7 +170,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 expectedPhrasesIds: expectedPhrasesIds
             );
         }
-        
+
         protected void RunNewTask_AllWordsAreNew_ShouldReturnWordsAndRespectCountOfWordsUsed()
         {
             var languages = new List<int>() { 1 };
@@ -200,7 +200,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 expectedPhrasesIds: expectedPhrasesIds
             );
         }
-        
+
         protected void RunNewTask_AllWordsAreNew_ShouldReturnWordsAndRespectCountOfWordsUsedAndRespectLanguageId()
         {
             var languages = new List<int>() { 1, 2 };
@@ -230,7 +230,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 expectedPhrasesIds: expectedPhrasesIds
             );
         }
-        
+
         protected void RunNewTask_AllWordsAreNeededToRepeat_ShouldReturnWords()
         {
             var languages = new List<int>() { 1 };
@@ -259,7 +259,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 return l;
             });
 
-            var frameworkMock = GetFrameworkStub();
+            var frameworkMock = CreateFrameworkStub();
             frameworkMock
                 .Setup(f => f.UtcNow)
                 .Returns(currentTime);
@@ -272,7 +272,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 framework: frameworkMock.Object
             );
         }
-        
+
         protected void RunNewTask_AllWordsAreNeededToRepeat_ShouldReturnWordsAndRespectLanguageId()
         {
             var languages = new List<int>() { 1, 2 };
@@ -303,7 +303,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 return l;
             });
 
-            var frameworkMock = GetFrameworkStub();
+            var frameworkMock = CreateFrameworkStub();
             frameworkMock
                 .Setup(f => f.UtcNow)
                 .Returns(currentTime);
@@ -316,7 +316,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 framework: frameworkMock.Object
             );
         }
-        
+
         protected void RunNewTask_AllWordsAreNeededToRepeat_ShouldReturnWordsAndRespectCountOfWordsUsed()
         {
             var languages = new List<int>() { 1 };
@@ -345,7 +345,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 return l;
             });
 
-            var frameworkMock = GetFrameworkStub();
+            var frameworkMock = CreateFrameworkStub();
             frameworkMock
                 .Setup(f => f.UtcNow)
                 .Returns(currentTime);
@@ -358,7 +358,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 framework: frameworkMock.Object
             );
         }
-        
+
         protected void RunNewTask_AllWordsAreNeededToRepeat_ShouldReturnWordsAndRespectCountOfWordsUsedAndRespectLanguageId()
         {
             var languages = new List<int>() { 1, 2 };
@@ -389,7 +389,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 return l;
             });
 
-            var frameworkMock = GetFrameworkStub();
+            var frameworkMock = CreateFrameworkStub();
             frameworkMock
                 .Setup(f => f.UtcNow)
                 .Returns(currentTime);
@@ -402,7 +402,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 framework: frameworkMock.Object
             );
         }
-        
+
         protected void RunNewTask_NewAndRepeatedWords_ShouldReturnNewWords()
         {
             var languages = new List<int>() { 1 };
@@ -433,7 +433,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 new KnowledgeLevelDal() { Id = 7, TaskId = 99, PhraseId = 5, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime }
             };
 
-            var frameworkMock = GetFrameworkStub();
+            var frameworkMock = CreateFrameworkStub();
             frameworkMock
                 .Setup(f => f.UtcNow)
                 .Returns(currentTime);
@@ -446,7 +446,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 framework: frameworkMock.Object
             );
         }
-        
+
         protected void RunNewTask_NewAndRepeatedWords_ShouldReturnNewWordsAndRespectLanguageId()
         {
             var languages = new List<int>() { 1, 2 };
@@ -493,7 +493,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
             };
             SetIds(knowledgeLevels);
 
-            var frameworkMock = GetFrameworkStub();
+            var frameworkMock = CreateFrameworkStub();
             frameworkMock
                 .Setup(f => f.UtcNow)
                 .Returns(currentTime);
@@ -506,7 +506,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 framework: frameworkMock.Object
             );
         }
-        
+
         protected void RunNewTask_NewAndRepeatedWords_ShouldReturnNewWordsAndRespectCountOfWordsUsed()
         {
             var languages = new List<int>() { 1 };
@@ -537,7 +537,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 new KnowledgeLevelDal() { Id = 7, TaskId = 99, PhraseId = 5, CurrentLevel = 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime }
             };
 
-            var frameworkMock = GetFrameworkStub();
+            var frameworkMock = CreateFrameworkStub();
             frameworkMock
                 .Setup(f => f.UtcNow)
                 .Returns(currentTime);
@@ -550,7 +550,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 framework: frameworkMock.Object
             );
         }
-        
+
         protected void RunNewTask_NewAndRepeatedWords_ShouldReturnNewWordsAndRespectCountOfWordsUsedAndRespectLanguageId()
         {
             var languages = new List<int>() { 1, 2 };
@@ -597,7 +597,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
             };
             SetIds(knowledgeLevels);
 
-            var frameworkMock = GetFrameworkStub();
+            var frameworkMock = CreateFrameworkStub();
             frameworkMock
                 .Setup(f => f.UtcNow)
                 .Returns(currentTime);
@@ -610,7 +610,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 framework: frameworkMock.Object
             );
         }
-        
+
         protected void RunNewTask_WordsToRepeat_ShouldRespectCurrentLevel()
         {
             var languages = new List<int>() { 1 };
@@ -644,7 +644,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 new KnowledgeLevelDal() { TaskId = 99, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
             };
 
-            var frameworkMock = GetFrameworkStub();
+            var frameworkMock = CreateFrameworkStub();
             frameworkMock
                 .Setup(f => f.UtcNow)
                 .Returns(currentTime);
@@ -657,7 +657,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 framework: frameworkMock.Object
             );
         }
-        
+
         protected void RunNewTask_WordsToRepeat_ShouldRespectCurrentLevelAndRespectCountOfWordsUsed()
         {
             var languages = new List<int>() { 1 };
@@ -691,7 +691,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 new KnowledgeLevelDal() { TaskId = 99, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
             };
 
-            var frameworkMock = GetFrameworkStub();
+            var frameworkMock = CreateFrameworkStub();
             frameworkMock
                 .Setup(f => f.UtcNow)
                 .Returns(currentTime);
@@ -704,7 +704,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 framework: frameworkMock.Object
             );
         }
-        
+
         protected void RunNewTask_WordsToRepeat_ShouldReturnEmptyListIfAllWordsAreRepeated()
         {
             var languages = new List<int>() { 1 };
@@ -738,7 +738,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 new KnowledgeLevelDal() { TaskId = 99, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
             };
 
-            var frameworkMock = GetFrameworkStub();
+            var frameworkMock = CreateFrameworkStub();
             frameworkMock
                 .Setup(f => f.UtcNow)
                 .Returns(currentTime);
@@ -772,6 +772,16 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
             // actual == null is checked in AssertWriteTranslationTaskRunModelContract
             // ReSharper disable PossibleNullReferenceException
             AssertPhrasesIds(expectedPhrasesIds, actual.Phrases);
+        }
+
+        protected double OneDayLevel()
+        {
+            return CreateLevel(1);
+        }
+
+        protected double CreateLevel(double days)
+        {
+            return days * 24 * 60 * 60;
         }
 
         // ReSharper disable once UnusedParameter.Local

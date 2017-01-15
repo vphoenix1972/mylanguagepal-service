@@ -18,6 +18,8 @@ namespace MyLanguagePalService.Tests.TestsShared
     {
         private Mock<IApplicationDbContext> _db;
 
+        protected double Tolerance { get; set; } = 0.000001;
+
         protected Mock<IApplicationDbContext> DbMock
         {
             get
@@ -52,7 +54,7 @@ namespace MyLanguagePalService.Tests.TestsShared
 
         protected IPhrasesService GetPhrasesServiceStubObject()
         {
-            return GetPhrasesServiceStub().Object;
+            return CreatePhrasesServiceStub().Object;
         }
 
         protected Mock<ILanguagesService> GetLanguageServiceStub()
@@ -69,7 +71,7 @@ namespace MyLanguagePalService.Tests.TestsShared
             return languageServiceMock;
         }
 
-        protected Mock<IPhrasesService> GetPhrasesServiceStub()
+        protected Mock<IPhrasesService> CreatePhrasesServiceStub()
         {
             var mock = new Mock<IPhrasesService>();
             mock.SetupAllProperties();
@@ -77,7 +79,7 @@ namespace MyLanguagePalService.Tests.TestsShared
             return mock;
         }
 
-        protected Mock<IFramework> GetFrameworkStub()
+        protected Mock<IFramework> CreateFrameworkStub()
         {
             var mock = new Mock<IFramework>();
             mock.SetupAllProperties();
@@ -199,6 +201,18 @@ namespace MyLanguagePalService.Tests.TestsShared
             Assert.IsTrue(vfe.Errors.Any(error => error.FieldName == fieldNameToCheck));
         }
 
+        protected void AssertIsArgumentExceptionThrown(Action fn, string expectedParamName = null, string expectedMessage = null)
+        {
+            AssertIsExceptionThrown<ArgumentException>(fn,
+                ex =>
+                {
+                    if (expectedParamName != null)
+                        Assert.AreEqual(expectedParamName, ex.ParamName);
+                    if (expectedMessage != null)
+                        Assert.AreEqual(expectedMessage, ex.Message);
+                });
+        }
+
         protected void AssertIsArgumentNullExceptionThrown(Action fn, string expectedArgumentName = null)
         {
             AssertIsExceptionThrown<ArgumentNullException>(fn,
@@ -211,21 +225,43 @@ namespace MyLanguagePalService.Tests.TestsShared
 
         protected void AssertIsExceptionThrown<T>(Action fn, Action<T> additionalAssertion = null) where T : Exception
         {
-            T targetException = null;
+            Exception exception = null;
 
             try
             {
                 fn();
             }
-            catch (T ex)
+            catch (Exception ex)
             {
-                targetException = ex;
+                exception = ex;
             }
 
-            Assert.IsNotNull(targetException);
+            var targetException = exception as T;
+
+            if (targetException == null)
+            {
+                if (exception != null)
+                    Assert.Fail($"Expected excception '{typeof(T)}' was not thrown, actual exception '{exception.GetType()}'");
+                Assert.Fail($"Expected excception '{typeof(T)}' was not thrown, no exceptions were thrown");
+            }
 
             if (additionalAssertion != null)
                 additionalAssertion(targetException);
+        }
+
+        protected void AssertItemsNotNull<T>(IEnumerable<T> collection, Action<T, int> additionalCheck = null)
+        {
+            var index = -1;
+            foreach (var item in collection)
+            {
+                index++;
+
+                if (item == null)
+                    Assert.Fail($"Item at index '{index}' is null");
+
+                if (additionalCheck != null)
+                    additionalCheck(item, index);
+            }
         }
 
         protected void AssertPhrasesIds<T>(IList<int> expectedIds, IList<T> phrases) where T : Phrase
@@ -252,6 +288,11 @@ namespace MyLanguagePalService.Tests.TestsShared
                     Assert.Fail($"Id '{id}' is not unique in actual list");
                 }
             }
+        }
+
+        protected void SetIds(IList<PhraseDal> list)
+        {
+            SetIds(list, (id, e) => e.Id = id);
         }
 
         protected void SetIds(IList<KnowledgeLevelDal> list)
