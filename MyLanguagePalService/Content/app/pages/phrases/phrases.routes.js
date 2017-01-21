@@ -1,10 +1,8 @@
 ﻿(function () {
     'use strict';
 
-    angular
-        .module('app')
-        .config(function ($routeProvider) {
-            $routeProvider
+    function PhrasesRoutes($routeProvider) {
+        $routeProvider
             .when('/phrases', {
                 templateUrl: '/Content/app/pages/phrases/index/phrasesIndex.tpl.html',
                 controller: 'phrasesIndexController as vm'
@@ -25,5 +23,11 @@
                 templateUrl: '/Content/app/pages/phrases/delete/phrasesDelete.tpl.html',
                 controller: 'phrasesDeleteController as vm'
             });
-        });
+    }
+
+    PhrasesRoutes.$inject = ['$routeProvider'];
+
+    angular
+        .module('app')
+        .config(PhrasesRoutes);
 })();

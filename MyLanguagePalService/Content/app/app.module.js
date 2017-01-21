@@ -14,7 +14,7 @@
     ]);
 
     /* Setup default routes */
-    app.config(function ($routeProvider) {
+    function DefaultRoutes($routeProvider) {
         $routeProvider
         .when('/', {
             redirectTo: '/dashboard'
@@ -22,5 +22,9 @@
         .otherwise({
             redirectTo: '/dashboard'
         });
-    });
+    }
+
+    DefaultRoutes.$inject = ['$routeProvider'];
+
+    app.config(DefaultRoutes);
 })();

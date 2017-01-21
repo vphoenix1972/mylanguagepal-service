@@ -48,7 +48,7 @@
     WriteTranslationTaskController.prototype.onQuizFinished = function (answers) {
         var self = this;
 
-        self.doAsync(self._taskService.finishTask(self._taskName, {
+        self.doAsync(self._tasksService.finishTask(self._taskName, {
             settings: self.settings,
             answersModel: {
                 answers: answers

@@ -7,13 +7,13 @@ namespace MyLanguagePalService.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    public sealed partial class InitialRelease : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialRelease));
         
         string IMigrationMetadata.Id
         {
-            get { return "201608230615401_InitialCreate"; }
+            get { return "201701210743435_InitialRelease"; }
         }
         
         string IMigrationMetadata.Source
