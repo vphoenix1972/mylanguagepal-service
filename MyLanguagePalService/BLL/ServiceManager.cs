@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using MyLanguagePal.Core.Framework;
 using MyLanguagePalService.BLL.Languages;
 using MyLanguagePalService.BLL.Phrases;
+using MyLanguagePalService.BLL.Tags;
 using MyLanguagePalService.BLL.Tasks;
 using MyLanguagePalService.BLL.Tasks.Sprint;
 using MyLanguagePalService.BLL.Tasks.WriteTranslation;
@@ -26,6 +27,7 @@ namespace MyLanguagePalService.BLL
             _db = db;
 
             LanguagesService = new LanguagesService(_db);
+            TagsService = new TagsService(_db);
             PhrasesService = new PhrasesService(_db);
 
             Tasks = new List<ITaskService>()
@@ -36,6 +38,8 @@ namespace MyLanguagePalService.BLL
         }
 
         public ILanguagesService LanguagesService { get; set; }
+
+        public ITagsService TagsService { get; private set; }
 
         public IPhrasesService PhrasesService { get; }
 

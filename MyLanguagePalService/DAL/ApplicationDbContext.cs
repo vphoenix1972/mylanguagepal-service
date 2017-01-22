@@ -11,6 +11,8 @@ namespace MyLanguagePalService.DAL
     {
         public IDbSet<LanguageDal> Languages { get; set; }
 
+        public IDbSet<TagDal> Tags { get; set; }
+
         public IDbSet<PhraseDal> Phrases { get; set; }
 
         public IDbSet<TranslationDal> Translations { get; set; }
@@ -38,6 +40,11 @@ namespace MyLanguagePalService.DAL
             modelBuilder.Entity<LanguageDal>().ToTable("Languages");
             modelBuilder.Entity<LanguageDal>().HasKey(e => e.Id);
             modelBuilder.Entity<LanguageDal>().Property(e => e.Name).IsRequired().HasMaxLength(100);
+
+            // Tags
+            modelBuilder.Entity<TagDal>().ToTable("Tags");
+            modelBuilder.Entity<TagDal>().HasKey(e => e.Id);
+            modelBuilder.Entity<TagDal>().Property(e => e.Name).IsRequired().HasMaxLength(100);
 
             // Phrases
             modelBuilder.Entity<PhraseDal>().ToTable("Phrases");
@@ -72,6 +79,12 @@ namespace MyLanguagePalService.DAL
                 .HasMany(l => l.Phrases)
                 .WithRequired(p => p.Language)
                 .HasForeignKey(p => p.LanguageId);
+
+            // Pharses <-> Tags
+            modelBuilder.Entity<TagDal>()
+                .HasMany(e => e.Phrases)
+                .WithMany(e => e.Tags)
+                .Map(c => c.ToTable("TagsPhrases"));
 
             // Pharses <-> Translations
             modelBuilder.Entity<PhraseDal>()

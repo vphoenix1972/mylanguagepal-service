@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using MyLanguagePalService.BLL.Languages;
 using MyLanguagePalService.BLL.Phrases;
+using MyLanguagePalService.BLL.Tags;
 using MyLanguagePalService.BLL.Tasks;
-using MyLanguagePalService.BLL.Tasks.Sprint;
-using MyLanguagePalService.BLL.Tasks.WriteTranslation;
 
 namespace MyLanguagePalService.BLL
 {
@@ -13,6 +12,9 @@ namespace MyLanguagePalService.BLL
     {
         [NotNull]
         ILanguagesService LanguagesService { get; }
+
+        [NotNull]
+        ITagsService TagsService { get; }
 
         [NotNull]
         IPhrasesService PhrasesService { get; }

@@ -8,6 +8,8 @@ namespace MyLanguagePalService.DAL
     {
         IDbSet<LanguageDal> Languages { get; set; }
 
+        IDbSet<TagDal> Tags { get; set; }
+
         IDbSet<PhraseDal> Phrases { get; set; }
 
         IDbSet<TranslationDal> Translations { get; set; }

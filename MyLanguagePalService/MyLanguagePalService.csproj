@@ -215,6 +215,7 @@
     <Compile Include="Areas\App\Controllers\MainController.cs" />
     <Compile Include="Areas\App\Controllers\LanguagesApiController.cs" />
     <Compile Include="Areas\App\Controllers\PhrasesApiController.cs" />
+    <Compile Include="Areas\App\Controllers\TagsApiController.cs" />
     <Compile Include="Areas\App\Controllers\TasksApiController.cs" />
     <Compile Include="Areas\App\Controllers\TranslationsApiController.cs" />
     <Compile Include="Areas\App\Models\Controller\LanguagesApi\LanguagesApiAm.cs" />
@@ -240,6 +241,9 @@
     <Compile Include="BLL\Phrases\Phrase.cs" />
     <Compile Include="BLL\Phrases\Translation.cs" />
     <Compile Include="BLL\ServiceBase.cs" />
+    <Compile Include="BLL\Tags\ITagsService.cs" />
+    <Compile Include="BLL\Tags\Tag.cs" />
+    <Compile Include="BLL\Tags\TagsService.cs" />
     <Compile Include="BLL\Tasks\ITaskService.cs" />
     <Compile Include="BLL\Tasks\Quiz\QuizTaskAnswer.cs" />
     <Compile Include="BLL\Tasks\Quiz\QuizTaskResult.cs" />
@@ -272,6 +276,7 @@
     <Compile Include="DAL\Models\KnowledgeLevelDal.cs" />
     <Compile Include="DAL\Models\LanguageDal.cs" />
     <Compile Include="DAL\Models\PhraseDal.cs" />
+    <Compile Include="DAL\Models\TagDal.cs" />
     <Compile Include="DAL\Models\TaskSettingsDal.cs" />
     <Compile Include="DAL\Models\TranslationDal.cs" />
     <Compile Include="Global.asax.cs">
@@ -286,6 +291,10 @@
     <Compile Include="Migrations\201701210743435_InitialRelease.cs" />
     <Compile Include="Migrations\201701210743435_InitialRelease.Designer.cs">
       <DependentUpon>201701210743435_InitialRelease.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701221748119_Tags.cs" />
+    <Compile Include="Migrations\201701221748119_Tags.Designer.cs">
+      <DependentUpon>201701221748119_Tags.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Areas\Site\Models\Controllers\Phrase\CreateIm.cs" />
@@ -372,6 +381,16 @@
     <Content Include="Content\app\shared\promiseQueue.js" />
     <Content Include="Content\app\shared\rest.js" />
     <Content Include="Content\app\shared\utils.service.js" />
+    <Content Include="Content\app\pages\tags\delete\tagsDelete.controller.js" />
+    <Content Include="Content\app\pages\tags\delete\tagsDelete.tpl.html" />
+    <Content Include="Content\app\pages\tags\details\tagsDetails.controller.js" />
+    <Content Include="Content\app\pages\tags\details\tagsDetails.tpl.html" />
+    <Content Include="Content\app\pages\tags\edit\tagsEdit.controller.js" />
+    <Content Include="Content\app\pages\tags\edit\tagsEdit.tpl.html" />
+    <Content Include="Content\app\pages\tags\index\tagsIndex.controller.js" />
+    <Content Include="Content\app\pages\tags\index\tagsIndex.tpl.html" />
+    <Content Include="Content\app\pages\tags\tags.routes.js" />
+    <Content Include="Content\app\pages\tags\tags.service.js" />
     <Content Include="Content\app\pages\tasks\shared\directives\taskSettingsTemplate\taskSettingsTemplate.css" />
     <Content Include="Content\app\pages\tasks\shared\directives\taskSettingsTemplate\taskSettingsTemplate.directive.js" />
     <Content Include="Content\app\pages\tasks\shared\directives\taskSettingsTemplate\taskSettingsTemplate.tpl.html" />
@@ -1016,6 +1035,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201701210743435_InitialRelease.resx">
       <DependentUpon>201701210743435_InitialRelease.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701221748119_Tags.resx">
+      <DependentUpon>201701221748119_Tags.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
