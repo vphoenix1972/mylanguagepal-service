@@ -302,6 +302,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\app\app.module.js" />
+    <Content Include="Content\app\pages\shared\directives\mlp-disabled\mlpDisabled.directive.js" />
+    <Content Include="Content\app\pages\shared\directives\mlpElement.js" />
     <Content Include="Content\app\shared\arrayExtensions.js" />
     <Content Include="Content\app\shared\shared.module.js" />
     <Content Include="Content\app\shared\directives\convertToNumber.directive.js" />

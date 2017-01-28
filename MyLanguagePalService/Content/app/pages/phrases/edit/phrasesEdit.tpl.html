@@ -11,14 +11,9 @@
                 <text-input text="vm.text" validation-message="{{vm.textValidationError}}"></text-input>
             </div>
             <div class="col-md-6">
-                <div class="btn-group" data-toggle="buttons" ng-if="vm.isNew">
-                    <label class="btn btn-default" ng-model="vm.languageId" uib-btn-radio="1">
-                        English
-                    </label>
-                    <label class="btn btn-default" ng-model="vm.languageId" uib-btn-radio="2">
-                        Русский
-                    </label>
-                </div>
+                <language-selection mlp-disabled="!vm.isNew"
+                                    selected-language-id="vm.languageId">
+                </language-selection>
             </div>
         </div>
 
