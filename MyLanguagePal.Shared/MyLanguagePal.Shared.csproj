@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5170DA0F-7BA4-49FE-9D0D-B82180B36466}</ProjectGuid>
+    <ProjectGuid>{EAE65A10-F5F7-4D94-A371-D3983D2CC9C3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyLanguagePal.Core</RootNamespace>
-    <AssemblyName>MyLanguagePal.Core</AssemblyName>
+    <RootNamespace>MyLanguagePal.Shared</RootNamespace>
+    <AssemblyName>MyLanguagePal.Shared</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,14 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Annotations.cs" />
-    <Compile Include="Framework\DateTime\FrameworkDateTime.cs" />
-    <Compile Include="Framework\DateTime\IFrameworkDateTime.cs" />
-    <Compile Include="Framework\Framework.cs" />
-    <Compile Include="Framework\IFramework.cs" />
+    <Compile Include="AssemblyExtensions\AssemblyExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MyLanguagePal.Core\MyLanguagePal.Core.csproj">
+      <Project>{5170da0f-7ba4-49fe-9d0d-b82180b36466}</Project>
+      <Name>MyLanguagePal.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

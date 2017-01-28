@@ -282,7 +282,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\Annotations.cs" />
     <Compile Include="Core\AddResponseHeaderAttribute.cs" />
     <Compile Include="Helpers\OwinMiddleware\BasicAuthenticationExtensions.cs" />
     <Compile Include="Helpers\OwinMiddleware\BasicAuthenticationHandler.cs" />
@@ -375,7 +374,7 @@
     <Content Include="Content\app\pages\phrases\phrases.service.js" />
     <Content Include="Content\app\pages\shared\services\progressBar\progressBar.service.css" />
     <Content Include="Content\app\pages\shared\services\progressBar\progressBar.service.js" />
-    <Content Include="Content\app\shared\shared.css" />
+    <Content Include="Content\app\shared\shared.module.css" />
     <Content Include="Content\app\shared\customError.js" />
     <Content Include="Content\app\shared\promiseQueue.js" />
     <Content Include="Content\app\shared\rest.js" />
@@ -1025,6 +1024,10 @@
     <ProjectReference Include="..\MyLanguagePal.Core\MyLanguagePal.Core.csproj">
       <Project>{5170da0f-7ba4-49fe-9d0d-b82180b36466}</Project>
       <Name>MyLanguagePal.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyLanguagePal.Shared\MyLanguagePal.Shared.csproj">
+      <Project>{eae65a10-f5f7-4d94-a371-d3983d2cc9c3}</Project>
+      <Name>MyLanguagePal.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
