@@ -1,12 +1,13 @@
 ﻿(function () {
-    function PhrasesEditController($injector, $scope, phrasesService) {
+    function PhrasesEditController($injector, $scope, phrasesService, languagesService) {
         $injector.invoke(PageController, this, { $scope: $scope });
 
         var self = this;
         self._phrasesService = phrasesService;
+        self._languagesService = languagesService;
         // ReSharper disable once PossiblyUnassignedProperty
         self._phraseId = self.$routeParams.phraseId;
-        
+
         /* View model defaults */
         self.isNew = !angular.isDefined(self._phraseId);
         self.languageId = 1; // ToDo: Use English by default right now
@@ -58,6 +59,13 @@
         // If edit requested ...
         if (self.isNew) {
             self.isLoading = false;
+
+            // Watch user input to automatically detect the language
+            self.$scope.$watch(function () {
+                return self.text;
+            }, function (userInput) {
+                self.languageId = self._languagesService.detectLanguage(userInput);
+            });
         } else {
             self.asyncRequest({
                 request: function () { return self._phrasesService.getPhrase(self._phraseId); },
@@ -178,7 +186,7 @@
         self.$location.path('/phrases');
     }
 
-    PhrasesEditController.$inject = ['$injector', '$scope', 'phrasesService'];
+    PhrasesEditController.$inject = ['$injector', '$scope', 'phrasesService', 'languagesService'];
 
     angular.module('app')
         .controller('phrasesEditController', PhrasesEditController);
