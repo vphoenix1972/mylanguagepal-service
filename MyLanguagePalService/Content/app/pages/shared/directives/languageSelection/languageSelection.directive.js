@@ -1,13 +1,18 @@
 ﻿(function () {
     'use strict';
 
-    function LanguageSelectionDirectiveController($element, $q, languagesService) {
+    function LanguageSelectionDirectiveController($injector, $element, $q, languagesService) {
+        $injector.invoke(MlpElement, this);
+
         var self = this;
 
         self._$element = $element;
         self._$q = $q;
         self._languagesService = languagesService;
     }
+
+    LanguageSelectionDirectiveController.prototype = Object.create(MlpElement.prototype);
+    LanguageSelectionDirectiveController.prototype.constructor = LanguageSelectionDirectiveController;
 
     LanguageSelectionDirectiveController.prototype.$onInit = function () {
         var self = this;
@@ -27,12 +32,15 @@
     /* Private */
 
 
-    LanguageSelectionDirectiveController.$inject = ['$element', '$q', 'languagesService'];
+    LanguageSelectionDirectiveController.$inject = ['$injector', '$element', '$q', 'languagesService'];
 
     angular
         .module('app')
         .directive('languageSelection', function () {
             return {
+                require: {
+                    mlpDisabled: '?^mlpDisabled'
+                },
                 restrict: 'E',
                 scope: {
                     selectedLanguageId: '='
