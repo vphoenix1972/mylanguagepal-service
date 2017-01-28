@@ -60,7 +60,7 @@
     Rest.$inject = ['$http', 'promiseQueue'];
 
     angular
-        .module('app.core')
+        .module('mlp.shared')
         .factory('rest', [
             '$injector',
             function ($injector) {
