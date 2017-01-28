@@ -2,13 +2,13 @@
     'use strict';
 
     angular
-        .module('app.core')
-        .directive('jsEnter', function () {
+        .module('mlp.shared')
+        .directive('mlpEnter', function () {
             return {
                 restrict: 'A',
                 link: function ($scope, element, $attributes) {
                     // Create jquery event id
-                    var eventId = 'keydown keypress.' + 'jsEnter';
+                    var eventId = 'keydown keypress.' + 'mlpEnter';
 
                     // Get jquery element
                     var $element = angular.element(element);
@@ -16,7 +16,7 @@
                     var handler = function (event) {
                         if (event.which === 13) {
                             $scope.$apply(function () {
-                                $scope.$eval($attributes.jsEnter, { $event: event });
+                                $scope.$eval($attributes.mlpEnter, { $event: event });
                             });
                             event.preventDefault();
                         }

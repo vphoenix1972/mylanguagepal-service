@@ -106,6 +106,6 @@
     Utils.$inject = ['$q'];
 
     angular
-        .module('app.core')
+        .module('mlp.shared')
         .service('utils', Utils);
 })();

@@ -312,13 +312,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\app\app.module.js" />
-    <Content Include="Content\app\core\arrayExtensions.js" />
-    <Content Include="Content\app\core\core.module.js" />
-    <Content Include="Content\app\core\directives\convertToNumber.directive.js" />
-    <Content Include="Content\app\core\directives\directiveWithMethods.js" />
-    <Content Include="Content\app\core\directives\jsEnter.js" />
-    <Content Include="Content\app\core\resharper.js" />
-    <Content Include="Content\app\core\stringExtensions.js" />
+    <Content Include="Content\app\shared\arrayExtensions.js" />
+    <Content Include="Content\app\shared\shared.module.js" />
+    <Content Include="Content\app\shared\directives\convertToNumber.directive.js" />
+    <Content Include="Content\app\shared\directives\directiveWithMethods.js" />
+    <Content Include="Content\app\shared\directives\mlpEnter.js" />
+    <Content Include="Content\app\shared\resharper.js" />
+    <Content Include="Content\app\shared\stringExtensions.js" />
     <Content Include="Content\app\pages\about\about.routes.js" />
     <Content Include="Content\app\pages\dashboard\dashboard.controller.js" />
     <Content Include="Content\app\pages\dashboard\dashboard.css" />
@@ -375,11 +375,11 @@
     <Content Include="Content\app\pages\phrases\phrases.service.js" />
     <Content Include="Content\app\pages\shared\services\progressBar\progressBar.service.css" />
     <Content Include="Content\app\pages\shared\services\progressBar\progressBar.service.js" />
-    <Content Include="Content\app\core\core.module.css" />
-    <Content Include="Content\app\core\customError.js" />
-    <Content Include="Content\app\core\promiseQueue.js" />
-    <Content Include="Content\app\core\rest.js" />
-    <Content Include="Content\app\core\utils.service.js" />
+    <Content Include="Content\app\shared\shared.css" />
+    <Content Include="Content\app\shared\customError.js" />
+    <Content Include="Content\app\shared\promiseQueue.js" />
+    <Content Include="Content\app\shared\rest.js" />
+    <Content Include="Content\app\shared\utils.service.js" />
     <Content Include="Content\app\pages\tags\delete\tagsDelete.controller.js" />
     <Content Include="Content\app\pages\tags\delete\tagsDelete.tpl.html" />
     <Content Include="Content\app\pages\tags\details\tagsDetails.controller.js" />

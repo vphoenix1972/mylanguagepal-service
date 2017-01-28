@@ -10,7 +10,7 @@
         'ui.bootstrap',
 
         // Application modules
-        'app.core'
+        'mlp.shared'
     ]);
 
     /* Setup default routes */

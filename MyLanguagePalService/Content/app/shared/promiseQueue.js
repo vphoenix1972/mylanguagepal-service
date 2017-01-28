@@ -62,7 +62,7 @@
     PromiseQueue.$inject = ['$q'];
 
     angular
-        .module('app.core')
+        .module('mlp.shared')
         .factory('promiseQueue', [
             '$injector',
             function ($injector) {

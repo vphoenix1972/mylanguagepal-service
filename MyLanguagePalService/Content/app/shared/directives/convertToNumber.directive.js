@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('app.core')
+    angular.module('mlp.shared')
         .directive('convertToNumber', function () {
             return {
                 require: 'ngModel',
