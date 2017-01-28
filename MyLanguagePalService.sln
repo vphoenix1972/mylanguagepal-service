@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLanguagePalService.Tests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLanguagePal.Core", "MyLanguagePal.Core\MyLanguagePal.Core.csproj", "{5170DA0F-7BA4-49FE-9D0D-B82180B36466}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLanguagePal.Shared", "MyLanguagePal.Shared\MyLanguagePal.Shared.csproj", "{EAE65A10-F5F7-4D94-A371-D3983D2CC9C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{5170DA0F-7BA4-49FE-9D0D-B82180B36466}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5170DA0F-7BA4-49FE-9D0D-B82180B36466}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5170DA0F-7BA4-49FE-9D0D-B82180B36466}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAE65A10-F5F7-4D94-A371-D3983D2CC9C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAE65A10-F5F7-4D94-A371-D3983D2CC9C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAE65A10-F5F7-4D94-A371-D3983D2CC9C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAE65A10-F5F7-4D94-A371-D3983D2CC9C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
