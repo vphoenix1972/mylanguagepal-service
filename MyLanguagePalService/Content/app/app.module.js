@@ -8,6 +8,7 @@
 
         // Third-party modules
         'ui.bootstrap',
+        'ui.select',
 
         // Application modules
         'mlp.shared'

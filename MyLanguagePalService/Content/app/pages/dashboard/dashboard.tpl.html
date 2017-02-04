@@ -11,4 +11,18 @@
             <span class="glyphicon glyphicon-cog"></span>
         </a>
     </div>
+
+    <br />
+    <br />
+    <div>
+        <mlp-tags-input mlp-tags-input-type="'tags'"
+                        value="vm.selectedTags">
+        </mlp-tags-input>
+
+        <div>
+            <div ng-repeat="tag in vm.selectedTags">
+                <span>{{tag.id}}</span>&nbsp;<span>{{tag.name}}</span>
+            </div>
+        </div>
+    </div>
 </div>

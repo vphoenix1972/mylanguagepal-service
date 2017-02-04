@@ -312,6 +312,10 @@
   <ItemGroup>
     <Content Include="Content\app\app.module.js" />
     <Content Include="Content\app\pages\shared\directives\mlp-disabled\mlpDisabled.directive.js" />
+    <Content Include="Content\app\pages\shared\directives\mlp-tags-input\mlpTagsInputType.directive.js" />
+    <Content Include="Content\app\pages\shared\directives\mlp-tags-input\mlpTagsInput.css" />
+    <Content Include="Content\app\pages\shared\directives\mlp-tags-input\mlpTagsInput.tpl.html" />
+    <Content Include="Content\app\pages\shared\directives\mlp-tags-input\mlpTagsInput.directive.js" />
     <Content Include="Content\app\pages\shared\directives\mlpElement.js" />
     <Content Include="Content\app\shared\arrayExtensions.js" />
     <Content Include="Content\app\shared\shared.module.js" />
@@ -415,6 +419,10 @@
     <Content Include="Content\app\pages\tasks\writeTranslation\task\writeTranslationTask.controller.js" />
     <Content Include="Content\app\pages\tasks\writeTranslation\task\writeTranslationTask.css" />
     <Content Include="Content\app\pages\tasks\writeTranslation\task\writeTranslationTask.tpl.html" />
+    <Content Include="Content\deps\angular-ui-select\select.css" />
+    <Content Include="Content\deps\angular-ui-select\select.js" />
+    <Content Include="Content\deps\angular-ui-select\select.min.css" />
+    <Content Include="Content\deps\angular-ui-select\select.min.js" />
     <Content Include="Content\deps\angular\angular-animate.js" />
     <Content Include="Content\deps\angular\angular-route.js" />
     <Content Include="Content\deps\angular\angular-touch.js" />
@@ -957,6 +965,8 @@
     <Content Include="Areas\App\Views\Main\Index.cshtml" />
     <Content Include="Areas\Other\Views\web.config" />
     <Content Include="Content\app\pages\languages\details\languagesDetails.tpl.html" />
+    <Content Include="Content\deps\angular-ui-select\select.min.css.map" />
+    <Content Include="Content\deps\angular-ui-select\select.min.js.map" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

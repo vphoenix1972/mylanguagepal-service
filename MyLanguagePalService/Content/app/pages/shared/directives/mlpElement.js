@@ -16,6 +16,24 @@
         // ReSharper restore PossiblyUnassignedProperty
     }
 
+    MlpElement.prototype.classes = function () {
+        var self = this;
+
+        return self.classesArray().join(' ');
+    }
+
+    MlpElement.prototype.classesArray = function () {
+        var self = this;
+
+        var result = [];
+
+        // Add additional classes
+        if (angular.isString(self.classes))
+            result = result.concat(self.classes.split(' '));
+
+        return result;
+    }
+
     /* Private */
 
 

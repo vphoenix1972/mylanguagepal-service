@@ -1,0 +1,15 @@
+﻿<ui-select multiple
+           ng-model="vm.value"
+           theme="bootstrap"
+           ng-disabled="vm.isDisabled()"
+           close-on-select="false"
+           title="Choose a color"
+           on-remove="vm.onChange('remove', $item, $model)"
+           on-select="vm.onChange('select', $item, $model)">
+    <ui-select-match placeholder="Select colors...">
+        {{$item.name}}
+    </ui-select-match>
+    <ui-select-choices repeat="option in vm.options() | filter:$select.search">
+        {{option.name}}
+    </ui-select-choices>
+</ui-select>
