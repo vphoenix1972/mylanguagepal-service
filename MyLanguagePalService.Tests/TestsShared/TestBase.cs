@@ -269,6 +269,11 @@ namespace MyLanguagePalService.Tests.TestsShared
             AssertIds(expectedIds, phrases, e => e.Id);
         }
 
+        protected void AssertAllowedPhrasesIds<T>(IList<int> allowedIds, IList<T> phrases, int? expectedCount = null) where T : Phrase
+        {
+            AssertAllowedIds(allowedIds, phrases, e => e.Id, expectedCount);
+        }
+
         protected void AssertIds<T>(IList<int> expectedIds, IList<T> entities, Func<T, int> getId) where T : class
         {
             Assert.IsNotNull(entities);
@@ -286,6 +291,25 @@ namespace MyLanguagePalService.Tests.TestsShared
                 if (count > 1)
                 {
                     Assert.Fail($"Id '{id}' is not unique in actual list");
+                }
+            }
+        }
+
+        protected void AssertAllowedIds<T>(IList<int> allowedIds, IList<T> entities, Func<T, int> getId, int? expectedCount = null) where T : class
+        {
+            Assert.IsNotNull(entities);
+
+            if (expectedCount.HasValue)
+                Assert.AreEqual(expectedCount.Value, entities.Count);
+
+            foreach (var entity in entities)
+            {
+                var id = getId(entity);
+                var count = allowedIds.Count(e => e == id);
+
+                if (count < 1)
+                {
+                    Assert.Fail($"Id '{id}' is not allowed");
                 }
             }
         }

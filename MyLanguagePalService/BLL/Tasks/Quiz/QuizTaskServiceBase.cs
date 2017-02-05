@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using MyLanguagePal.Core.Framework;
+using MyLanguagePal.Shared.Extensions.Enumerable.Manipulation;
+using MyLanguagePal.Shared.Extensions.Enumerable.Shuffling;
 using MyLanguagePalService.BLL.Languages;
 using MyLanguagePalService.BLL.Phrases;
 using MyLanguagePalService.Core;
@@ -55,31 +57,31 @@ namespace MyLanguagePalService.BLL.Tasks.Quiz
 
             var currentDate = Framework.UtcNow;
 
-            var phrasesToRepeat = new List<PhraseDal>();
+            IEnumerable<PhraseDal> phrasesToRepeat = new List<PhraseDal>();
 
             foreach (var phrase in phrases)
             {
                 var knowledgeLevel = levels.SingleOrDefault(l => l.PhraseId == phrase.Id);
                 if (knowledgeLevel == null)
                 {
-                    // Phrase not has been used in task yet
-                    phrasesToRepeat.Add(phrase);
-                    if (phrasesToRepeat.Count >= settings.CountOfWordsUsed)
-                        break; // Limit reached
+                    phrasesToRepeat.AsCollection().Add(phrase);
                 }
                 else
                 {
                     if (knowledgeLevel.CurrentLevel <= (currentDate - knowledgeLevel.LastRepetitonTime).TotalSeconds)
                     {
-                        // It is time to repeat the phrase
-                        phrasesToRepeat.Add(phrase);
-                        if (phrasesToRepeat.Count >= settings.CountOfWordsUsed)
-                            break; // Limit reached
+                        phrasesToRepeat.AsCollection().Add(phrase);
                     }
 
                     // Skip phrase - knowledge level is ok
                 }
             }
+
+            if (settings.ReshuffleWords)
+                phrasesToRepeat = phrasesToRepeat.Shuffle();
+
+            phrasesToRepeat = phrasesToRepeat
+                .Take(settings.CountOfWordsUsed);
 
             var result = new TRunModel()
             {

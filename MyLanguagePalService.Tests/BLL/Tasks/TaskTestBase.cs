@@ -174,7 +174,6 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         protected void RunNewTask_AllWordsAreNew_ShouldReturnWordsAndRespectCountOfWordsUsed()
         {
             var languages = new List<int>() { 1 };
-            var expectedPhrasesIds = new List<int>() { 1, 2, 3 };
             var settings = new TSettings()
             {
                 LanguageId = 1,
@@ -197,14 +196,14 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 phrases: phrases,
                 knowledgeLevels: knowledgeLevels,
                 settings: settings,
-                expectedPhrasesIds: expectedPhrasesIds
+                expectedCount: settings.CountOfWordsUsed
             );
         }
 
         protected void RunNewTask_AllWordsAreNew_ShouldReturnWordsAndRespectCountOfWordsUsedAndRespectLanguageId()
         {
             var languages = new List<int>() { 1, 2 };
-            var expectedPhrasesIds = new List<int>() { 2, 4, 6 };
+            var allowedPhrasesIds = new List<int>() { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 };
             var settings = new TSettings()
             {
                 LanguageId = 2,
@@ -227,7 +226,8 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 phrases: phrases,
                 knowledgeLevels: knowledgeLevels,
                 settings: settings,
-                expectedPhrasesIds: expectedPhrasesIds
+                allowedPhrasesIds: allowedPhrasesIds,
+                expectedCount: settings.CountOfWordsUsed
             );
         }
 
@@ -320,7 +320,6 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         protected void RunNewTask_AllWordsAreNeededToRepeat_ShouldReturnWordsAndRespectCountOfWordsUsed()
         {
             var languages = new List<int>() { 1 };
-            var expectedPhrasesIds = new List<int>() { 1, 2, 3 };
             var settings = new TSettings()
             {
                 LanguageId = 1,
@@ -354,7 +353,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 phrases: phrases,
                 knowledgeLevels: knowledgeLevels,
                 settings: settings,
-                expectedPhrasesIds: expectedPhrasesIds,
+                expectedCount: settings.CountOfWordsUsed,
                 framework: frameworkMock.Object
             );
         }
@@ -362,7 +361,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         protected void RunNewTask_AllWordsAreNeededToRepeat_ShouldReturnWordsAndRespectCountOfWordsUsedAndRespectLanguageId()
         {
             var languages = new List<int>() { 1, 2 };
-            var expectedPhrasesIds = new List<int>() { 2, 4, 6 };
+            var allowedPhrasesIds = new List<int>() { 2, 4, 6, 8, 10 };
             var settings = new TSettings()
             {
                 LanguageId = 2,
@@ -398,7 +397,8 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 phrases: phrases,
                 knowledgeLevels: knowledgeLevels,
                 settings: settings,
-                expectedPhrasesIds: expectedPhrasesIds,
+                allowedPhrasesIds: allowedPhrasesIds,
+                expectedCount: settings.CountOfWordsUsed,
                 framework: frameworkMock.Object
             );
         }
@@ -510,7 +510,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         protected void RunNewTask_NewAndRepeatedWords_ShouldReturnNewWordsAndRespectCountOfWordsUsed()
         {
             var languages = new List<int>() { 1 };
-            var expectedPhrasesIds = new List<int>() { 1 };
+            var allowedPhrasesIds = new List<int>() { 1, 2, 3 };
             var settings = new TSettings()
             {
                 LanguageId = 1,
@@ -546,7 +546,8 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 phrases: phrases,
                 knowledgeLevels: knowledgeLevels,
                 settings: settings,
-                expectedPhrasesIds: expectedPhrasesIds,
+                allowedPhrasesIds: allowedPhrasesIds,
+                expectedCount: settings.CountOfWordsUsed,
                 framework: frameworkMock.Object
             );
         }
@@ -554,7 +555,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         protected void RunNewTask_NewAndRepeatedWords_ShouldReturnNewWordsAndRespectCountOfWordsUsedAndRespectLanguageId()
         {
             var languages = new List<int>() { 1, 2 };
-            var expectedPhrasesIds = new List<int>() { 2 };
+            var allowedPhrasesIds = new List<int>() { 2, 4, 6 };
             var settings = new TSettings()
             {
                 LanguageId = 2,
@@ -606,7 +607,8 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 phrases: phrases,
                 knowledgeLevels: knowledgeLevels,
                 settings: settings,
-                expectedPhrasesIds: expectedPhrasesIds,
+                allowedPhrasesIds: allowedPhrasesIds,
+                expectedCount: settings.CountOfWordsUsed,
                 framework: frameworkMock.Object
             );
         }
@@ -661,7 +663,7 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         protected void RunNewTask_WordsToRepeat_ShouldRespectCurrentLevelAndRespectCountOfWordsUsed()
         {
             var languages = new List<int>() { 1 };
-            var expectedPhrasesIds = new List<int>() { 1 };
+            var allowedPhrasesIds = new List<int>() { 1, 3, 4 };
             var settings = new TSettings()
             {
                 LanguageId = 1,
@@ -685,10 +687,10 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 4, CurrentLevel = 2 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
                 new KnowledgeLevelDal() { TaskId = TaskId, PhraseId = 5, CurrentLevel = 5 * 24 * 60 * 60, LastRepetitonTime = lastRepetitonTime },
                 new KnowledgeLevelDal() { TaskId = 99, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = 99, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = 99, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = 99, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
-                new KnowledgeLevelDal() { TaskId = 99, PhraseId = 1, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = 99, PhraseId = 2, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = 99, PhraseId = 3, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = 99, PhraseId = 4, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
+                new KnowledgeLevelDal() { TaskId = 99, PhraseId = 5, CurrentLevel = 60, LastRepetitonTime = lastRepetitonTime },
             };
 
             var frameworkMock = CreateFrameworkStub();
@@ -700,7 +702,8 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
                 phrases: phrases,
                 knowledgeLevels: knowledgeLevels,
                 settings: settings,
-                expectedPhrasesIds: expectedPhrasesIds,
+                allowedPhrasesIds: allowedPhrasesIds,
+                expectedCount: settings.CountOfWordsUsed,
                 framework: frameworkMock.Object
             );
         }
@@ -755,7 +758,9 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
         protected void RunNewTask_Test(IList<PhraseDal> phrases,
             IList<KnowledgeLevelDal> knowledgeLevels,
             object settings,
-            IList<int> expectedPhrasesIds,
+            IList<int> expectedPhrasesIds = null,
+            int? expectedCount = null,
+            IList<int> allowedPhrasesIds = null,
             IFramework framework = null)
         {
             /* Arrange */
@@ -769,9 +774,20 @@ namespace MyLanguagePalService.Tests.BLL.Tasks
             /* Assert */
             AssertWriteTranslationTaskRunModelContract(actual);
 
-            // actual == null is checked in AssertWriteTranslationTaskRunModelContract
-            // ReSharper disable PossibleNullReferenceException
-            AssertPhrasesIds(expectedPhrasesIds, actual.Phrases);
+            if (expectedPhrasesIds != null)
+            {
+                // actual == null is checked in AssertWriteTranslationTaskRunModelContract
+                // ReSharper disable PossibleNullReferenceException
+                AssertPhrasesIds(expectedPhrasesIds, actual.Phrases);
+            }
+            else if (allowedPhrasesIds != null)
+            {
+                AssertAllowedPhrasesIds(allowedPhrasesIds, actual.Phrases, expectedCount);
+            }
+            else if (expectedCount.HasValue)
+            {
+                Assert.AreEqual(expectedCount, actual.Phrases.Count);
+            }
         }
 
         protected double OneDayLevel()

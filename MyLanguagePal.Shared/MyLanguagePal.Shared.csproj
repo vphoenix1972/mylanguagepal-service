@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyExtensions\AssemblyExtensions.cs" />
+    <Compile Include="Extensions\Enumerable\Manipulation\EnumerableManipulationExtensions.cs" />
+    <Compile Include="Extensions\Enumerable\Shuffling\EnumerableInterfaceShufflingExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

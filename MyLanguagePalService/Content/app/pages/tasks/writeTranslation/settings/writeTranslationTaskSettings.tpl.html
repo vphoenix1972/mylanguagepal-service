@@ -9,7 +9,7 @@
                     </language-selection>
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label class="col-md-3 control-label">Count of words used</label>
                 <div class="col-md-9">
@@ -17,6 +17,17 @@
                            class="form-control b-number-input"
                            ng-model="vm.settings.countOfWordsUsed" />
                     <span class="text-danger">{{vm.countOfWordsUsedValidationError}}</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label">Reshuffle words</label>
+                <div class="col-md-9">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="vm.settings.reshuffleWords" />
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
