@@ -62,7 +62,7 @@ namespace MyLanguagePalService.BLL.Phrases
             return _db.Phrases.Find(id);
         }
 
-        public int CreatePhrase(string text, int languageId, IList<TranslationImBll> translations = null)
+        public int CreatePhrase(string text, string definition, int languageId, IList<TranslationImBll> translations = null)
         {
             /* Validation */
             text = PreparePhraseText(text);
@@ -76,6 +76,7 @@ namespace MyLanguagePalService.BLL.Phrases
             var newPhraseDal = new PhraseDal()
             {
                 Text = text,
+                Definition = definition,
                 LanguageId = languageId
             };
 
@@ -116,7 +117,7 @@ namespace MyLanguagePalService.BLL.Phrases
             return newPhraseDal.Id;
         }
 
-        public void UpdatePhrase(PhraseDal phrase, string text, IList<TranslationImBll> translations)
+        public void UpdatePhrase(PhraseDal phrase, string text, string definition, IList<TranslationImBll> translations)
         {
             /* Validation */
             if (phrase == null)
@@ -130,6 +131,7 @@ namespace MyLanguagePalService.BLL.Phrases
 
             // *** Phrase modification ***
             phrase.Text = text;
+            phrase.Definition = definition;
 
             //  Modify translations
             var oldTranslations = GetTranslationsFor(phrase);

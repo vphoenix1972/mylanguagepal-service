@@ -30,3 +30,8 @@
 .b-highlighted-value_red {
     background-color: #da5b4c;
 }
+
+.b-definition {
+    color: #777;
+    font-style: italic;
+}

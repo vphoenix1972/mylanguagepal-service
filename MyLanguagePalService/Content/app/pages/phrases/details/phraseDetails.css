@@ -16,6 +16,12 @@
     word-wrap: break-word;
 }
 
+.b-definition__phrase-details {
+    padding-left: 25px;
+    margin-top: 5px;
+    margin-bottom: 25px;
+}
+
 .b-phrase-details-translations {
     width: 100%;
     margin: 10px 0;

@@ -45,6 +45,7 @@ namespace MyLanguagePalService.DAL
             modelBuilder.Entity<PhraseDal>()
                 .Property(e => e.Text)
                 .HasMaxLength(255);
+            modelBuilder.Entity<PhraseDal>().Property(e => e.Definition).IsOptional();
 
             // Translations
             modelBuilder.Entity<TranslationDal>().ToTable("Translations");

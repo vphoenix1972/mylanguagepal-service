@@ -48,6 +48,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
                 Id = phraseDal.Id,
                 LanguageId = phraseDal.LanguageId,
                 Text = phraseDal.Text,
+                Definition = phraseDal.Definition,
                 Translations = _phrasesService.GetTranslations(phraseDal).Select(TranslationAm.MapFrom).ToList()
             });
         }
@@ -77,6 +78,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
             {
                 // ReSharper disable once AssignNullToNotNullAttribute
                 newId = _phrasesService.CreatePhrase(inputModel.Text,
+                    inputModel.Definition,
                     inputModel.LanguageId.Value,
                     inputModel.Translations.Select(ToTranslationImBll).ToList());
             }
@@ -107,6 +109,7 @@ namespace MyLanguagePalService.Areas.App.Controllers
             {
                 _phrasesService.UpdatePhrase(phraseDal,
                     inputModel.Text,
+                    inputModel.Definition,
                     inputModel.Translations.Select(ToTranslationImBll).ToList());
             }
             catch (ValidationFailedException vfe)

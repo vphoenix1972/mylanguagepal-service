@@ -291,6 +291,10 @@
     <Compile Include="Migrations\201702111403185_DropPhraseTextUniqueness.Designer.cs">
       <DependentUpon>201702111403185_DropPhraseTextUniqueness.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702111420087_AddPhraseDefinition.cs" />
+    <Compile Include="Migrations\201702111420087_AddPhraseDefinition.Designer.cs">
+      <DependentUpon>201702111420087_AddPhraseDefinition.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Areas\Site\Models\Controllers\Phrase\CreateIm.cs" />
     <Compile Include="Areas\Site\Models\Controllers\Phrase\CreateVm.cs" />
@@ -1023,6 +1027,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702111403185_DropPhraseTextUniqueness.resx">
       <DependentUpon>201702111403185_DropPhraseTextUniqueness.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702111420087_AddPhraseDefinition.resx">
+      <DependentUpon>201702111420087_AddPhraseDefinition.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

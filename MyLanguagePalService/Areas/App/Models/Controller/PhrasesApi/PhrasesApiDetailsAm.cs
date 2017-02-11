@@ -11,6 +11,8 @@ namespace MyLanguagePalService.Areas.App.Models.Controller.PhrasesApi
 
         public string Text { get; set; }
 
+        public string Definition { get; set; }
+
         public IList<TranslationAm> Translations { get; set; }
     }
 }

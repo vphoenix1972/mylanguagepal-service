@@ -8,6 +8,8 @@ namespace MyLanguagePalService.DAL.Models
 
         public string Text { get; set; }
 
+        public string Definition { get; set; }
+
         public int LanguageId { get; set; }
 
         public virtual LanguageDal Language { get; set; }

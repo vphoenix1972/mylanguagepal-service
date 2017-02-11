@@ -32,7 +32,8 @@
                        self.writeAnswerQuizDirective.startQuiz(self.phrases.map(function (phrase) {
                            return {
                                phraseId: phrase.id,
-                               text: phrase.text
+                               text: phrase.text,
+                               comment: phrase.definition
                            }
                        }));
                    });

@@ -12,6 +12,7 @@
         self.isNew = !angular.isDefined(self._phraseId);
         self.languageId = 1; // ToDo: Use English by default right now
         self.text = '';
+        self.definition = '';
         self.translations = [];
         self.levels = [20, 30, 40];
         self.save = self._save;
@@ -155,6 +156,7 @@
 
         self.languageId = dto.languageId;
         self.text = dto.text;
+        self.definition = dto.definition;
         self.translations = dto.translations.orderBy(function (ts1, ts2) { return ts2.prevalence - ts1.prevalence; });
     }
 
@@ -172,6 +174,7 @@
         return {
             languageId: self.languageId,
             text: self.text,
+            definition: self.definition,
             translations: translations
         }
     }
