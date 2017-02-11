@@ -44,11 +44,7 @@ namespace MyLanguagePalService.DAL
             modelBuilder.Entity<PhraseDal>().HasKey(e => e.Id);
             modelBuilder.Entity<PhraseDal>()
                 .Property(e => e.Text)
-                .HasMaxLength(255)
-                .HasColumnAnnotation(
-                    "Index",
-                    new IndexAnnotation(new IndexAttribute("UX_Text") { IsUnique = true })
-                );
+                .HasMaxLength(255);
 
             // Translations
             modelBuilder.Entity<TranslationDal>().ToTable("Translations");

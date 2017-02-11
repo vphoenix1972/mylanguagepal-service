@@ -71,7 +71,6 @@ namespace MyLanguagePalService.BLL.Phrases
             AssertPhraseText(text);
             AssertLanguageId(languageId);
             AssertTranslations(translations, languageId);
-            AssertPhraseNotExist(text);
 
             /* Phrase creation */
             var newPhraseDal = new PhraseDal()
@@ -128,12 +127,6 @@ namespace MyLanguagePalService.BLL.Phrases
 
             AssertPhraseText(text);
             AssertTranslations(translations, phrase.LanguageId);
-
-            // Check that the phrase does not exist
-            if (phrase.Text != text)
-            {
-                AssertPhraseNotExist(text);
-            }
 
             // *** Phrase modification ***
             phrase.Text = text;
@@ -354,14 +347,6 @@ namespace MyLanguagePalService.BLL.Phrases
                     throw new ValidationFailedException($"Translations[{i}]",
                         "Translation cannot have the same language as the language of the phrase");
                 }
-            }
-        }
-
-        private void AssertPhraseNotExist(string text)
-        {
-            if (_db.Phrases.Any(dal => dal.Text == text))
-            {
-                throw new ValidationFailedException(nameof(text), "The phrase already exists");
             }
         }
     }
