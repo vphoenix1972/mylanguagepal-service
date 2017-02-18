@@ -215,6 +215,7 @@
     <Compile Include="Areas\App\Controllers\MainController.cs" />
     <Compile Include="Areas\App\Controllers\LanguagesApiController.cs" />
     <Compile Include="Areas\App\Controllers\PhrasesApiController.cs" />
+    <Compile Include="Areas\App\Controllers\RulesApiController.cs" />
     <Compile Include="Areas\App\Controllers\TasksApiController.cs" />
     <Compile Include="Areas\App\Controllers\TranslationsApiController.cs" />
     <Compile Include="Areas\App\Models\Controller\LanguagesApi\LanguagesApiAm.cs" />
@@ -237,8 +238,12 @@
     <Compile Include="BLL\Languages\ILanguagesService.cs" />
     <Compile Include="BLL\Languages\Language.cs" />
     <Compile Include="BLL\Languages\LanguagesService.cs" />
+    <Compile Include="BLL\MlpServiceErrorCodes.cs" />
     <Compile Include="BLL\Phrases\Phrase.cs" />
     <Compile Include="BLL\Phrases\Translation.cs" />
+    <Compile Include="BLL\Rules\IRulesService.cs" />
+    <Compile Include="BLL\Rules\Rule.cs" />
+    <Compile Include="BLL\Rules\RulesService.cs" />
     <Compile Include="BLL\ServiceBase.cs" />
     <Compile Include="BLL\Tasks\ITaskService.cs" />
     <Compile Include="BLL\Tasks\Quiz\QuizTaskAnswer.cs" />

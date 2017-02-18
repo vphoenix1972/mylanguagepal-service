@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using MyLanguagePal.Core.Framework;
 using MyLanguagePalService.BLL.Languages;
 using MyLanguagePalService.BLL.Phrases;
+using MyLanguagePalService.BLL.Rules;
 using MyLanguagePalService.BLL.Tasks;
 using MyLanguagePalService.BLL.Tasks.Sprint;
 using MyLanguagePalService.BLL.Tasks.WriteTranslation;
@@ -27,6 +28,7 @@ namespace MyLanguagePalService.BLL
 
             LanguagesService = new LanguagesService(_db);
             PhrasesService = new PhrasesService(_db);
+            RulesService = new RulesService(_db);
 
             Tasks = new List<ITaskService>()
             {
@@ -38,6 +40,7 @@ namespace MyLanguagePalService.BLL
         public ILanguagesService LanguagesService { get; set; }
 
         public IPhrasesService PhrasesService { get; }
+        public IRulesService RulesService { get; }
 
         public IList<ITaskService> Tasks { get; }
 

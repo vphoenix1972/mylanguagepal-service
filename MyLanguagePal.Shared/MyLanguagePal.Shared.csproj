@@ -41,8 +41,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyExtensions\AssemblyExtensions.cs" />
+    <Compile Include="Exceptions\MlpException.cs" />
+    <Compile Include="Exceptions\MlpExceptionCodes.cs" />
+    <Compile Include="Exceptions\MlpNotFoundException.cs" />
+    <Compile Include="Extensions\Dictionary\DictionaryExtendOptions.cs" />
+    <Compile Include="Extensions\Dictionary\DictionaryInterfaceExtensions.cs" />
     <Compile Include="Extensions\Enumerable\Manipulation\EnumerableManipulationExtensions.cs" />
     <Compile Include="Extensions\Enumerable\Shuffling\EnumerableInterfaceShufflingExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\IEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
